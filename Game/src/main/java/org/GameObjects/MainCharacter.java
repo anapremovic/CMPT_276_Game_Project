@@ -4,6 +4,10 @@ public class MainCharacter extends MovableObject{
     private int points;
     private boolean isInvisible;
 
+    public MainCharacter() {
+        // initialize fields
+    }
+
     public int getPoints() {
         return points;
     }
