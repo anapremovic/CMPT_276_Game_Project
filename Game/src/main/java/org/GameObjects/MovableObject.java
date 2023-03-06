@@ -1,5 +1,8 @@
 package org.GameObjects;
 
-public class MovableObject {
-    
+public abstract class MovableObject {
+    protected int xPos;
+    protected int yPos;
+
+    public abstract void updatePosition();
 }
