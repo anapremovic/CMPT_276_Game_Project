@@ -1,5 +1,6 @@
 package org.GameObjects;
 import org.javatuples.Pair;
+import java.util.ArrayList;
 
 public class Enemy extends MovableObject {
     // ArrayList of pairs where each pair represents a tile on the 2D tilemap
