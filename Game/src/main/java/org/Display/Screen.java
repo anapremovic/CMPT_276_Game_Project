@@ -1,8 +1,8 @@
 package org.Display;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import javax.swing.JFrame;
 
 public class Screen extends Canvas implements Runnable {
     JFrame frame;
@@ -112,5 +112,21 @@ public class Screen extends Canvas implements Runnable {
 
         bs.show();
         g.dispose(); // clear the screen
+    }
+
+    public void MainMenu() {
+        // implement me
+    }
+
+    public void WiningScreen() {
+        // implement me
+    }
+
+    public void GameScreen() {
+        // implement me
+    }
+
+    public void GameOverScreen() {
+        // implement me
     }
 }
