@@ -25,6 +25,7 @@ public class MainCharacter extends MovableObject{
     }
 
     public void acceptUserInput() {
+
         // implement me
     }
 
