@@ -1,3 +1,5 @@
+package org.Logic;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

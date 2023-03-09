@@ -1,3 +1,5 @@
+package org.Logic;
+
 import org.GameObjects.ImmovableObject;
 import org.GameObjects.MainCharacter;
 import org.GameObjects.MovableObject;
