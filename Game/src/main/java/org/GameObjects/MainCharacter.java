@@ -4,8 +4,11 @@ public class MainCharacter extends MovableObject{
     private int points;
     private boolean isInvisible;
 
-    public MainCharacter() {
-        // initialize fields
+    public MainCharacter(int initialXPos, int initialYPos, int width, int height) {
+        this.xPos = initialXPos;
+        this.yPos = initialYPos;
+        this.width = width;
+        this.height = height;
     }
 
     public int getPoints() {
