@@ -1,6 +1,10 @@
 package org.Display;
 
+import org.Logic.MenuLogic;
+
 public class GameRunner {
+    Screen screen;
+    MenuLogic menuLogic;
     public static void main(String[] args) {
         System.out.println("Hello World!");
 
