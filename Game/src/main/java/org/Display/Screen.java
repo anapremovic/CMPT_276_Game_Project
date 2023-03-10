@@ -1,5 +1,7 @@
 package org.Display;
 
+import org.GameObjects.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -10,6 +12,9 @@ public class Screen extends Canvas implements Runnable {
     private boolean running;
     int width;
     int height;
+
+    // temporarily in Screen
+    private MainCharacter player = new MainCharacter(100, 100, 64, 64);
 
     public Screen(String title, int w, int h) {
         running = false;
@@ -91,7 +96,7 @@ public class Screen extends Canvas implements Runnable {
 
     // update screen
     private void tick() {
-
+        player.tick();
     }
 
     // paint onto window
@@ -109,6 +114,8 @@ public class Screen extends Canvas implements Runnable {
         // test if Render works
         g.setColor(Color.blue);
         g.fillRect(0, 0, width, height);
+
+        player.Render(g);
 
         bs.show();
         g.dispose(); // clear the screen
