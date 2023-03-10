@@ -1,4 +1,48 @@
 package org.Input;
 
-public class KeyHandler {
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+public class KeyHandler implements KeyListener {
+    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode(); // code of key pressed
+
+        if(code == KeyEvent.VK_W) {
+            upPressed = true;
+        }
+        if(code == KeyEvent.VK_A) {
+            leftPressed = true;
+        }
+        if(code == KeyEvent.VK_S) {
+            downPressed = true;
+        }
+        if(code == KeyEvent.VK_D) {
+            rightPressed = true;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int code = e.getKeyCode(); // code of key released
+
+        if(code == KeyEvent.VK_W) {
+            upPressed = false;
+        }
+        if(code == KeyEvent.VK_A) {
+            leftPressed = false;
+        }
+        if(code == KeyEvent.VK_S) {
+            downPressed = false;
+        }
+        if(code == KeyEvent.VK_D) {
+            rightPressed = false;
+        }
+    }
 }
