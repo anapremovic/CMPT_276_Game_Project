@@ -24,24 +24,8 @@ public class MainCharacter extends MovableObject{
     }
 
     public void Render(Graphics g) {
-        /*
-        try {
-            InputStream turtle = getClass().getResourceAsStream("resources/turtle.png");
-            ImageIcon turtleIcon = new ImageIcon(ImageIO.read(turtle).getScaledInstance(64, 64, Image.SCALE_SMOOTH));
-        } catch (
-        IOException e) {
-            e.printStackTrace();
-        }*/
-
-        BufferedImage turtle = null;
-        try {
-            turtle = ImageIO.read(new File("2d-game\\Game\\src\\main\\java\\org\\GameObjects\\turtle.png"));
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-
-        g.drawImage(turtle, xPos, yPos, null);
+        g.setColor(Color.red);
+        g.fillRect(xPos, yPos, width, height);
 
     }
 
