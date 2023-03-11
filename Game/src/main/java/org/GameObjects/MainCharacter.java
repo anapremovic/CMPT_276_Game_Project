@@ -12,21 +12,12 @@ public class MainCharacter extends MovableObject{
     private int points;
     private boolean isInvisible;
 
-    public MainCharacter(int initialXPos, int initialYPos, int width, int height) {
+    public MainCharacter(int initialXPos, int initialYPos, int width, int height, int speed) {
         this.xPos = initialXPos;
         this.yPos = initialYPos;
         this.width = width;
         this.height = height;
-    }
-
-    public void tick() {
-
-    }
-
-    public void Render(Graphics g) {
-        g.setColor(Color.red);
-        g.fillRect(xPos, yPos, width, height);
-
+        this.speed = speed;
     }
 
     public int getPoints() {
@@ -43,15 +34,6 @@ public class MainCharacter extends MovableObject{
 
     public void setInvisibility(boolean status) {
         isInvisible = status;
-    }
-
-    public void acceptUserInput() {
-
-        // implement me
-    }
-
-    public void updatePosition() {
-        // implement me
     }
 }
 

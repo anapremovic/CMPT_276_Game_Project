@@ -15,7 +15,7 @@ public class GameLogic {
     private Screen screen;
 
     public GameLogic() {
-        player = new MainCharacter(100, 100, 64, 64);
+
     }
 
     public Screen getScreen() {
