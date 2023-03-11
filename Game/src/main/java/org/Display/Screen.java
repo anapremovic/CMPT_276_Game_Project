@@ -60,8 +60,10 @@ public class Screen extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if(delta >= 1) {
+                // UPDATE GAME OBJECTS
                 update();
-                repaint();
+                // DRAW UPDATES
+                repaint(); // call paintComponent() method
                 delta--;
                 drawCount++;
             }
@@ -71,30 +73,6 @@ public class Screen extends JPanel implements Runnable {
                 drawCount = 0;
                 timer = 0;
             }
-
-//            // UPDATE GAME OBJECTS
-//            System.out.println("Call update");
-//            update();
-//
-//            // DRAW UPDATES
-//            repaint(); // call paintComponent() method
-
-//            // let Thread sleep until next draw time (pause game loop)
-//            try {
-//                double remainingTime = nextDrawTime - System.nanoTime(); // time remaining until next draw time
-//                remainingTime = remainingTime/1000000; // convert remainingTime to milliseconds, because sleep() accepts milliseconds
-//
-//                // if the update/repaint took the whole interval
-//                if(remainingTime < 0) {
-//                    remainingTime = 0;
-//                }
-//
-//                Thread.sleep((long) remainingTime);
-//
-//                nextDrawTime += drawInterval;
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 
