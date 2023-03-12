@@ -30,7 +30,7 @@ public class Screen extends JPanel implements Runnable {
     public Screen() {
         // set screen size
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.gray);
+        this.setBackground(new Color(74, 75, 195));
         this.setDoubleBuffered(true); // improves rendering performance
         this.addKeyListener(playerInput); // allow Screen to recognize key input
         this.setFocusable(true); // allow Screen to be focused on taking key input
