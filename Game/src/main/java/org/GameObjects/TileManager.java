@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public class TileManager {
     private Screen screen;
     private Tile[] tileTypes; // all the different types of tiles
-    int board[][]; // 2D array of ints, where each int represents the tile type corresponding to tiles[] for that position
+    private int board[][]; // 2D array of ints, where each int represents the tile type corresponding to tiles[] for that position
 
     public TileManager(Screen screen) {
         this.screen = screen;
@@ -90,4 +90,5 @@ public class TileManager {
         }
     }
 
+    public int[][] getBoard() { return board; }
 }
