@@ -20,14 +20,14 @@ public class MainCharacter extends MovableObject{
     private BufferedImage up, down, left, right; // 4 possible turtle sprites
     private String direction; // which way the turtle is facing
 
-    public MainCharacter(int width, int height, Screen s, KeyHandler keyH) {
-        this.width = width;
-        this.height = height;
-        this.screen = s;
-        this. playerInput = keyH;
+    public MainCharacter(Screen screen, KeyHandler handler) {
+        this.width = screen.getTileSize();
+        this.height = screen.getTileSize();
+        this.screen = screen;
+        this.playerInput = handler;
 
         setStartingValues(100, 100, 4, "up");
-        loadImage();
+        getImage();
     }
 
     // set default values for the main character, including position, speed, and direction faced
@@ -39,7 +39,7 @@ public class MainCharacter extends MovableObject{
     }
 
     // load turtle sprite on to the screen
-    public void loadImage() {
+    public void getImage() {
         try {
             up = ImageIO.read(getClass().getResourceAsStream("/turtle_up.png"));
             down = ImageIO.read(getClass().getResourceAsStream("/turtle_down.png"));

@@ -12,8 +12,8 @@ public class Screen extends JPanel implements Runnable {
     final int scale = 3;
 
     final int tileSize = baseTileSize * scale; // 48x48 tile size
-    final int screenColumns = 18;
-    final int screenRows = 12;
+    final int screenColumns = 21;
+    final int screenRows = 16;
     final int screenWidth = tileSize * screenColumns;
     final int screenHeight = tileSize * screenRows;
 
@@ -25,7 +25,8 @@ public class Screen extends JPanel implements Runnable {
     Thread gameThread;
 
     // game objects
-    MainCharacter player = new MainCharacter(tileSize, tileSize, this, playerInput);
+    MainCharacter player = new MainCharacter(this, playerInput);
+    TileManager gameTiles = new TileManager(this);
 
     public Screen() {
         // set screen size
@@ -84,6 +85,7 @@ public class Screen extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        gameTiles.draw(g2); // draw tiles before player
         player.draw(g2);
 
         g2.dispose();
@@ -92,4 +94,8 @@ public class Screen extends JPanel implements Runnable {
     public int getTileSize() {
         return tileSize;
     }
+    public int getNumColumns() { return screenColumns; }
+    public int getNumRows() { return screenRows; }
+    public int getWidth() { return screenWidth; }
+    public int getHeight() { return screenHeight; }
 }

@@ -20,11 +20,9 @@ public abstract class MovableObject {
 
     public void updateXPos(int updateBy) {
         xPos += updateBy;
-        System.out.println("X Pos updated by " + updateBy);
     }
 
     public void updateYPos(int updateBy) {
         yPos -= updateBy;
-        System.out.println("Y Pos updated by " + updateBy);
     }
 }
