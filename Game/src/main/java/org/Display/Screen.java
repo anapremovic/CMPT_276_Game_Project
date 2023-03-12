@@ -39,6 +39,10 @@ public class Screen extends JPanel implements Runnable {
         this.setFocusable(true); // allow Screen to be focused on taking key input
     }
 
+    public void gameSetup() {
+        objDisplayer.displayObjects();
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start(); // call run() method
@@ -87,7 +91,17 @@ public class Screen extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        gameTiles.draw(g2); // draw tiles before player
+        // TILES
+        gameTiles.draw(g2); // important to draw tiles before game objects
+
+        // IMMOVABLE OBJECTS
+        for(Reward cur : rewards) {
+            if(cur != null) {
+                cur.draw(g2, this);
+            }
+        }
+
+        // MAIN CHARACTER
         player.draw(g2);
 
         g2.dispose();

@@ -23,6 +23,7 @@ public class GameRunner {
         window.setLocationRelativeTo(null); // window will be at centre of screen
         window.setVisible(true);
 
-        screen.startGameThread();
+        screen.gameSetup(); // set up static game objects
+        screen.startGameThread(); // commence GAME LOOP
     }
 }

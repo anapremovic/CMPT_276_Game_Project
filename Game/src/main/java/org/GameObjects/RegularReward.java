@@ -4,8 +4,11 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class RegularReward extends Reward {
-    public RegularReward(int points) {
-        this.points = points;
+    public RegularReward(int xPos, int yPos) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+
+        //this.points = points;
         this.name = "Carrot";
 
         // load carrot image
