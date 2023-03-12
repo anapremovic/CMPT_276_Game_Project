@@ -26,6 +26,7 @@ public class Screen extends JPanel implements Runnable {
 
     // game objects
     MainCharacter player = new MainCharacter(this, playerInput);
+    RegularReward carrots[] = new RegularReward[10]; // display 10 carrots at one time
     TileManager gameTiles = new TileManager(this);
 
     public Screen() {
