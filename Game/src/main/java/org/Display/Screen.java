@@ -23,12 +23,13 @@ public class Screen extends JPanel implements Runnable {
     // game logic
     private KeyHandler playerInput = new KeyHandler();
     private Thread gameThread;
-    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this);
+
 
     // game objects
     private MainCharacter player = new MainCharacter(this, playerInput);
-    private Reward rewards[] = new Reward[10]; // display 10 carrots at one time
     private TileManager gameTiles = new TileManager(this);
+    private Reward rewards[] = new Reward[10]; // display 10 carrots and 1 mystical ocean fruit at one time
+    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
 
     public Screen() {
         // set screen size
@@ -114,6 +115,8 @@ public class Screen extends JPanel implements Runnable {
     public int getNumRows() { return screenRows; }
     public int getWidth() { return screenWidth; }
     public int getHeight() { return screenHeight; }
+
+    public Reward[] getRewards() { return rewards; }
     public void setReward(int index, Reward reward) {
         rewards[index] = reward;
     }
