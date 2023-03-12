@@ -14,7 +14,7 @@ public class OldScreen extends Canvas implements Runnable {
     int height;
 
     // temporarily in Screen
-    private MainCharacter player = new MainCharacter(100, 100, 64, 64, 4);
+    //private MainCharacter player = new MainCharacter(100, 100, 64, 64, 4);
 
     public OldScreen(String title, int w, int h) {
         running = false;

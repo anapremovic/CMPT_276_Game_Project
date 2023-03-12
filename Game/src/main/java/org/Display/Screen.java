@@ -25,12 +25,12 @@ public class Screen extends JPanel implements Runnable {
     Thread gameThread;
 
     // game objects
-    MainCharacter player = new MainCharacter(100, 100, tileSize, tileSize, 4);
+    MainCharacter player = new MainCharacter(tileSize, tileSize, this, playerInput);
 
     public Screen() {
         // set screen size
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.gray);
+        this.setBackground(new Color(74, 75, 195));
         this.setDoubleBuffered(true); // improves rendering performance
         this.addKeyListener(playerInput); // allow Screen to recognize key input
         this.setFocusable(true); // allow Screen to be focused on taking key input
@@ -77,27 +77,19 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void update() {
-        if(playerInput.upPressed) {
-            player.updateYPos(player.getSpeed());
-        }
-        else if(playerInput.downPressed) {
-            player.updateYPos(-1 * player.getSpeed());
-        }
-        else if(playerInput.rightPressed) {
-            player.updateXPos(player.getSpeed());
-        }
-        else if(playerInput.leftPressed) {
-            player.updateXPos(-1 * player.getSpeed());
-        }
+        player.update();
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // TEMPORARY CHARACTER - represented as a rectangle
-        g2.setColor(Color.white);
-        g2.fillRect(player.getXPos(), player.getYPos(), tileSize, tileSize);
+        player.draw(g2);
+
         g2.dispose();
+    }
+
+    public int getTileSize() {
+        return tileSize;
     }
 }

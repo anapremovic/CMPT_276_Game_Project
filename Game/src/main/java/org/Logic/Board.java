@@ -14,7 +14,7 @@ public class Board {
         try {
             InputStream barrier = getClass().getResourceAsStream("/brick.png");
             InputStream backGround = getClass().getResourceAsStream("/background.png");
-            InputStream turtle = getClass().getResourceAsStream("/turtle.png");
+            InputStream turtle = getClass().getResourceAsStream("/turtle_up.png");
             ImageIcon barrierIcon = new ImageIcon(ImageIO.read(barrier));
             ImageIcon backGroundIcon = new ImageIcon(ImageIO.read(backGround));
             ImageIcon turtleIcon = new ImageIcon(ImageIO.read(turtle).getScaledInstance(64, 64, Image.SCALE_SMOOTH));
