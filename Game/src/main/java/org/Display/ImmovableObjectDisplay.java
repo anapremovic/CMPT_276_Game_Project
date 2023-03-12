@@ -2,6 +2,7 @@ package org.Display;
 
 import org.GameObjects.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ImmovableObjectDisplay {
@@ -14,7 +15,7 @@ public class ImmovableObjectDisplay {
     }
 
     public void displayObjects() {
-
+        ArrayList<int[]> takenPositions = new ArrayList<int[]>();
 
         Random rand = new Random();
 
@@ -34,11 +35,17 @@ public class ImmovableObjectDisplay {
             int randomXPos = rand.nextInt(screen.getNumColumns());
             int randomYPos = rand.nextInt(screen.getNumRows());
 
+            int[] curPosition = new int[2];
+            curPosition[0] = randomXPos;
+            curPosition[1] = randomYPos;
+
             // make sure the position is on an empty tile
-            while(board[randomXPos][randomYPos] != 0) {
+            while(board[randomXPos][randomYPos] != 0 && !takenPositions.contains(curPosition)) {
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
             }
+
+            takenPositions.add(curPosition);
 
             RegularReward cur = new RegularReward((randomXPos) * screen.getTileSize(),
                     (randomYPos) * screen.getTileSize());
