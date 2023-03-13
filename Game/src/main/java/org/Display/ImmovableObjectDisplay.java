@@ -22,8 +22,8 @@ public class ImmovableObjectDisplay {
         int[][] board = tileM.getBoard(); // game board determining tile types
         int numRewards = screen.getRewards().length;
 
-        // generate 10 carrots
-        for(int i = 0; i < numRewards - 1; i++) {
+        // generate 10 carrots and 1 mystical ocean fruit
+        for(int i = 0; i < numRewards; i++) {
             // generate random position for the current reward
             int randomXPos = rand.nextInt(screen.getNumColumns());
             int randomYPos = rand.nextInt(screen.getNumRows());
@@ -60,10 +60,18 @@ public class ImmovableObjectDisplay {
             curPosition[1] = randomYPos;
             takenPositions.add(curPosition);
 
-            // display carrot on screen at current position
-            RegularReward cur = new RegularReward((randomXPos) * screen.getTileSize(),
-                    (randomYPos) * screen.getTileSize());
-            screen.setReward(i, cur);
+            if(i == numRewards - 1) {
+                // display bonus reward (mystical ocean fruit) at current position
+                BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
+                        (randomYPos) * screen.getTileSize());
+                screen.setReward(i, cur);
+            }
+            else {
+                // display carrot on screen at current position
+                RegularReward cur = new RegularReward((randomXPos) * screen.getTileSize(),
+                        (randomYPos) * screen.getTileSize());
+                screen.setReward(i, cur);
+            }
         }
     }
 }
