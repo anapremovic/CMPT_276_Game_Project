@@ -23,6 +23,21 @@ public class CollisionDetector {
         object2 = o2;
     }
 
+    public void detectTile(MovableObject o) {
+        int leftX = o.getXPos() + o.getCollidableArea().x;
+        int rightX = o.getXPos() + o.getCollidableArea().x + o.getCollidableArea().width;
+        int topY = o.getYPos() + o.getCollidableArea().y;
+        int bottomY = o.getYPos() + o.getCollidableArea().y + o.getCollidableArea().height;
+    }
+
+    public void detectTile(ImmovableObject o) {
+        int leftX = o.getXPos() + o.getCollidableArea().x;
+        int rightX = o.getXPos() + o.getCollidableArea().x + o.getCollidableArea().width;
+        int topY = o.getYPos() + o.getCollidableArea().y;
+        int bottomY = o.getYPos() + o.getCollidableArea().y + o.getCollidableArea().height;
+    }
+
+
     boolean detectCollision() {
         if (object2 instanceof ImmovableObject) {
             ImmovableObject temp = (ImmovableObject) object2;

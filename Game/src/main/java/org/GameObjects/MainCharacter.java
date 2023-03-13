@@ -2,6 +2,7 @@ package org.GameObjects;
 
 import org.Display.*;
 import org.Input.*;
+import org.Logic.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,15 +17,17 @@ public class MainCharacter extends MovableObject{
     private boolean isInvisible; // has the player achieve Mystical Ocean Fruit powerup
     private Screen screen; // Screen class the main character is draw on
     private KeyHandler playerInput; // object that takes user input
+    private CollisionDetector collisionDetector; // handles collisions with other objects
 
     private BufferedImage up, down, left, right; // 4 possible turtle sprites
     private String direction; // which way the turtle is facing
 
-    public MainCharacter(Screen screen, KeyHandler handler) {
+    public MainCharacter(Screen screen, KeyHandler handler, CollisionDetector collisionDetector) {
         this.width = screen.getTileSize();
         this.height = screen.getTileSize();
         this.screen = screen;
         this.playerInput = handler;
+        this.collisionDetector = collisionDetector;
 
         collidableArea = new Rectangle(8 , 8, 32, 32);
 
@@ -54,6 +57,7 @@ public class MainCharacter extends MovableObject{
 
     // update player position and sprite on key press
     public void update() {
+        // UPDATE POSITION BASED ON USER INPUT
         if(playerInput.upPressed) {
             direction = "up";
             this.updateYPos(this.getSpeed());
@@ -70,6 +74,11 @@ public class MainCharacter extends MovableObject{
             direction = "left";
             this.updateXPos(-1 * this.getSpeed());
         }
+
+        // UPDATE POSITION BASED ON COLLISIONS
+        this.collisionOn = false;
+        collisionDetector.detectTile(this);
+
     }
 
     // draw the turtle sprite image on to the screen
