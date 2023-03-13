@@ -2,6 +2,7 @@ package org.GameObjects;
 
 import org.Display.*;
 import org.Input.*;
+import org.Logic.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,15 +17,21 @@ public class MainCharacter extends MovableObject{
     private boolean isInvisible; // has the player achieve Mystical Ocean Fruit powerup
     private Screen screen; // Screen class the main character is draw on
     private KeyHandler playerInput; // object that takes user input
+    private CollisionDetector collisionDetector; // handles collisions with other objects
 
     private BufferedImage up, down, left, right; // 4 possible turtle sprites
     private String direction; // which way the turtle is facing
 
-    public MainCharacter(Screen screen, KeyHandler handler) {
+    public MainCharacter(Screen screen, KeyHandler handler, CollisionDetector collisionDetector) {
         this.width = screen.getTileSize();
         this.height = screen.getTileSize();
         this.screen = screen;
         this.playerInput = handler;
+        this.collisionDetector = collisionDetector;
+
+        this.collidableArea = new Rectangle(10, 10, 28, 28);
+        this.collidableAreaDefaultX = collidableArea.x;
+        this.collidableAreaDefaultY = collidableArea.y;
 
         setStartingValues(100, 100, 4, "up");
         getImage();
@@ -52,22 +59,41 @@ public class MainCharacter extends MovableObject{
 
     // update player position and sprite on key press
     public void update() {
+        // is the player colliding?
+        this.collisionOn = false;
+
         if(playerInput.upPressed) {
             direction = "up";
-            this.updateYPos(this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateYPos(this.getSpeed());
+            }
         }
         else if(playerInput.downPressed) {
             direction = "down";
-            this.updateYPos(-1 * this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateYPos(-1 * this.getSpeed());
+            }
         }
         else if(playerInput.rightPressed) {
             direction = "right";
-            this.updateXPos(this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateXPos(this.getSpeed());
+            }
         }
         else if(playerInput.leftPressed) {
             direction = "left";
-            this.updateXPos(-1 * this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateXPos(-1 * this.getSpeed());
+            }
         }
+    }
+
+    private void updatePosition() {
+
     }
 
     // draw the turtle sprite image on to the screen
@@ -99,6 +125,8 @@ public class MainCharacter extends MovableObject{
     public int getPoints() {
         return points;
     }
+
+    public String getDirection() { return direction; }
 
     public void setPoints(int p) {
         points = p;

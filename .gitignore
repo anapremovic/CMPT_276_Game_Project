@@ -6,3 +6,6 @@
 
 # ignore the target folder
 Game/target/
+
+# ignore .idea folder
+Game/.idea

@@ -2,6 +2,7 @@ package org.Display;
 
 import org.Input.*;
 import org.GameObjects.*;
+import org.Logic.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -22,14 +23,15 @@ public class Screen extends JPanel implements Runnable {
 
     // game logic
     private KeyHandler playerInput = new KeyHandler();
+    private TileManager gameTiles = new TileManager(this);
+    private CollisionDetector collisionDetector = new CollisionDetector(this, gameTiles);
     private Thread gameThread;
 
 
     // game objects
-    private MainCharacter player = new MainCharacter(this, playerInput);
-    private TileManager gameTiles = new TileManager(this);
+    private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector);
     private Reward rewards[] = new Reward[11]; // display 10 carrots and 1 mystical ocean fruit at one time
-    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
+    private RewardDisplay objDisplayer = new RewardDisplay(this, gameTiles);
 
     public Screen() {
         // set screen size

@@ -5,11 +5,11 @@ import org.GameObjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ImmovableObjectDisplay {
+public class RewardDisplay {
     private Screen screen;
     private TileManager tileM;
 
-    public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
+    public RewardDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
     }
@@ -52,6 +52,13 @@ public class ImmovableObjectDisplay {
                 // regenerate position
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
+
+                positionTaken = false;
+                for(int j = 0; j < takenPositions.size(); j++) {
+                    if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
+                        positionTaken = true;
+                    }
+                }
             }
 
             // add the current position to the list of taken positions
