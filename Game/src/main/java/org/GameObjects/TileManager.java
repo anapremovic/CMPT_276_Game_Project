@@ -93,4 +93,5 @@ public class TileManager {
     }
 
     public int[][] getBoard() { return board; }
+    public Tile[] getTileTypes() { return tileTypes; }
 }

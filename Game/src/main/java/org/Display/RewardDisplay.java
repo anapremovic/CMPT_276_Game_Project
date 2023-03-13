@@ -52,6 +52,13 @@ public class RewardDisplay {
                 // regenerate position
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
+
+                positionTaken = false;
+                for(int j = 0; j < takenPositions.size(); j++) {
+                    if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
+                        positionTaken = true;
+                    }
+                }
             }
 
             // add the current position to the list of taken positions

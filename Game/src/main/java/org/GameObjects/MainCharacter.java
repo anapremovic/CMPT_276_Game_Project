@@ -57,27 +57,40 @@ public class MainCharacter extends MovableObject{
 
     // update player position and sprite on key press
     public void update() {
-        // UPDATE POSITION BASED ON USER INPUT
+        // is the player colliding?
+        this.collisionOn = false;
+
         if(playerInput.upPressed) {
             direction = "up";
-            this.updateYPos(this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateYPos(this.getSpeed());
+            }
         }
         else if(playerInput.downPressed) {
             direction = "down";
-            this.updateYPos(-1 * this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateYPos(-1 * this.getSpeed());
+            }
         }
         else if(playerInput.rightPressed) {
             direction = "right";
-            this.updateXPos(this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateXPos(this.getSpeed());
+            }
         }
         else if(playerInput.leftPressed) {
             direction = "left";
-            this.updateXPos(-1 * this.getSpeed());
+            collisionDetector.detectTile(this);
+            if(this.collisionOn == false) {
+                this.updateXPos(-1 * this.getSpeed());
+            }
         }
+    }
 
-        // UPDATE POSITION BASED ON COLLISIONS
-        this.collisionOn = false;
-        collisionDetector.detectTile(this);
+    private void updatePosition() {
 
     }
 
@@ -110,6 +123,8 @@ public class MainCharacter extends MovableObject{
     public int getPoints() {
         return points;
     }
+
+    public String getDirection() { return direction; }
 
     public void setPoints(int p) {
         points = p;

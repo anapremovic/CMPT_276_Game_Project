@@ -25,6 +25,10 @@ public abstract class MovableObject {
 
     public boolean isCollisionOn() { return collisionOn; }
 
+    public void setCollisionOn(boolean setTo) {
+        collisionOn = setTo;
+    }
+
     public void updateXPos(int updateBy) {
         xPos += updateBy;
     }

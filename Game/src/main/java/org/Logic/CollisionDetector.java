@@ -6,11 +6,13 @@ import org.Display.*;
 public class CollisionDetector {
 
     Screen screen;
+    TileManager tileM;
     MainCharacter object1;
     Object object2;
 
-    public CollisionDetector(Screen screen) {
+    public CollisionDetector(Screen screen, TileManager tileM) {
         this.screen = screen;
+        this.tileM = tileM;
     }
 
     CollisionDetector(MainCharacter o1, ImmovableObject o2) {
@@ -23,19 +25,49 @@ public class CollisionDetector {
         object2 = o2;
     }
 
-    public void detectTile(MovableObject o) {
-        int leftX = o.getXPos() + o.getCollidableArea().x;
-        int rightX = o.getXPos() + o.getCollidableArea().x + o.getCollidableArea().width;
-        int topY = o.getYPos() + o.getCollidableArea().y;
-        int bottomY = o.getYPos() + o.getCollidableArea().y + o.getCollidableArea().height;
+    public void detectTile(MainCharacter player) {
+        // x and y positions in pixels
+        int leftX = player.getXPos() + player.getCollidableArea().x;
+        int rightX = player.getXPos() + player.getCollidableArea().x + player.getCollidableArea().width;
+        int topY = player.getYPos() + player.getCollidableArea().y;
+        int bottomY = player.getYPos() + player.getCollidableArea().y + player.getCollidableArea().height;
+
+        // x and y positions in terms of columns
+        int leftCol = leftX/screen.getTileSize();
+        int rightCol = rightX/screen.getTileSize();
+        int topRow = topY/screen.getTileSize();
+
+        int bottomRow = bottomY/screen.getTileSize();
+
+        // the tile types the player is colliding with
+        // since MainCharacter is 1x1 tile, it can only be colliding with a max of 2 tiles at once
+        int tileType1, tileType2;
+
+        String direction = player.getDirection(); // direction player is facing
+        switch(direction) {
+            case "up":
+                topRow = (topY - player.getSpeed())/screen.getTileSize();
+                tileType1 = tileM.getBoard()[leftCol][topRow]; // left side of player
+                tileType2 = tileM.getBoard()[rightCol][topRow]; // right side of player
+
+                // player is hitting a solid tile
+                if(tileM.getTileTypes()[tileType1].collision == true || tileM.getTileTypes()[tileType2].collision == true) {
+                    player.setCollisionOn(true);
+                }
+
+                break;
+            case "down":
+
+                break;
+            case "left":
+
+                break;
+            case "right":
+
+                break;
+        }
     }
 
-    public void detectTile(ImmovableObject o) {
-        int leftX = o.getXPos() + o.getCollidableArea().x;
-        int rightX = o.getXPos() + o.getCollidableArea().x + o.getCollidableArea().width;
-        int topY = o.getYPos() + o.getCollidableArea().y;
-        int bottomY = o.getYPos() + o.getCollidableArea().y + o.getCollidableArea().height;
-    }
 
 
     boolean detectCollision() {
