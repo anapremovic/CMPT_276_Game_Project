@@ -36,7 +36,6 @@ public class CollisionDetector {
         int leftCol = leftX/screen.getTileSize();
         int rightCol = rightX/screen.getTileSize();
         int topRow = topY/screen.getTileSize();
-
         int bottomRow = bottomY/screen.getTileSize();
 
         // the tile types the player is colliding with
@@ -50,19 +49,43 @@ public class CollisionDetector {
                 tileType1 = tileM.getBoard()[leftCol][topRow]; // left side of player
                 tileType2 = tileM.getBoard()[rightCol][topRow]; // right side of player
 
-                // player is hitting a solid tile
+                // player is hitting a solid tile, set collisionOn to true
                 if(tileM.getTileTypes()[tileType1].collision == true || tileM.getTileTypes()[tileType2].collision == true) {
                     player.setCollisionOn(true);
                 }
 
                 break;
             case "down":
+                bottomRow = (bottomY + player.getSpeed())/screen.getTileSize();
+                tileType1 = tileM.getBoard()[leftCol][bottomRow]; // left side of player
+                tileType2 = tileM.getBoard()[rightCol][bottomRow]; // right side of player
+
+                // player is hitting a solid tile, set collisionOn to true
+                if(tileM.getTileTypes()[tileType1].collision == true || tileM.getTileTypes()[tileType2].collision == true) {
+                    player.setCollisionOn(true);
+                }
 
                 break;
             case "left":
+                leftCol = (leftX - player.getSpeed())/screen.getTileSize();
+                tileType1 = tileM.getBoard()[leftCol][topRow]; // top side of player
+                tileType2 = tileM.getBoard()[leftCol][bottomRow]; // bottom side of player
+
+                // player is hitting a solid tile, set collisionOn to true
+                if(tileM.getTileTypes()[tileType1].collision == true || tileM.getTileTypes()[tileType2].collision == true) {
+                    player.setCollisionOn(true);
+                }
 
                 break;
             case "right":
+                rightCol = (rightX + player.getSpeed())/screen.getTileSize();
+                tileType1 = tileM.getBoard()[rightCol][topRow]; // top side of player
+                tileType2 = tileM.getBoard()[rightCol][bottomRow]; // bottom side of player
+
+                // player is hitting a solid tile, set collisionOn to true
+                if(tileM.getTileTypes()[tileType1].collision == true || tileM.getTileTypes()[tileType2].collision == true) {
+                    player.setCollisionOn(true);
+                }
 
                 break;
         }
