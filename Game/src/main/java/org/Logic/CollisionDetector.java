@@ -78,4 +78,58 @@ public class CollisionDetector {
                 break;
         }
     }
+
+    // detect collision between the player and a reward/punishment
+    public int detectImmovableObject(MainCharacter player) {
+        Reward[] objects = screen.getRewards();
+
+        int index = 999; // index of object in rewards[] in Screen
+
+        for(int i = 0; i < objects.length; i++) {
+            if(objects[i] != null) {
+                // get the player's collidable area position
+                player.setCollidableAreaX(player.getXPos() + player.getCollidableArea().x);
+                player.setCollidableAreaY(player.getYPos() + player.getCollidableArea().y);
+
+                // get the object's collidable area position
+                screen.setRewardCollidableAreaX(i, objects[i].getXPos() + objects[i].getCollidableArea().x);
+                screen.setRewardCollidableAreaY(i, objects[i].getYPos() + objects[i].getCollidableArea().y);
+
+                switch(player.getDirection()) {
+                    case "up":
+                        player.updateYPos(player.getSpeed());
+                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
+                            System.out.println("Up collision with reward");
+                        }
+                        break;
+                    case "down":
+                        player.updateYPos(-1 * player.getSpeed());
+                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
+                            System.out.println("Down collision with reward");
+                        }
+                        break;
+                    case "right":
+                        player.updateXPos(player.getSpeed());
+                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
+                            System.out.println("Right collision with reward");
+                        }
+                        break;
+                    case "left":
+                        player.updateXPos(-1 * player.getSpeed());
+                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
+                            System.out.println("Left collision with reward");
+                        }
+                        break;
+                }
+
+                // reset collidable area positions
+                player.setCollidableAreaX(player.getCollidableAreaDefaultX());
+                player.setCollidableAreaY(player.getCollidableAreaDefaultY());
+                screen.setRewardCollidableAreaX(i, objects[i].getCollidableAreaDefaultX());
+                screen.setRewardCollidableAreaY(i, objects[i].getCollidableAreaDefaultY());
+            }
+        }
+
+        return index;
+    }
 }

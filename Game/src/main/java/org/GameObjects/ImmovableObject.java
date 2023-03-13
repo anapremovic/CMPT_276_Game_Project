@@ -27,6 +27,13 @@ public abstract class ImmovableObject {
     public int getCollidableAreaDefaultX() { return collidableAreaDefaultX; }
     public int getCollidableAreaDefaultY() { return collidableAreaDefaultY; }
 
+    public void setCollidableAreaX(int x) {
+        collidableArea.x = x;
+    }
+    public void setCollidableAreaY(int y) {
+        collidableArea.y = y;
+    }
+
     //public boolean isCollisionOn() { return collisionOn; }
 
     public void draw(Graphics2D g, Screen screen) {

@@ -117,6 +117,7 @@ public class Screen extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    // getters
     public int getTileSize() {
         return tileSize;
     }
@@ -126,7 +127,15 @@ public class Screen extends JPanel implements Runnable {
     public int getHeight() { return screenHeight; }
 
     public Reward[] getRewards() { return rewards; }
+
+    // setters
     public void setReward(int index, Reward reward) {
         rewards[index] = reward;
+    }
+    public void setRewardCollidableAreaX(int index, int x) {
+        rewards[index].setCollidableAreaX(x);
+    }
+    public void setRewardCollidableAreaY(int index, int y) {
+        rewards[index].setCollidableAreaY(y);
     }
 }
