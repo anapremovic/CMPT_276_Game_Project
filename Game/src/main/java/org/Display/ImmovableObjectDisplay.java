@@ -14,20 +14,13 @@ public class ImmovableObjectDisplay {
         this.tileM = tileM;
     }
 
-    public void displayObjects() {
-        ArrayList<int[]> takenPositions = new ArrayList<int[]>();
+    public void displayRewards() {
+        ArrayList<int[]> takenPositions = new ArrayList<int[]>(); // all positions that have a reward on them
 
         Random rand = new Random();
 
-        int[][] board = tileM.getBoard();
+        int[][] board = tileM.getBoard(); // game board determining tile types
         int numRewards = screen.getRewards().length;
-
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
 
         // generate 10 carrots
         for(int i = 0; i < numRewards - 1; i++) {
@@ -35,18 +28,39 @@ public class ImmovableObjectDisplay {
             int randomXPos = rand.nextInt(screen.getNumColumns());
             int randomYPos = rand.nextInt(screen.getNumRows());
 
-            int[] curPosition = new int[2];
-            curPosition[0] = randomXPos;
-            curPosition[1] = randomYPos;
+            // CHECK #1: check to make sure there is not already a carrot at this position
+            // CHECK #2: make sure the position is on an empty cave tile
 
-            // make sure the position is on an empty tile
-            while(board[randomXPos][randomYPos] != 0 && !takenPositions.contains(curPosition)) {
+            // prepare boolean for CHECK #1
+            boolean positionTaken = false;
+            for(int j = 0; j < takenPositions.size(); j++) {
+                if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
+                    positionTaken = true;
+                }
+            }
+
+            // if both checks not passed, regenerate position
+            while(board[randomXPos][randomYPos] != 0 || positionTaken) {
+                System.out.print("Regenerate random position - ");
+                if(positionTaken) {
+                    System.out.println("Position taken");
+                }
+                else {
+                    System.out.println("Tile not empty");
+                }
+
+                // regenerate position
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
             }
 
+            // add the current position to the list of taken positions
+            int[] curPosition = new int[2];
+            curPosition[0] = randomXPos;
+            curPosition[1] = randomYPos;
             takenPositions.add(curPosition);
 
+            // display carrot on screen at current position
             RegularReward cur = new RegularReward((randomXPos) * screen.getTileSize(),
                     (randomYPos) * screen.getTileSize());
             screen.setReward(i, cur);

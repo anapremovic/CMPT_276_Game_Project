@@ -28,7 +28,7 @@ public class Screen extends JPanel implements Runnable {
     // game objects
     private MainCharacter player = new MainCharacter(this, playerInput);
     private TileManager gameTiles = new TileManager(this);
-    private Reward rewards[] = new Reward[10]; // display 10 carrots and 1 mystical ocean fruit at one time
+    private Reward rewards[] = new Reward[11]; // display 10 carrots and 1 mystical ocean fruit at one time
     private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
 
     public Screen() {
@@ -41,7 +41,7 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void gameSetup() {
-        objDisplayer.displayObjects();
+        objDisplayer.displayRewards();
     }
 
     public void startGameThread() {
