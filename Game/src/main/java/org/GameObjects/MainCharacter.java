@@ -65,6 +65,7 @@ public class MainCharacter extends MovableObject{
         if(playerInput.upPressed) {
             direction = "up";
             collisionDetector.detectTile(this);
+            int objIndex = collisionDetector.detectImmovableObject(this);
             if(this.collisionOn == false) {
                 this.updateYPos(this.getSpeed());
             }
@@ -72,6 +73,7 @@ public class MainCharacter extends MovableObject{
         else if(playerInput.downPressed) {
             direction = "down";
             collisionDetector.detectTile(this);
+            int objIndex = collisionDetector.detectImmovableObject(this);
             if(this.collisionOn == false) {
                 this.updateYPos(-1 * this.getSpeed());
             }
@@ -79,6 +81,7 @@ public class MainCharacter extends MovableObject{
         else if(playerInput.rightPressed) {
             direction = "right";
             collisionDetector.detectTile(this);
+            int objIndex = collisionDetector.detectImmovableObject(this);
             if(this.collisionOn == false) {
                 this.updateXPos(this.getSpeed());
             }
@@ -86,6 +89,7 @@ public class MainCharacter extends MovableObject{
         else if(playerInput.leftPressed) {
             direction = "left";
             collisionDetector.detectTile(this);
+            int objIndex = collisionDetector.detectImmovableObject(this);
             if(this.collisionOn == false) {
                 this.updateXPos(-1 * this.getSpeed());
             }
