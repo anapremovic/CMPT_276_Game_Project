@@ -1,7 +1,9 @@
 package org.Display;
 
 import org.Input.*;
+import org.Logic.CollisionDetector;
 import org.GameObjects.*;
+import org.Logic.MenuLogic;
 
 import java.awt.*;
 import javax.swing.*;
@@ -27,7 +29,9 @@ public class Screen extends JPanel implements Runnable {
     // game objects
     MainCharacter player = new MainCharacter(this, playerInput);
     TileManager gameTiles = new TileManager(this);
-
+    // menu logic
+    private MenuLogic menuLogic;
+    
     public Screen() {
         // set screen size
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -35,11 +39,14 @@ public class Screen extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // improves rendering performance
         this.addKeyListener(playerInput); // allow Screen to recognize key input
         this.setFocusable(true); // allow Screen to be focused on taking key input
+        // display menu at start of program
+        menuLogic = new MenuLogic(this);
+        menuLogic.displayMenu();
     }
 
     public void startGameThread() {
         gameThread = new Thread(this);
-        gameThread.start(); // call run() method
+            gameThread.start(); // call run() method
     }
     
     // GAME LOOP
