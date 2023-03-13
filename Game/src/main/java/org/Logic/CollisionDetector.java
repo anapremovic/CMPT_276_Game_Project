@@ -4,27 +4,15 @@ import org.GameObjects.*;
 import org.Display.*;
 
 public class CollisionDetector {
-
     Screen screen;
     TileManager tileM;
-    MainCharacter object1;
-    Object object2;
 
     public CollisionDetector(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
     }
-
-    CollisionDetector(MainCharacter o1, ImmovableObject o2) {
-        object1 = o1;
-        object2 = o2;
-    }
-
-    CollisionDetector(MainCharacter o1, MovableObject o2) {
-        object1 = o1;
-        object2 = o2;
-    }
-
+    
+    // detect collision between the main character and the tile they are touching
     public void detectTile(MainCharacter player) {
         // x and y positions in pixels
         int leftX = player.getXPos() + player.getCollidableArea().x;
@@ -89,19 +77,5 @@ public class CollisionDetector {
 
                 break;
         }
-    }
-
-
-
-    boolean detectCollision() {
-        if (object2 instanceof ImmovableObject) {
-            ImmovableObject temp = (ImmovableObject) object2;
-            return object1.getXPos() == temp.getXPos() && object1.getYPos() == temp.getYPos();
-        }
-        if (object2 instanceof MovableObject) {
-            MovableObject temp = (MovableObject) object2;
-            return object1.getXPos() == temp.getXPos() && object1.getYPos() == temp.getYPos();
-        }
-        return false;
     }
 }
