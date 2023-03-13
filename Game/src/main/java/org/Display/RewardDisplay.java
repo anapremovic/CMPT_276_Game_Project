@@ -5,11 +5,11 @@ import org.GameObjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ImmovableObjectDisplay {
+public class RewardDisplay {
     private Screen screen;
     private TileManager tileM;
 
-    public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
+    public RewardDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
     }
