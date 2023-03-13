@@ -1,8 +1,9 @@
 package org.Display;
 
 import org.Input.*;
+import org.Logic.CollisionDetector;
 import org.GameObjects.*;
-import org.Logic.*;
+import org.Logic.MenuLogic;
 
 import java.awt.*;
 import javax.swing.*;
@@ -33,6 +34,8 @@ public class Screen extends JPanel implements Runnable {
     private Reward rewards[] = new Reward[11]; // display 10 carrots and 1 mystical ocean fruit at one time
     private RewardDisplay objDisplayer = new RewardDisplay(this, gameTiles);
 
+    private MenuLogic menuLogic;
+
     public Screen() {
         // set screen size
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -40,15 +43,19 @@ public class Screen extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // improves rendering performance
         this.addKeyListener(playerInput); // allow Screen to recognize key input
         this.setFocusable(true); // allow Screen to be focused on taking key input
+        // display menu at start of program
+        menuLogic = new MenuLogic(this);
+        menuLogic.displayMenu();
     }
 
     public void gameSetup() {
         objDisplayer.displayRewards();
     }
 
+
     public void startGameThread() {
         gameThread = new Thread(this);
-        gameThread.start(); // call run() method
+            gameThread.start(); // call run() method
     }
     
     // GAME LOOP
