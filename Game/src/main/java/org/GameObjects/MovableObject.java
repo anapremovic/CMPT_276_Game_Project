@@ -1,5 +1,6 @@
 package org.GameObjects;
 
+import java.awt.*;
 
 public abstract class MovableObject {
     protected int xPos;
@@ -8,6 +9,8 @@ public abstract class MovableObject {
     protected int height;
     protected int speed;
 
+    protected Rectangle collidableArea; // the area of the object that triggers collisions
+    protected boolean collisionOn = false;
     public int getXPos() {
         return xPos;
     }
@@ -17,6 +20,10 @@ public abstract class MovableObject {
     }
 
     public int getSpeed() { return speed; }
+
+    public Rectangle getCollidableArea() { return collidableArea; }
+
+    public boolean isCollisionOn() { return collisionOn; }
 
     public void updateXPos(int updateBy) {
         xPos += updateBy;

@@ -58,10 +58,12 @@ public class TileManager {
             // outside barrier
             tileTypes[1] = new Tile();
             tileTypes[1].image = ImageIO.read(getClass().getResourceAsStream("/outside_barrier_tile.png"));
+            tileTypes[1].collision = true;
 
             // inside barrier
             tileTypes[2] = new Tile();
             tileTypes[2].image = ImageIO.read(getClass().getResourceAsStream("/rock_tile.png"));
+            tileTypes[2].collision = true;
 
             // punishment - lava
             tileTypes[3] = new Tile();

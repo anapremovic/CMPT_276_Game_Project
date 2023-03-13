@@ -26,6 +26,8 @@ public class MainCharacter extends MovableObject{
         this.screen = screen;
         this.playerInput = handler;
 
+        collidableArea = new Rectangle(8 , 8, 32, 32);
+
         setStartingValues(100, 100, 4, "up");
         getImage();
     }
