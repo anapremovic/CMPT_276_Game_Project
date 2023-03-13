@@ -29,7 +29,9 @@ public class MainCharacter extends MovableObject{
         this.playerInput = handler;
         this.collisionDetector = collisionDetector;
 
-        collidableArea = new Rectangle(10, 10, 28, 28);
+        this.collidableArea = new Rectangle(10, 10, 28, 28);
+        this.collidableAreaDefaultX = collidableArea.x;
+        this.collidableAreaDefaultY = collidableArea.y;
 
         setStartingValues(100, 100, 4, "up");
         getImage();

@@ -10,6 +10,7 @@ public abstract class MovableObject {
     protected int speed;
 
     protected Rectangle collidableArea; // the area of the object that triggers collisions
+    protected int collidableAreaDefaultX, collidableAreaDefaultY;
     protected boolean collisionOn = false;
     public int getXPos() {
         return xPos;
@@ -22,6 +23,8 @@ public abstract class MovableObject {
     public int getSpeed() { return speed; }
 
     public Rectangle getCollidableArea() { return collidableArea; }
+    public int getCollidableAreaDefaultX() { return collidableAreaDefaultX; }
+    public int getCollidableAreaDefaultY() { return collidableAreaDefaultY; }
 
     public boolean isCollisionOn() { return collisionOn; }
 
