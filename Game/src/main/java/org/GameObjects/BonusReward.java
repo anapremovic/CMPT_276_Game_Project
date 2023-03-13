@@ -1,6 +1,7 @@
 package org.GameObjects;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.IOException;
 
 public class BonusReward extends Reward {
@@ -14,6 +15,10 @@ public class BonusReward extends Reward {
 
         //this.points = points;
         this.name = "Mystical Ocean Fruit";
+
+        this.collidableArea = new Rectangle(0, 0, 48, 48);
+        this.collidableAreaDefaultX = collidableArea.x;
+        this.collidableAreaDefaultY = collidableArea.y;
 
         // load fruit image
         try {

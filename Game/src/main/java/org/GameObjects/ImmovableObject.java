@@ -13,19 +13,21 @@ public abstract class ImmovableObject {
     protected String name;
 
     protected Rectangle collidableArea; // the area of the object that triggers collisions
-    protected boolean collisionOn = false;
+    protected int collidableAreaDefaultX, collidableAreaDefaultY;
+
+    //protected boolean collisionOn = false;
 
     public int getXPos() {
         return xPos;
     }
 
-    public int getYPos() {
-        return yPos;
-    }
+    public int getYPos() { return yPos; }
 
     public Rectangle getCollidableArea() { return collidableArea; }
+    public int getCollidableAreaDefaultX() { return collidableAreaDefaultX; }
+    public int getCollidableAreaDefaultY() { return collidableAreaDefaultY; }
 
-    public boolean isCollisionOn() { return collisionOn; }
+    //public boolean isCollisionOn() { return collisionOn; }
 
     public void draw(Graphics2D g, Screen screen) {
         g.drawImage(image, xPos, yPos, screen.getTileSize(), screen.getTileSize(), null);

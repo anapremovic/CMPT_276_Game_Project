@@ -16,9 +16,7 @@ public abstract class MovableObject {
         return xPos;
     }
 
-    public int getYPos() {
-        return yPos;
-    }
+    public int getYPos() { return yPos; }
 
     public int getSpeed() { return speed; }
 
