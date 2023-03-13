@@ -2,6 +2,7 @@ package org.Display;
 
 import org.Input.*;
 import org.GameObjects.*;
+import org.Logic.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class Screen extends JPanel implements Runnable {
 
     // game logic
     private KeyHandler playerInput = new KeyHandler();
+    private CollisionDetector collisionDetector = new CollisionDetector(this);
     private Thread gameThread;
 
 

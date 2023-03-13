@@ -1,12 +1,17 @@
 package org.Logic;
 
-import org.GameObjects.ImmovableObject;
-import org.GameObjects.MainCharacter;
-import org.GameObjects.MovableObject;
+import org.GameObjects.*;
+import org.Display.*;
 
 public class CollisionDetector {
+
+    Screen screen;
     MainCharacter object1;
     Object object2;
+
+    public CollisionDetector(Screen screen) {
+        this.screen = screen;
+    }
 
     CollisionDetector(MainCharacter o1, ImmovableObject o2) {
         object1 = o1;
