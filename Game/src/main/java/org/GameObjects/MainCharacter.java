@@ -19,6 +19,9 @@ public class MainCharacter extends MovableObject{
     private BufferedImage up, down, left, right; // 4 possible turtle sprites
     private String direction; // which way the turtle is facing
 
+    private int initialXPos;
+    private int initialYPos;
+
     public MainCharacter(Screen screen, KeyHandler handler, CollisionDetector collisionDetector) {
         this.width = screen.getTileSize();
         this.height = screen.getTileSize();
@@ -30,12 +33,15 @@ public class MainCharacter extends MovableObject{
         this.collidableAreaDefaultX = collidableArea.x;
         this.collidableAreaDefaultY = collidableArea.y;
 
-        setStartingValues(2 * screen.getTileSize(), 14 * screen.getTileSize(), 4, "up");
+        this.initialXPos = 2 * screen.getTileSize();
+        this.initialYPos = 14 * screen.getTileSize();
+
+        setStartingValues(4, "up");
         getImage();
     }
 
     // set default values for the main character, including position, speed, and direction faced
-    public void setStartingValues(int initialXPos, int initialYPos, int speed, String direction) {
+    public void setStartingValues(int speed, String direction) {
         this.xPos = initialXPos;
         this.yPos = initialYPos;
         this.speed = speed;
@@ -147,6 +153,9 @@ public class MainCharacter extends MovableObject{
     }
 
     public String getDirection() { return direction; }
+
+    public int getInitialXPos() { return initialXPos; }
+    public int getInitialYPos() { return initialYPos; }
 
     public void setPoints(int p) {
         points = p;

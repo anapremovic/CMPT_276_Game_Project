@@ -10,15 +10,15 @@ public class ImmovableObjectDisplay {
     private TileManager tileM;
     ArrayList<int[]> takenPositions;
 
-    public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
+    public ImmovableObjectDisplay(Screen screen, TileManager tileM, MainCharacter mc) {
         this.screen = screen;
         this.tileM = tileM;
         takenPositions = new ArrayList<int[]>(); // all positions that have an immovable object on them
 
         // set turtle's initial position to taken
         int[] initialPosition = new int[2];
-        initialPosition[0] = 2 * screen.getTileSize();
-        initialPosition[1] = 14 * screen.getTileSize();
+        initialPosition[0] = mc.getInitialXPos();
+        initialPosition[1] = mc.getInitialYPos();
         takenPositions.add(initialPosition);
     }
 

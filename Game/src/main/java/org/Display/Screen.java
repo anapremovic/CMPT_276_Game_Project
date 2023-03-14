@@ -33,7 +33,7 @@ public class Screen extends JPanel implements Runnable {
     private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector);
     // display up to 10 carrots, 1 mystical ocean fruit, and 6 lava at one time
     private ImmovableObject objects[] = new ImmovableObject[17];
-    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
+    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles, player);
 
     private MenuLogic menuLogic;
 
