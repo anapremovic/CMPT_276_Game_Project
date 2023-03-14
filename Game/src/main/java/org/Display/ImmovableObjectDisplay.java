@@ -5,10 +5,12 @@ import org.GameObjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ImmovableObjectDisplay {
+public class ImmovableObjectDisplay extends Thread {
     private Screen screen;
     private TileManager tileM;
-    ArrayList<int[]> takenPositions;
+    private ArrayList<int[]> takenPositions;
+    private Thread bonusRewardThread;
+    private boolean showingBonusReward = false;
 
     public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
@@ -20,6 +22,16 @@ public class ImmovableObjectDisplay {
         initialPosition[0] = 2 * screen.getTileSize();
         initialPosition[1] = 14 * screen.getTileSize();
         takenPositions.add(initialPosition);
+
+        // set 2 positions in front of exit to taken
+        int[] inFrontOfExit1 = new int[2];
+        inFrontOfExit1[0] = 17 * screen.getTileSize();
+        inFrontOfExit1[1] = 1 * screen.getTileSize();
+        takenPositions.add(inFrontOfExit1);
+        int[] inFrontOfExit2 = new int[2];
+        inFrontOfExit2[0] = 18 * screen.getTileSize();
+        inFrontOfExit2[1] = 1 * screen.getTileSize();
+        takenPositions.add(inFrontOfExit2);
     }
 
     public void displayObjects(int numToDisplay) {
@@ -66,11 +78,22 @@ public class ImmovableObjectDisplay {
             curPosition[1] = randomYPos;
             takenPositions.add(curPosition);
 
+            if(screen.getElapsedTime()/1000 >= 20) {
+                bonusRewardThread = new ImmovableObjectDisplay(screen, tileM);
+                bonusRewardThread.start();
+            }
+            else if(screen.getElapsedTime()/1000 >= 25) {
+                bonusRewardThread.interrupt();
+                showingBonusReward = false;
+            }
+
             if(i == 10) {
-                // display bonus reward (mystical ocean fruit) at current position
-                BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
-                        (randomYPos) * screen.getTileSize());
-                screen.setObject(i, cur);
+                if(showingBonusReward) {
+                    // display bonus reward (mystical ocean fruit) at current position
+                    BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
+                            (randomYPos) * screen.getTileSize());
+                    screen.setObject(i, cur);
+                }
             }
             else if(i >= 11) {
                 // display lava on screen at current position
@@ -101,5 +124,10 @@ public class ImmovableObjectDisplay {
                 takenPositions.remove(cur);
             }
         }
+    }
+
+    public void run() {
+        System.out.println("Showing bonus reward");
+        showingBonusReward = true;
     }
 }
