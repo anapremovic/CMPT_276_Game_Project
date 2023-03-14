@@ -30,7 +30,7 @@ public class MainCharacter extends MovableObject{
         this.collidableAreaDefaultX = collidableArea.x;
         this.collidableAreaDefaultY = collidableArea.y;
 
-        setStartingValues(100, 100, 4, "up");
+        setStartingValues(2 * screen.getTileSize(), 14 * screen.getTileSize(), 4, "up");
         getImage();
     }
 

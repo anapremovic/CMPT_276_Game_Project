@@ -8,15 +8,21 @@ import java.util.Random;
 public class ImmovableObjectDisplay {
     private Screen screen;
     private TileManager tileM;
+    ArrayList<int[]> takenPositions;
 
     public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
+        takenPositions = new ArrayList<int[]>(); // all positions that have an immovable object on them
+
+        // set turtle's initial position to taken
+        int[] initialPosition = new int[2];
+        initialPosition[0] = 2 * screen.getTileSize();
+        initialPosition[1] = 14 * screen.getTileSize();
+        takenPositions.add(initialPosition);
     }
 
     public void displayObjects() {
-        ArrayList<int[]> takenPositions = new ArrayList<int[]>(); // all positions that have a reward on them
-
         Random rand = new Random();
 
         int[][] board = tileM.getBoard(); // game board determining tile types
@@ -41,14 +47,7 @@ public class ImmovableObjectDisplay {
 
             // if both checks not passed, regenerate position
             while(board[randomXPos][randomYPos] != 0 || positionTaken) {
-                System.out.print("Regenerate random position - ");
-                if(positionTaken) {
-                    System.out.println("Position taken");
-                }
-                else {
-                    System.out.println("Tile not empty");
-                }
-
+                System.out.println("Regenerate position");
                 // regenerate position
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
@@ -67,13 +66,14 @@ public class ImmovableObjectDisplay {
             curPosition[1] = randomYPos;
             takenPositions.add(curPosition);
 
-            if(i == 11) {
+            if(i == 10) {
                 // display bonus reward (mystical ocean fruit) at current position
                 BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
                         (randomYPos) * screen.getTileSize());
                 screen.setObject(i, cur);
             }
-            else if(i >= 12) {
+            else if(i >= 11) {
+                // display lava on screen at current position
                 Punishment cur = new Punishment((randomXPos) * screen.getTileSize(),
                         (randomYPos) * screen.getTileSize());
                 screen.setObject(i, cur);
