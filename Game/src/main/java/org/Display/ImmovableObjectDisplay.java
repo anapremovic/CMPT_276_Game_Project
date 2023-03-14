@@ -19,18 +19,18 @@ public class ImmovableObjectDisplay extends Thread {
 
         // set turtle's initial position to taken
         int[] initialPosition = new int[2];
-        initialPosition[0] = 2 * screen.getTileSize();
-        initialPosition[1] = 14 * screen.getTileSize();
+        initialPosition[0] = 2;
+        initialPosition[1] = 14;
         takenPositions.add(initialPosition);
 
         // set 2 positions in front of exit to taken
         int[] inFrontOfExit1 = new int[2];
-        inFrontOfExit1[0] = 17 * screen.getTileSize();
-        inFrontOfExit1[1] = 1 * screen.getTileSize();
+        inFrontOfExit1[0] = 17;
+        inFrontOfExit1[1] = 1;
         takenPositions.add(inFrontOfExit1);
         int[] inFrontOfExit2 = new int[2];
-        inFrontOfExit2[0] = 18 * screen.getTileSize();
-        inFrontOfExit2[1] = 1 * screen.getTileSize();
+        inFrontOfExit2[0] = 18;
+        inFrontOfExit2[1] = 1;
         takenPositions.add(inFrontOfExit2);
     }
 
