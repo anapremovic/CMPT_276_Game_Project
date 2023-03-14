@@ -161,7 +161,7 @@ public class MainCharacter extends MovableObject{
     // functionality for when player touches an ocean tile
     private void exitCave(int tileType) {
         if(tileType == 3) {
-            screen.setThread(null);
+            screen.endGameThread();
             screen.getWinningMenu().displayWinningMenu();
         }
     }

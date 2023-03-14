@@ -82,6 +82,9 @@ public class Screen extends JPanel implements Runnable {
         gameThread = new Thread(this);
             gameThread.start(); // call run() method
     }
+    public void endGameThread() {
+        gameThread.interrupt();
+    }
     
     // GAME LOOP
     @Override
@@ -104,7 +107,7 @@ public class Screen extends JPanel implements Runnable {
             if(delta >= 1) {
                 // score goes negative => game over
                 if(this.score < 0) {
-                    gameThread = null;
+                    endGameThread();
                     gameOverMenu.displayGameOverMenu();
                 }
 
@@ -193,9 +196,5 @@ public class Screen extends JPanel implements Runnable {
 
     public void updateScore(int addedScore) {
         score += addedScore;
-    }
-
-    public void setThread(Thread t) {
-        gameThread = t;
     }
 }
