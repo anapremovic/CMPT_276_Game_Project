@@ -81,7 +81,7 @@ public class CollisionDetector {
 
     // detect collision between the player and a reward/punishment
     public int detectImmovableObject(MainCharacter player) {
-        Reward[] objects = screen.getRewards();
+        ImmovableObject[] objects = screen.getRewards();
 
         int index = 999; // index of object in rewards[] in Screen
 
