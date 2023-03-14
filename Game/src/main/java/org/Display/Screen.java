@@ -33,7 +33,7 @@ public class Screen extends JPanel implements Runnable {
     private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector);
     // display up to 10 carrots, 1 mystical ocean fruit, and 6 lava at one time
     private ImmovableObject objects[] = new ImmovableObject[17];
-    private RewardDisplay objDisplayer = new RewardDisplay(this, gameTiles);
+    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
 
     private MenuLogic menuLogic;
 
@@ -69,7 +69,7 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void gameSetup() {
-        objDisplayer.displayRewards();
+        objDisplayer.displayObjects();
         startTime = System.currentTimeMillis();
         elapsedTime = 0;
     }
@@ -163,16 +163,16 @@ public class Screen extends JPanel implements Runnable {
     public int getWidth() { return screenWidth; }
     public int getHeight() { return screenHeight; }
 
-    public ImmovableObject[] getRewards() { return objects; }
+    public ImmovableObject[] getObjects() { return objects; }
 
     // setters
-    public void setReward(int index, ImmovableObject reward) {
-        objects[index] = reward;
+    public void setObject(int index, ImmovableObject newObject) {
+        objects[index] = newObject;
     }
-    public void setRewardCollidableAreaX(int index, int x) {
+    public void setObjectCollidableAreaX(int index, int x) {
         objects[index].setCollidableAreaX(x);
     }
-    public void setRewardCollidableAreaY(int index, int y) {
+    public void setObjectCollidableAreaY(int index, int y) {
         objects[index].setCollidableAreaY(y);
     }
 

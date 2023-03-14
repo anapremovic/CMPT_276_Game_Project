@@ -5,25 +5,25 @@ import org.GameObjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RewardDisplay {
+public class ImmovableObjectDisplay {
     private Screen screen;
     private TileManager tileM;
 
-    public RewardDisplay(Screen screen, TileManager tileM) {
+    public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
     }
 
-    public void displayRewards() {
+    public void displayObjects() {
         ArrayList<int[]> takenPositions = new ArrayList<int[]>(); // all positions that have a reward on them
 
         Random rand = new Random();
 
         int[][] board = tileM.getBoard(); // game board determining tile types
-        int numRewards = screen.getRewards().length;
+        int numObjects = screen.getObjects().length;
 
         // generate 10 carrots and 1 mystical ocean fruit
-        for(int i = 0; i < numRewards; i++) {
+        for(int i = 0; i < numObjects; i++) {
             // generate random position for the current reward
             int randomXPos = rand.nextInt(screen.getNumColumns());
             int randomYPos = rand.nextInt(screen.getNumRows());
@@ -67,17 +67,22 @@ public class RewardDisplay {
             curPosition[1] = randomYPos;
             takenPositions.add(curPosition);
 
-            if(i == numRewards - 1) {
+            if(i == 11) {
                 // display bonus reward (mystical ocean fruit) at current position
                 BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
                         (randomYPos) * screen.getTileSize());
-                screen.setReward(i, cur);
+                screen.setObject(i, cur);
+            }
+            else if(i >= 12) {
+                Punishment cur = new Punishment((randomXPos) * screen.getTileSize(),
+                        (randomYPos) * screen.getTileSize());
+                screen.setObject(i, cur);
             }
             else {
                 // display carrot on screen at current position
                 RegularReward cur = new RegularReward((randomXPos) * screen.getTileSize(),
                         (randomYPos) * screen.getTileSize());
-                screen.setReward(i, cur);
+                screen.setObject(i, cur);
             }
         }
     }

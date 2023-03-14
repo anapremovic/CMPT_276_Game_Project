@@ -5,12 +5,9 @@ import org.Input.*;
 import org.Logic.*;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MainCharacter extends MovableObject{
     private int points; // current player points
@@ -60,7 +57,7 @@ public class MainCharacter extends MovableObject{
     // functionality for when the player touches a regular reward, bonus reward, or punishment
     public void touchObject(int index) {
         if(index != 999) { // when index is 999, no object was touched
-            String objectName = screen.getRewards()[index].getName();
+            String objectName = screen.getObjects()[index].getName();
 
 
 
@@ -68,12 +65,12 @@ public class MainCharacter extends MovableObject{
                 case "Carrot":
                     this.points += 1;
                     screen.updateScore(1);
-                    screen.setReward(index, null);
+                    screen.setObject(index, null);
                     break;
                 case "Mystical Ocean Fruit":
                     this.points += 3;
                     screen.updateScore(3);
-                    screen.setReward(index, null);
+                    screen.setObject(index, null);
                     break;
             }
         }
