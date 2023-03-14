@@ -25,6 +25,8 @@ public class MainCharacter extends MovableObject{
     private int initialXPos;
     private int initialYPos;
 
+    private boolean hasGameEnded = false;
+
     public MainCharacter(Screen screen, KeyHandler handler, CollisionDetector collisionDetector,
                          ImmovableObjectDisplay objDisplayer, TileManager tileM) {
         this.width = screen.getTileSize();
@@ -160,12 +162,21 @@ public class MainCharacter extends MovableObject{
 
     // functionality for when player touches an ocean tile
     private void exitCave(int tileType) {
-        if(tileType == 3) {
+        if(tileType == 3 && !hasGameEnded) {
             screen.endGameThread();
             long seconds = screen.getElapsedTime() / 1000;
             screen.initializeWinningMenu(seconds, screen);
-            screen.getWinningMenu().displayWinningMenu();
+            screen.getWinningMenu().displayWinningMenu();;
+            hasGameEnded = true;
         }
+
+        //if(tileType == 3) {
+            //screen.endGameThread();
+            //long seconds = screen.getElapsedTime() / 1000;
+            //screen.initializeWinningMenu(seconds, screen);
+            //screen.getWinningMenu().displayWinningMenu();;
+        //}
+
     }
 
     // update player position and sprite on key press
