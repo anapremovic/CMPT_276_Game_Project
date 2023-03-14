@@ -11,3 +11,6 @@ Game/target/
 Game/.idea/
 /.idea/
 /.metadata/
+
+#ignore the bin folder
+Game/bin/ 
