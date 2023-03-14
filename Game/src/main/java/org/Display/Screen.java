@@ -30,10 +30,11 @@ public class Screen extends JPanel implements Runnable {
 
 
     // game objects
-    private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector);
-    private Reward rewards[] = new Reward[11]; // display 10 carrots and 1 mystical ocean fruit at one time
-    private RewardDisplay objDisplayer = new RewardDisplay(this, gameTiles);
 
+    // display up to 10 carrots, 1 mystical ocean fruit, and 6 lava at one time
+    private ImmovableObject objects[] = new ImmovableObject[17];
+    private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
+    private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
     private MenuLogic menuLogic;
 
     //game state
@@ -68,7 +69,7 @@ public class Screen extends JPanel implements Runnable {
     }
 
     public void gameSetup() {
-        objDisplayer.displayRewards();
+        objDisplayer.displayObjects(objects.length);
         startTime = System.currentTimeMillis();
         elapsedTime = 0;
     }
@@ -126,7 +127,7 @@ public class Screen extends JPanel implements Runnable {
         gameTiles.draw(g2); // important to draw tiles before game objects
 
         // IMMOVABLE OBJECTS
-        for(Reward cur : rewards) {
+        for(ImmovableObject cur : objects) {
             if(cur != null) {
                 cur.draw(g2, this);
             }
@@ -143,12 +144,12 @@ public class Screen extends JPanel implements Runnable {
         elapsedTime = System.currentTimeMillis() - startTime;
         g2.drawString("Time: " + String.format("%02d:%02d", elapsedTime / 60000, (elapsedTime / 1000) % 60), 16, 28);
 
-        //score
+        // SCORE
         g2.setFont(scoreFont);
         g2.setColor(new Color(255, 255, 255, 150));
         g2.fillRect(getWidth() - 130, 10, 120, 23);
         g2.setColor(Color.BLACK);
-        g2.drawString("Score: " + score, getWidth() - 124, 28);
+        g2.drawString("Points: " + score, getWidth() - 124, 28);
 
         g2.dispose();
     }
@@ -162,16 +163,20 @@ public class Screen extends JPanel implements Runnable {
     public int getWidth() { return screenWidth; }
     public int getHeight() { return screenHeight; }
 
-    public Reward[] getRewards() { return rewards; }
+    public ImmovableObject[] getObjects() { return objects; }
 
     // setters
-    public void setReward(int index, Reward reward) {
-        rewards[index] = reward;
+    public void setObject(int index, ImmovableObject newObject) {
+        objects[index] = newObject;
     }
-    public void setRewardCollidableAreaX(int index, int x) {
-        rewards[index].setCollidableAreaX(x);
+    public void setObjectCollidableAreaX(int index, int x) {
+        objects[index].setCollidableAreaX(x);
     }
-    public void setRewardCollidableAreaY(int index, int y) {
-        rewards[index].setCollidableAreaY(y);
+    public void setObjectCollidableAreaY(int index, int y) {
+        objects[index].setCollidableAreaY(y);
+    }
+
+    public void updateScore(int addedScore) {
+        score += addedScore;
     }
 }

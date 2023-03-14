@@ -81,7 +81,7 @@ public class CollisionDetector {
 
     // detect collision between the player and a reward/punishment
     public int detectImmovableObject(MainCharacter player) {
-        Reward[] objects = screen.getRewards();
+        ImmovableObject[] objects = screen.getObjects();
 
         int index = 999; // index of object in rewards[] in Screen
 
@@ -92,8 +92,8 @@ public class CollisionDetector {
                 player.setCollidableAreaY(player.getYPos() + player.getCollidableArea().y);
 
                 // get the object's collidable area position
-                screen.setRewardCollidableAreaX(i, objects[i].getXPos() + objects[i].getCollidableArea().x);
-                screen.setRewardCollidableAreaY(i, objects[i].getYPos() + objects[i].getCollidableArea().y);
+                screen.setObjectCollidableAreaX(i, objects[i].getXPos() + objects[i].getCollidableArea().x);
+                screen.setObjectCollidableAreaY(i, objects[i].getYPos() + objects[i].getCollidableArea().y);
 
                 int cur;
                 switch(player.getDirection()) {
@@ -101,28 +101,40 @@ public class CollisionDetector {
                         cur = player.getCollidableArea().y;
                         player.setCollidableAreaY(cur - player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Up collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
+                            index = i;
                         }
                         break;
                     case "down":
                         cur = player.getCollidableArea().y;
                         player.setCollidableAreaY(cur + player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Down collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
+                            index = i;
                         }
                         break;
                     case "right":
                         cur = player.getCollidableArea().x;
                         player.setCollidableAreaX(cur + player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Right collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
+                            index = i;
                         }
                         break;
                     case "left":
                         cur = player.getCollidableArea().x;
                         player.setCollidableAreaX(cur - player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Left collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
+                            index = i;
                         }
                         break;
                 }
@@ -131,8 +143,8 @@ public class CollisionDetector {
                 player.setCollidableAreaX(player.getCollidableAreaDefaultX());
                 player.setCollidableAreaY(player.getCollidableAreaDefaultY());
 
-                screen.setRewardCollidableAreaX(i, objects[i].getCollidableAreaDefaultX());
-                screen.setRewardCollidableAreaY(i, objects[i].getCollidableAreaDefaultY());
+                screen.setObjectCollidableAreaX(i, objects[i].getCollidableAreaDefaultX());
+                screen.setObjectCollidableAreaY(i, objects[i].getCollidableAreaDefaultY());
             }
         }
         

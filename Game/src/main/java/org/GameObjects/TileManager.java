@@ -65,9 +65,9 @@ public class TileManager {
             tileTypes[2].image = ImageIO.read(getClass().getResourceAsStream("/rock_tile.png"));
             tileTypes[2].collision = true;
 
-            // punishment - lava
-            tileTypes[3] = new Tile();
-            tileTypes[3].image = ImageIO.read(getClass().getResourceAsStream("/lava.png"));
+//            // punishment - lava
+//            tileTypes[3] = new Tile();
+//            tileTypes[3].image = ImageIO.read(getClass().getResourceAsStream("/lava.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
