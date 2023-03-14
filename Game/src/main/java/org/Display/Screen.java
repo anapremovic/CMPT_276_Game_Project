@@ -186,7 +186,6 @@ public class Screen extends JPanel implements Runnable {
         return tileSize;
     }
 
-<<<<<<< HEAD
     public int getNumColumns() {
         return screenColumns;
     }
@@ -203,18 +202,9 @@ public class Screen extends JPanel implements Runnable {
         return screenHeight;
     }
 
-    public ImmovableObject[] getObjects() {
-        return objects;
-    }
-
-    public WinningMenu getWinningMenu() {
-        return winningMenu;
-    }
-=======
     public ImmovableObject[] getObjects() { return objects; }
     public WinningMenu getWinningMenu() { return winningMenu; }
     public long getElapsedTime() { return elapsedTime; }
->>>>>>> bonus-reward
 
     // setters
     public void setObject(int index, ImmovableObject newObject) {
