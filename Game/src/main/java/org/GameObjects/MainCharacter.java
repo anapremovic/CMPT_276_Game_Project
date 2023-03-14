@@ -162,6 +162,8 @@ public class MainCharacter extends MovableObject{
     private void exitCave(int tileType) {
         if(tileType == 3) {
             screen.endGameThread();
+            long seconds = screen.getElapsedTime() / 1000;
+            screen.initializeWinningMenu(seconds, screen);
             screen.getWinningMenu().displayWinningMenu();
         }
     }

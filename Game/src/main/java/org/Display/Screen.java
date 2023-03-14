@@ -37,7 +37,7 @@ public class Screen extends JPanel implements Runnable {
     private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
     private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
     private MenuLogic menuLogic;
-    private WinningMenu winningMenu = new WinningMenu(this.elapsedTime, this);
+    private WinningMenu winningMenu;
     private GameOverMenu gameOverMenu = new GameOverMenu(this);
 
     //game state
@@ -182,6 +182,7 @@ public class Screen extends JPanel implements Runnable {
 
     public ImmovableObject[] getObjects() { return objects; }
     public WinningMenu getWinningMenu() { return winningMenu; }
+    public long getElapsedTime() { return elapsedTime; }
 
     // setters
     public void setObject(int index, ImmovableObject newObject) {
@@ -196,5 +197,9 @@ public class Screen extends JPanel implements Runnable {
 
     public void updateScore(int addedScore) {
         score += addedScore;
+    }
+
+    public void initializeWinningMenu(long elapsedTime, Screen screen) {
+        winningMenu = new WinningMenu(elapsedTime, screen);
     }
 }
