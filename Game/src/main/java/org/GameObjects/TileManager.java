@@ -68,6 +68,7 @@ public class TileManager {
             // ocean tile
             tileTypes[3] = new Tile();
             tileTypes[3].image = ImageIO.read(getClass().getResourceAsStream("/ocean_tile.png"));
+            tileTypes[3].collision = true;
 
         } catch (IOException e) {
             e.printStackTrace();

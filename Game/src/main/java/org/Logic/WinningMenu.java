@@ -63,7 +63,7 @@ public class WinningMenu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 screen.restartGame();
                 dispose();
-                screen.startGameThread();
+                //screen.startGameThread();
             }
         });
 
