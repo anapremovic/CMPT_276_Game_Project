@@ -65,9 +65,8 @@ public class TileManager {
             tileTypes[2].image = ImageIO.read(getClass().getResourceAsStream("/rock_tile.png"));
             tileTypes[2].collision = true;
 
-//            // punishment - lava
-//            tileTypes[3] = new Tile();
-//            tileTypes[3].image = ImageIO.read(getClass().getResourceAsStream("/lava.png"));
+            tileTypes[3] = new Tile();
+            tileTypes[3].image = ImageIO.read(getClass().getResourceAsStream("/ocean_tile.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,4 +93,8 @@ public class TileManager {
 
     public int[][] getBoard() { return board; }
     public Tile[] getTileTypes() { return tileTypes; }
+
+    public void setMap(String filePath) {
+        loadBoardData(filePath);
+    }
 }

@@ -5,6 +5,8 @@ import org.GameObjects.*;
 import org.Logic.*;
 
 import java.awt.*;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Screen extends JPanel implements Runnable {
@@ -108,7 +110,7 @@ public class Screen extends JPanel implements Runnable {
 
                 // score reaches 10 => exit unlocks
                 if(this.score >= 10) {
-
+                    gameTiles.setMap("/maps/map02.txt");
                 }
 
                 // UPDATE GAME OBJECTS
