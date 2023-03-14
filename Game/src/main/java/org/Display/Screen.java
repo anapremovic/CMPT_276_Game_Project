@@ -36,6 +36,22 @@ public class Screen extends JPanel implements Runnable {
 
     private MenuLogic menuLogic;
 
+    //game state
+    public int gameState;
+    public final int playState = 1;
+    public final int gameOver = 2;
+
+
+    // timer
+    private long startTime;
+    private long elapsedTime;
+    private Font timerFont = new Font("Arial", Font.BOLD, 20);
+
+    // score
+    private int score = 0;
+    private Font scoreFont = new Font("Arial", Font.BOLD, 20);
+
+
     public Screen() {
         // set screen size
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -46,10 +62,15 @@ public class Screen extends JPanel implements Runnable {
         // display menu at start of program
         menuLogic = new MenuLogic(this);
         menuLogic.displayMenu();
+
+        // initialize elapsedTime to 0
+        elapsedTime = 0;
     }
 
     public void gameSetup() {
         objDisplayer.displayRewards();
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
     }
 
 
@@ -113,6 +134,21 @@ public class Screen extends JPanel implements Runnable {
 
         // MAIN CHARACTER
         player.draw(g2);
+
+        // TIMER
+        g2.setFont(timerFont);
+        g2.setColor(new Color(255, 255, 255, 150));
+        g2.fillRect(10, 10, 120, 23);
+        g2.setColor(Color.BLACK);
+        elapsedTime = System.currentTimeMillis() - startTime;
+        g2.drawString("Time: " + String.format("%02d:%02d", elapsedTime / 60000, (elapsedTime / 1000) % 60), 16, 28);
+
+        //score
+        g2.setFont(scoreFont);
+        g2.setColor(new Color(255, 255, 255, 150));
+        g2.fillRect(getWidth() - 130, 10, 120, 23);
+        g2.setColor(Color.BLACK);
+        g2.drawString("Score: " + score, getWidth() - 124, 28);
 
         g2.dispose();
     }
