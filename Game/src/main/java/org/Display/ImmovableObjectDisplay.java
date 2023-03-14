@@ -23,7 +23,7 @@ public class ImmovableObjectDisplay extends Thread {
         initialPosition[1] = 14;
         takenPositions.add(initialPosition);
 
-        // set 2 positions in front of exit to taken
+        // set 3 positions in front of exit to taken
         int[] inFrontOfExit1 = new int[2];
         inFrontOfExit1[0] = 17;
         inFrontOfExit1[1] = 1;
@@ -32,6 +32,10 @@ public class ImmovableObjectDisplay extends Thread {
         inFrontOfExit2[0] = 18;
         inFrontOfExit2[1] = 1;
         takenPositions.add(inFrontOfExit2);
+        int[] inFrontOfExit3 = new int[2];
+        inFrontOfExit3[0] = 16;
+        inFrontOfExit3[1] = 1;
+        takenPositions.add(inFrontOfExit3);
     }
 
     public void displayObjects(int numToDisplay) {
