@@ -67,7 +67,7 @@ public class MainCharacter extends MovableObject{
     }
 
     // functionality for when the player touches a regular reward, bonus reward, or punishment
-    public void touchObject(int index) {
+    private void touchObject(int index) {
         if(index != 999) { // when index is 999, no object was touched
             String objectName = screen.getObjects()[index].getName();
 
@@ -158,43 +158,56 @@ public class MainCharacter extends MovableObject{
         }
     }
 
+    // functionality for when player touches an ocean tile
+    private void exitCave(int tileType) {
+        if(tileType == 3) {
+            screen.setThread(null);
+            screen.getWinningMenu().displayWinningMenu();
+        }
+    }
+
     // update player position and sprite on key press
     public void update() {
         // is the player colliding?
         this.collisionOn = false;
 
+        int tileTypeTouched;
         if(playerInput.upPressed) {
             direction = "up";
-            collisionDetector.detectTile(this);
+            tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
             touchObject(objIndex);
+            exitCave(tileTypeTouched);
             if(this.collisionOn == false) {
                 this.updateYPos(this.getSpeed());
             }
         }
         else if(playerInput.downPressed) {
             direction = "down";
-            collisionDetector.detectTile(this);
+            tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
             touchObject(objIndex);
+            exitCave(tileTypeTouched);
             if(this.collisionOn == false) {
                 this.updateYPos(-1 * this.getSpeed());
             }
         }
         else if(playerInput.rightPressed) {
             direction = "right";
-            collisionDetector.detectTile(this);
+            tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
             touchObject(objIndex);
+            exitCave(tileTypeTouched);
             if(this.collisionOn == false) {
                 this.updateXPos(this.getSpeed());
             }
         }
         else if(playerInput.leftPressed) {
             direction = "left";
-            collisionDetector.detectTile(this);
+            tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
             touchObject(objIndex);
+            exitCave(tileTypeTouched);
             if(this.collisionOn == false) {
                 this.updateXPos(-1 * this.getSpeed());
             }

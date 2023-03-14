@@ -178,6 +178,7 @@ public class Screen extends JPanel implements Runnable {
     public int getScreenHeight() { return screenHeight; }
 
     public ImmovableObject[] getObjects() { return objects; }
+    public WinningMenu getWinningMenu() { return winningMenu; }
 
     // setters
     public void setObject(int index, ImmovableObject newObject) {
@@ -192,5 +193,9 @@ public class Screen extends JPanel implements Runnable {
 
     public void updateScore(int addedScore) {
         score += addedScore;
+    }
+
+    public void setThread(Thread t) {
+        gameThread = t;
     }
 }

@@ -13,7 +13,7 @@ public class CollisionDetector {
     }
     
     // detect collision between the main character and the tile they are touching
-    public void detectTile(MainCharacter player) {
+    public int detectTile(MainCharacter player) {
         // x and y positions in pixels
         int leftX = player.getXPos() + player.getCollidableArea().x;
         int rightX = player.getXPos() + player.getCollidableArea().x + player.getCollidableArea().width;
@@ -28,7 +28,8 @@ public class CollisionDetector {
 
         // the tile types the player is colliding with
         // since MainCharacter is 1x1 tile, it can only be colliding with a max of 2 tiles at once
-        int tileType1, tileType2;
+        int tileType1 = 0;
+        int tileType2 = 0;
 
         String direction = player.getDirection(); // direction player is facing
         switch(direction) {
@@ -77,6 +78,12 @@ public class CollisionDetector {
 
                 break;
         }
+
+        // check if player is touching an ocean tile (win condition)
+        if(tileType1 == 3 || tileType2 == 3) {
+            return 3;
+        }
+        return tileType1;
     }
 
     // detect collision between the player and a reward/punishment
