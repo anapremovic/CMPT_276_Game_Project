@@ -10,26 +10,26 @@ public class ImmovableObjectDisplay {
     private TileManager tileM;
     ArrayList<int[]> takenPositions;
 
-    public ImmovableObjectDisplay(Screen screen, TileManager tileM, MainCharacter mc) {
+    public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
         takenPositions = new ArrayList<int[]>(); // all positions that have an immovable object on them
 
         // set turtle's initial position to taken
         int[] initialPosition = new int[2];
-        initialPosition[0] = mc.getInitialXPos();
-        initialPosition[1] = mc.getInitialYPos();
+        initialPosition[0] = 2 * screen.getTileSize();
+        initialPosition[1] = 14 * screen.getTileSize();
         takenPositions.add(initialPosition);
     }
 
-    public void displayObjects() {
+    public void displayObjects(int numToDisplay) {
         Random rand = new Random();
 
         int[][] board = tileM.getBoard(); // game board determining tile types
-        int numObjects = screen.getObjects().length;
+        //int numObjects = screen.getObjects().length;
 
         // generate 10 carrots and 1 mystical ocean fruit
-        for(int i = 0; i < numObjects; i++) {
+        for(int i = 0; i < numToDisplay; i++) {
             // generate random position for the current reward
             int randomXPos = rand.nextInt(screen.getNumColumns());
             int randomYPos = rand.nextInt(screen.getNumRows());
@@ -47,7 +47,7 @@ public class ImmovableObjectDisplay {
 
             // if both checks not passed, regenerate position
             while(board[randomXPos][randomYPos] != 0 || positionTaken) {
-                System.out.println("Regenerate position");
+
                 // regenerate position
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
@@ -83,6 +83,22 @@ public class ImmovableObjectDisplay {
                 RegularReward cur = new RegularReward((randomXPos) * screen.getTileSize(),
                         (randomYPos) * screen.getTileSize());
                 screen.setObject(i, cur);
+            }
+        }
+    }
+
+    public ArrayList<int[]> getTakenPositions() { return takenPositions; }
+    public void addTakenPosition(int x, int y) {
+        int[] newPosition = new int[2];
+        newPosition[0] = x;
+        newPosition[1] = y;
+
+        takenPositions.add(newPosition);
+    }
+    public void removeTakenPosition(int x, int y) {
+        for(int[] cur : takenPositions) {
+            if(cur[0] == x && cur[1] == y) {
+                takenPositions.remove(cur);
             }
         }
     }

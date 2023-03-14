@@ -44,4 +44,9 @@ public abstract class MovableObject {
     public void updateYPos(int updateBy) {
         yPos -= updateBy;
     }
+
+    public void setPosition(int x, int y) {
+        this.xPos = x;
+        this.yPos = y;
+    }
 }
