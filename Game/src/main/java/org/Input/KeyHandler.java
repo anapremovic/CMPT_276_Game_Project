@@ -10,6 +10,13 @@ public class KeyHandler implements KeyListener {
 
     }
 
+    public void nomovement(){
+        upPressed = false;
+        leftPressed = false;
+        downPressed = false;
+        rightPressed = false;
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode(); // code of key pressed

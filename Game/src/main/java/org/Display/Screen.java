@@ -15,9 +15,9 @@ public class Screen extends JPanel implements Runnable {
     final int baseTileSize = 16;
     final int scale = 3;
 
-    final int tileSize = baseTileSize * scale; // 48x48 tile size
-    final int screenColumns = 21;
-    final int screenRows = 16;
+    int tileSize = baseTileSize * scale; // 48x48 tile size
+    int screenColumns = 21;
+    int screenRows = 16;
     final int screenWidth = tileSize * screenColumns;
     final int screenHeight = tileSize * screenRows;
 
@@ -70,6 +70,14 @@ public class Screen extends JPanel implements Runnable {
         enemies.add(new Enemy(this, collisionDetector, gameTiles));
         // initialize elapsedTime to 0
         elapsedTime = 0;
+        // create initial game window
+        JFrame initialFrame = new JFrame("Game");
+        initialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        initialFrame.setResizable(false);
+        initialFrame.add(this);
+        initialFrame.pack();
+        initialFrame.setLocationRelativeTo(null);
+        initialFrame.setVisible(true);
     }
 
     public void gameSetup() {
@@ -86,6 +94,39 @@ public class Screen extends JPanel implements Runnable {
 
     public void endGameThread() {
         gameThread.interrupt();
+    }
+
+    public void restartGame() {
+        // end current game thread
+        endGameThread();
+        // close old game window
+        JFrame oldFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        oldFrame.dispose();
+        // reset game state
+        gameState = gameOver; // Change gameState to menuState
+        // reset score
+        score = 0;
+        // reset timer
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
+        // reset game objects
+        objects = new ImmovableObject[17];
+        objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
+        player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
+        enemies = new ArrayList<>();
+        enemies.add(new Enemy(this, collisionDetector, gameTiles));
+        // start new game window
+        JFrame newFrame = new JFrame("Game");
+        newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newFrame.setResizable(false);
+        newFrame.add(this);
+        newFrame.pack();
+        newFrame.setLocationRelativeTo(null);
+        newFrame.setVisible(true);
+        objDisplayer.displayObjects(17);
+        gameTiles.setMap("/maps/map01.txt");
+        playerInput.nomovement();
+        //player.setPosition(player.getInitialXPos(), player.getInitialYPos());
     }
 
     // GAME LOOP
@@ -110,11 +151,12 @@ public class Screen extends JPanel implements Runnable {
                 // score goes negative => game over
                 if (this.score < 0) {
                     endGameThread();
+                    playerInput.nomovement();
                     gameOverMenu.displayGameOverMenu();
                 }
 
                 // score reaches 10 => exit unlocks
-                if (this.score >= 10) {
+                if (this.score >= 1) {
                     gameTiles.setMap("/maps/map02.txt");
                 }
 

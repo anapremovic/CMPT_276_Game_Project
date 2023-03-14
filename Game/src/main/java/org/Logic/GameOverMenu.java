@@ -52,8 +52,10 @@ public class GameOverMenu extends JFrame {
         restartGameButton.setBounds(335, 220, 140, 50);
         restartGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //screen.endGameThread();
+                screen.restartGame();
                 dispose();
-                screen.startGameThread();
+                //screen.startGameThread();
             }
         });
 

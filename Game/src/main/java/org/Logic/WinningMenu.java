@@ -61,6 +61,7 @@ public class WinningMenu extends JFrame {
         restartGameButton.setBounds(330, 420, 140, 50);
         restartGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                screen.restartGame();
                 dispose();
                 screen.startGameThread();
             }
