@@ -101,29 +101,41 @@ public class CollisionDetector {
                         cur = player.getCollidableArea().y;
                         player.setCollidableAreaY(cur - player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Up collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
                         }
+                        index = i;
                         break;
                     case "down":
                         cur = player.getCollidableArea().y;
                         player.setCollidableAreaY(cur + player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Down collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
                         }
+                        index = i;
                         break;
                     case "right":
                         cur = player.getCollidableArea().x;
                         player.setCollidableAreaX(cur + player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Right collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
                         }
+                        index = i;
                         break;
                     case "left":
                         cur = player.getCollidableArea().x;
                         player.setCollidableAreaX(cur - player.getSpeed());
                         if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            System.out.println("Left collision with reward");
+                            if(objects[i].isSolid()) {
+                                player.setCollisionOn(true);
+                            }
                         }
+                        index = i;
                         break;
                 }
 

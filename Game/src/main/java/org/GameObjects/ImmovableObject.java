@@ -9,7 +9,7 @@ public abstract class ImmovableObject {
     protected int xPos;
     protected int yPos;
     protected BufferedImage image;
-    protected boolean collision = false;
+    protected boolean collision = false; // is this object solid (cannot be passed through)?
     protected String name;
 
     protected Rectangle collidableArea; // the area of the object that triggers collisions
@@ -22,6 +22,8 @@ public abstract class ImmovableObject {
     }
 
     public int getYPos() { return yPos; }
+
+    public boolean isSolid() { return collision; };
 
     public Rectangle getCollidableArea() { return collidableArea; }
     public int getCollidableAreaDefaultX() { return collidableAreaDefaultX; }
