@@ -26,6 +26,7 @@ public class GameOverMenu extends JFrame {
         setSize(800, 600);
         setResizable(false);
         setLocationRelativeTo(screen);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //setting the background image "back.jpg"
         JPanel backgroundPanel = new JPanel() {

@@ -1,9 +1,8 @@
 package org.Display;
 
 import org.Input.*;
-import org.Logic.CollisionDetector;
 import org.GameObjects.*;
-import org.Logic.MenuLogic;
+import org.Logic.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -36,6 +35,8 @@ public class Screen extends JPanel implements Runnable {
     private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
     private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
     private MenuLogic menuLogic;
+    private WinningMenu winningMenu = new WinningMenu(this.elapsedTime, this);
+    private GameOverMenu gameOverMenu = new GameOverMenu(this);
 
     //game state
     public int gameState;
@@ -99,6 +100,17 @@ public class Screen extends JPanel implements Runnable {
             lastTime = currentTime;
 
             if(delta >= 1) {
+                // score goes negative => game over
+                if(this.score < 0) {
+                    gameThread = null;
+                    gameOverMenu.displayGameOverMenu();
+                }
+
+                // score reaches 10 => exit unlocks
+                if(this.score >= 10) {
+
+                }
+
                 // UPDATE GAME OBJECTS
                 update();
                 // DRAW UPDATES
@@ -160,8 +172,8 @@ public class Screen extends JPanel implements Runnable {
     }
     public int getNumColumns() { return screenColumns; }
     public int getNumRows() { return screenRows; }
-    public int getWidth() { return screenWidth; }
-    public int getHeight() { return screenHeight; }
+    public int getScreenWidth() { return screenWidth; }
+    public int getScreenHeight() { return screenHeight; }
 
     public ImmovableObject[] getObjects() { return objects; }
 
