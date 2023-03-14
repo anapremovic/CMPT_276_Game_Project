@@ -1,4 +1,4 @@
-package org;
+package org.Logic;
 
 import java.io.PrintStream;
 import java.util.HashSet;

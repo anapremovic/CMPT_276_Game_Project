@@ -2,9 +2,9 @@ package org.GameObjects;
 
 //import org.javatuples.Pair;
 
-import org.AStarFindPath;
 import org.Display.Screen;
 import org.Logic.CollisionDetector;
+import org.Logic.AStarFindPath;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class Enemy extends MovableObject {
         this.collisionDetector = collisionDetector;
         board = transposeMatrix(gameTiles.getBoard());
         // System.out.println(Arrays.deepToString(board));
-        setStartingValues(500, 200, 1, "UNKNOWN");
+        setStartingValues(500, 200, 2, "UNKNOWN");
         getImage();
     }
 
