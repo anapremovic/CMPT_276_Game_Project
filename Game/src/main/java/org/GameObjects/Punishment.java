@@ -5,12 +5,9 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Punishment extends ImmovableObject {
-    private int damage;
-
     public Punishment(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.damage = 3;
 
         //this.points = points;
         this.name = "Lava";

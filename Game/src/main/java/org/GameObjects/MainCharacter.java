@@ -80,9 +80,9 @@ public class MainCharacter extends MovableObject{
                     this.points += 1;
                     screen.updateScore(1);
 
+                    // remove carrot from screen
                     x = screen.getObjects()[index].getXPos();
                     y = screen.getObjects()[index].getYPos();
-
                     screen.setObject(index, null);
                     objDisplayer.removeTakenPosition(x, y);
 
@@ -91,9 +91,9 @@ public class MainCharacter extends MovableObject{
                     this.points += 3;
                     screen.updateScore(3);
 
+                    // remove bonus reward from screen
                     x = screen.getObjects()[index].getXPos();
                     y = screen.getObjects()[index].getYPos();
-
                     screen.setObject(index, null);
                     objDisplayer.removeTakenPosition(x, y);
 
@@ -101,7 +101,15 @@ public class MainCharacter extends MovableObject{
                 case "Lava":
                     this.points -= 3;
                     screen.updateScore(-3);
+
+                    // put player back to start
                     this.setPosition(this.initialXPos, this.initialYPos);
+
+                    // remove lava from screen
+                    x = screen.getObjects()[index].getXPos();
+                    y = screen.getObjects()[index].getYPos();
+                    screen.setObject(index, null);
+                    objDisplayer.removeTakenPosition(x, y);
 
                     // ADD 3 NEW CARROTS TO SCREEN
 
