@@ -10,3 +10,4 @@ Game/target/
 # ignore .idea folders
 Game/.idea
 /.idea
+/.metadata/
