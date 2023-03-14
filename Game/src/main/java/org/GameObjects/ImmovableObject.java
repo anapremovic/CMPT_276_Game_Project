@@ -17,6 +17,12 @@ public abstract class ImmovableObject {
 
     //protected boolean collisionOn = false;
 
+    public void draw(Graphics2D g, Screen screen) {
+        g.drawImage(image, xPos, yPos, screen.getTileSize(), screen.getTileSize(), null);
+    }
+
+    // getters
+
     public int getXPos() {
         return xPos;
     }
@@ -24,11 +30,14 @@ public abstract class ImmovableObject {
     public int getYPos() { return yPos; }
 
     public boolean isSolid() { return collision; };
+    public String getName() { return name; }
 
     public Rectangle getCollidableArea() { return collidableArea; }
     public int getCollidableAreaDefaultX() { return collidableAreaDefaultX; }
     public int getCollidableAreaDefaultY() { return collidableAreaDefaultY; }
 
+
+    // setters
     public void setCollidableAreaX(int x) {
         collidableArea.x = x;
     }
@@ -38,7 +47,5 @@ public abstract class ImmovableObject {
 
     //public boolean isCollisionOn() { return collisionOn; }
 
-    public void draw(Graphics2D g, Screen screen) {
-        g.drawImage(image, xPos, yPos, screen.getTileSize(), screen.getTileSize(), null);
-    }
+
 }

@@ -143,12 +143,12 @@ public class Screen extends JPanel implements Runnable {
         elapsedTime = System.currentTimeMillis() - startTime;
         g2.drawString("Time: " + String.format("%02d:%02d", elapsedTime / 60000, (elapsedTime / 1000) % 60), 16, 28);
 
-        //score
+        // SCORE
         g2.setFont(scoreFont);
         g2.setColor(new Color(255, 255, 255, 150));
         g2.fillRect(getWidth() - 130, 10, 120, 23);
         g2.setColor(Color.BLACK);
-        g2.drawString("Score: " + score, getWidth() - 124, 28);
+        g2.drawString("Points: " + score, getWidth() - 124, 28);
 
         g2.dispose();
     }
@@ -173,5 +173,9 @@ public class Screen extends JPanel implements Runnable {
     }
     public void setRewardCollidableAreaY(int index, int y) {
         rewards[index].setCollidableAreaY(y);
+    }
+
+    public void updateScore(int addedScore) {
+        score += addedScore;
     }
 }

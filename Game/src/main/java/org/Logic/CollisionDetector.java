@@ -104,8 +104,8 @@ public class CollisionDetector {
                             if(objects[i].isSolid()) {
                                 player.setCollisionOn(true);
                             }
+                            index = i;
                         }
-                        index = i;
                         break;
                     case "down":
                         cur = player.getCollidableArea().y;
@@ -114,8 +114,8 @@ public class CollisionDetector {
                             if(objects[i].isSolid()) {
                                 player.setCollisionOn(true);
                             }
+                            index = i;
                         }
-                        index = i;
                         break;
                     case "right":
                         cur = player.getCollidableArea().x;
@@ -124,8 +124,8 @@ public class CollisionDetector {
                             if(objects[i].isSolid()) {
                                 player.setCollisionOn(true);
                             }
+                            index = i;
                         }
-                        index = i;
                         break;
                     case "left":
                         cur = player.getCollidableArea().x;
@@ -134,8 +134,8 @@ public class CollisionDetector {
                             if(objects[i].isSolid()) {
                                 player.setCollisionOn(true);
                             }
+                            index = i;
                         }
-                        index = i;
                         break;
                 }
 

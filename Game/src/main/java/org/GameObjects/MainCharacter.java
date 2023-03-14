@@ -57,6 +57,28 @@ public class MainCharacter extends MovableObject{
         }
     }
 
+    // functionality for when the player touches a regular reward, bonus reward, or punishment
+    public void touchObject(int index) {
+        if(index != 999) { // when index is 999, no object was touched
+            String objectName = screen.getRewards()[index].getName();
+
+
+
+            switch(objectName) {
+                case "Carrot":
+                    this.points += 1;
+                    screen.updateScore(1);
+                    screen.setReward(index, null);
+                    break;
+                case "Mystical Ocean Fruit":
+                    this.points += 3;
+                    screen.updateScore(3);
+                    screen.setReward(index, null);
+                    break;
+            }
+        }
+    }
+
     // update player position and sprite on key press
     public void update() {
         // is the player colliding?
@@ -66,6 +88,7 @@ public class MainCharacter extends MovableObject{
             direction = "up";
             collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
+            touchObject(objIndex);
             if(this.collisionOn == false) {
                 this.updateYPos(this.getSpeed());
             }
@@ -74,6 +97,7 @@ public class MainCharacter extends MovableObject{
             direction = "down";
             collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
+            touchObject(objIndex);
             if(this.collisionOn == false) {
                 this.updateYPos(-1 * this.getSpeed());
             }
@@ -82,6 +106,7 @@ public class MainCharacter extends MovableObject{
             direction = "right";
             collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
+            touchObject(objIndex);
             if(this.collisionOn == false) {
                 this.updateXPos(this.getSpeed());
             }
@@ -90,14 +115,11 @@ public class MainCharacter extends MovableObject{
             direction = "left";
             collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
+            touchObject(objIndex);
             if(this.collisionOn == false) {
                 this.updateXPos(-1 * this.getSpeed());
             }
         }
-    }
-
-    private void updatePosition() {
-
     }
 
     // draw the turtle sprite image on to the screen
@@ -121,9 +143,6 @@ public class MainCharacter extends MovableObject{
         }
 
         g.drawImage(img, xPos, yPos, width, height, null);
-
-//        g2.setColor(Color.white);
-//        g2.fillRect(xPos, yPos, screen.getTileSize(), screen.getTileSize());
     }
 
     public int getPoints() {
