@@ -14,6 +14,7 @@ public abstract class ImmovableObject {
 
     protected Rectangle collidableArea; // the area of the object that triggers collisions
     protected int collidableAreaDefaultX, collidableAreaDefaultY;
+    protected long timeSinceSpawned = 0;
 
     //protected boolean collisionOn = false;
 
@@ -47,5 +48,11 @@ public abstract class ImmovableObject {
 
     //public boolean isCollisionOn() { return collisionOn; }
 
+    public long getTime() {
+        return timeSinceSpawned;
+    }
+    public void updateTime(long addedTime) {
+        timeSinceSpawned = addedTime;
+    }
 
 }

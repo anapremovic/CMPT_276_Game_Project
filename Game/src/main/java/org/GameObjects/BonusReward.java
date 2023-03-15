@@ -5,10 +5,10 @@ import java.awt.*;
 import java.io.IOException;
 
 public class BonusReward extends Reward {
-    private double timeSinceSpawned;
+
 
     public BonusReward(int xPos, int yPos) {
-        timeSinceSpawned = 0;
+        this.timeSinceSpawned = 0;
 
         this.xPos = xPos;
         this.yPos = yPos;
@@ -32,7 +32,5 @@ public class BonusReward extends Reward {
         return points;
     }
 
-    public double getTime() {
-        return timeSinceSpawned;
-    }
+
 }

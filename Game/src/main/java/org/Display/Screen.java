@@ -71,13 +71,13 @@ public class Screen extends JPanel implements Runnable {
         // initialize elapsedTime to 0
         elapsedTime = 0;
         // create initial game window
-        JFrame initialFrame = new JFrame("Game");
-        initialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initialFrame.setResizable(false);
-        initialFrame.add(this);
-        initialFrame.pack();
-        initialFrame.setLocationRelativeTo(null);
-        initialFrame.setVisible(true);
+//        JFrame initialFrame = new JFrame("Game");
+//        initialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        initialFrame.setResizable(false);
+//        initialFrame.add(this);
+//        initialFrame.pack();
+//        initialFrame.setLocationRelativeTo(null);
+//        initialFrame.setVisible(true);
     }
 
     public void gameSetup() {
@@ -182,6 +182,10 @@ public class Screen extends JPanel implements Runnable {
         {
             e.update(player,tileSize);
         }
+
+        if(objects[10] != null) {
+            objects[10].updateTime(elapsedTime);
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -193,9 +197,17 @@ public class Screen extends JPanel implements Runnable {
         gameTiles.draw(g2); // important to draw tiles before game objects
 
         // IMMOVABLE OBJECTS
-        for (ImmovableObject cur : objects) {
-            if (cur != null) {
-                cur.draw(g2, this);
+        for(int i = 0; i < objects.length; i++) {
+            if(objects[i] != null) {
+                if(i == 10) {
+                    long curTime = objects[i].getTime()/1000;
+                    if(curTime >= 5 && curTime <= 15) {
+                        objects[i].draw(g2,this);
+                    }
+                }
+                else {
+                    objects[i].draw(g2,this);
+                }
             }
         }
 

@@ -82,22 +82,26 @@ public class ImmovableObjectDisplay extends Thread {
             curPosition[1] = randomYPos;
             takenPositions.add(curPosition);
 
-            if(screen.getElapsedTime()/1000 >= 20) {
-                bonusRewardThread = new ImmovableObjectDisplay(screen, tileM);
-                bonusRewardThread.start();
-            }
-            else if(screen.getElapsedTime()/1000 >= 25) {
-                bonusRewardThread.interrupt();
-                showingBonusReward = false;
-            }
+//            if(screen.getElapsedTime()/1000 >= 20) {
+//                bonusRewardThread = new ImmovableObjectDisplay(screen, tileM);
+//                bonusRewardThread.start();
+//            }
+//            else if(screen.getElapsedTime()/1000 >= 25) {
+//                bonusRewardThread.interrupt();
+//                showingBonusReward = false;
+//            }
 
             if(i == 10) {
-                if(showingBonusReward) {
-                    // display bonus reward (mystical ocean fruit) at current position
-                    BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
-                            (randomYPos) * screen.getTileSize());
-                    screen.setObject(i, cur);
-                }
+                // display bonus reward (mystical ocean fruit) at current position
+                BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
+                        (randomYPos) * screen.getTileSize());
+                screen.setObject(i, cur);
+//                if(showingBonusReward) {
+//                    // display bonus reward (mystical ocean fruit) at current position
+//                    BonusReward cur = new BonusReward((randomXPos) * screen.getTileSize(),
+//                            (randomYPos) * screen.getTileSize());
+//                    screen.setObject(i, cur);
+//                }
             }
             else if(i >= 11) {
                 // display lava on screen at current position
@@ -130,8 +134,8 @@ public class ImmovableObjectDisplay extends Thread {
         }
     }
 
-    public void run() {
-        System.out.println("Showing bonus reward");
-        showingBonusReward = true;
-    }
+//    public void run() {
+//        System.out.println("Showing bonus reward");
+//        showingBonusReward = true;
+//    }
 }
