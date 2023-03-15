@@ -70,14 +70,6 @@ public class Screen extends JPanel implements Runnable {
         enemies.add(new Enemy(this, collisionDetector, gameTiles));
         // initialize elapsedTime to 0
         elapsedTime = 0;
-        // create initial game window
-//        JFrame initialFrame = new JFrame("Game");
-//        initialFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        initialFrame.setResizable(false);
-//        initialFrame.add(this);
-//        initialFrame.pack();
-//        initialFrame.setLocationRelativeTo(null);
-//        initialFrame.setVisible(true);
     }
 
     public void gameSetup() {

@@ -5,8 +5,6 @@ import java.awt.*;
 import java.io.IOException;
 
 public class BonusReward extends Reward {
-
-
     public BonusReward(int xPos, int yPos) {
         this.timeSinceSpawned = 0;
 
@@ -31,6 +29,4 @@ public class BonusReward extends Reward {
     public int getPoints() {
         return points;
     }
-
-
 }
