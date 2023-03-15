@@ -148,7 +148,7 @@ public class Screen extends JPanel implements Runnable {
                 }
 
                 // score reaches 10 => exit unlocks
-                if (this.score >= 1) {
+                if (player.getNumCarrotsCollected() >= 10) {
                     gameTiles.setMap("/maps/map02.txt");
                 }
 

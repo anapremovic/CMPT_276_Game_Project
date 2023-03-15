@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class MainCharacter extends MovableObject{
-    private int points; // current player points
+    private int numCarrotsCollected; // current player points
     private boolean isInvisible; // has the player achieve Mystical Ocean Fruit powerup
     private Screen screen; // Screen class the main character is draw on
     private KeyHandler playerInput; // object that takes user input
@@ -77,7 +77,7 @@ public class MainCharacter extends MovableObject{
             int y;
             switch(objectName) {
                 case "Carrot":
-                    this.points += 1;
+                    this.numCarrotsCollected += 1;
                     screen.updateScore(1);
 
                     // remove carrot from screen
@@ -88,7 +88,6 @@ public class MainCharacter extends MovableObject{
 
                     break;
                 case "Mystical Ocean Fruit":
-                    this.points += 3;
                     screen.updateScore(3);
 
                     // remove bonus reward from screen
@@ -99,7 +98,7 @@ public class MainCharacter extends MovableObject{
 
                     break;
                 case "Lava":
-                    this.points -= 3;
+                    this.numCarrotsCollected -= 3;
                     screen.updateScore(-3);
 
                     // put player back to start
@@ -173,7 +172,7 @@ public class MainCharacter extends MovableObject{
         if(tileType == 3 && !hasGameEnded) {
             screen.endGameThread();
             long seconds = screen.getElapsedTime() / 1000;
-            screen.initializeWinningMenu(seconds, screen, points);
+            screen.initializeWinningMenu(seconds, screen, numCarrotsCollected);
             screen.getWinningMenu().displayWinningMenu();;
             hasGameEnded = true;
         }
@@ -258,8 +257,8 @@ public class MainCharacter extends MovableObject{
         g.drawImage(img, xPos, yPos, width, height, null);
     }
 
-    public int getPoints() {
-        return points;
+    public int getNumCarrotsCollected() {
+        return numCarrotsCollected;
     }
 
     public String getDirection() { return direction; }
@@ -267,8 +266,8 @@ public class MainCharacter extends MovableObject{
     public int getInitialXPos() { return initialXPos; }
     public int getInitialYPos() { return initialYPos; }
 
-    public void setPoints(int p) {
-        points = p;
+    public void setNumCarrotsCollected(int p) {
+        numCarrotsCollected = p;
     }
 
     public boolean isInvisible() {
