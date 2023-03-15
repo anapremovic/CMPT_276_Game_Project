@@ -5,12 +5,10 @@ import org.GameObjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ImmovableObjectDisplay extends Thread {
+public class ImmovableObjectDisplay {
     private Screen screen;
     private TileManager tileM;
     private ArrayList<int[]> takenPositions;
-    private Thread bonusRewardThread;
-    private boolean showingBonusReward = false;
 
     public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
@@ -63,7 +61,6 @@ public class ImmovableObjectDisplay extends Thread {
 
             // if both checks not passed, regenerate position
             while(board[randomXPos][randomYPos] != 0 || positionTaken) {
-
                 // regenerate position
                 randomXPos = rand.nextInt(screen.getNumColumns());
                 randomYPos = rand.nextInt(screen.getNumRows());
