@@ -29,17 +29,21 @@ public class Enemy extends MovableObject {
         getImage();
     }
 
-    public int adjust(int a, int b, int low) {
-        int val = (int) Math.floor(a / (double) b);
-        val = Math.max(low, val);
-        return val;
+    public int[] adjust(int x, int y, int tileSize) {
+        for (int j = (int) Math.floor(x / (double) tileSize); j <= Math.ceil(x / (double) tileSize); j++) {
+            for (int i = (int) Math.floor(y / (double) tileSize); i <= Math.ceil(y / (double) tileSize); i++) {
+                if (canPassable(i, j)) return new int[]{j, i};
+            }
+        }
+        return new int[]{-1, -1};
     }
 
 
     public void updateDirection(int tileSize, MainCharacter mainCharacter) {
-        AStarFindPath findPath = new AStarFindPath(new int[]{adjust(xPos, tileSize, 1), adjust(yPos, tileSize,1)}, new int[]{adjust(mainCharacter.xPos, tileSize,1), adjust(mainCharacter.yPos, tileSize,1)}, board);
+        if(xPos%tileSize!=0&&(direction.equals("LEFT")||direction.equals("RIGHT"))) return;
+        if((yPos%tileSize!=0)&&(direction.equals("UP")||direction.equals("DOWN"))) return;
+        AStarFindPath findPath = new AStarFindPath(adjust(xPos, yPos, tileSize), adjust(mainCharacter.xPos, mainCharacter.yPos, tileSize), board);
         findPath.solve();
-        //findPath.printSolutionPath(System.out);
         List<int[]> path = findPath.getPath();
         if (path.isEmpty()) {
             direction = "UNKNOWN";

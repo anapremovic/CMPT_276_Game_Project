@@ -141,7 +141,7 @@ public class Screen extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 // score goes negative => game over
-                if (this.score < 0) {
+                if (this.score < 0||enemyCatchPlayer()) {
                     endGameThread();
                     playerInput.nomovement();
                     gameOverMenu.displayGameOverMenu();
@@ -170,14 +170,22 @@ public class Screen extends JPanel implements Runnable {
 
     public void update() {
         player.update();
-        for (Enemy e:enemies)
-        {
-            e.update(player,tileSize);
+        for (Enemy e : enemies) {
+            e.update(player, tileSize);
         }
 
-        if(objects[10] != null) {
+        if (objects[10] != null) {
             objects[10].updateTime(elapsedTime);
         }
+    }
+
+    public boolean enemyCatchPlayer() {
+        for (Enemy enemy : enemies) {
+            if (Math.abs(enemy.getXPos() - player.getXPos()) < tileSize / 2 && Math.abs(enemy.getYPos() - player.getYPos())
+                    < tileSize / 2)
+                return true;
+        }
+        return false;
     }
 
     public void paintComponent(Graphics g) {
@@ -189,24 +197,22 @@ public class Screen extends JPanel implements Runnable {
         gameTiles.draw(g2); // important to draw tiles before game objects
 
         // IMMOVABLE OBJECTS
-        for(int i = 0; i < objects.length; i++) {
-            if(objects[i] != null) {
-                if(i == 10) {
-                    long curTime = objects[i].getTime()/1000;
-                    if(curTime >= 5 && curTime <= 15) {
-                        objects[i].draw(g2,this);
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] != null) {
+                if (i == 10) {
+                    long curTime = objects[i].getTime() / 1000;
+                    if (curTime >= 5 && curTime <= 15) {
+                        objects[i].draw(g2, this);
                     }
-                }
-                else {
-                    objects[i].draw(g2,this);
+                } else {
+                    objects[i].draw(g2, this);
                 }
             }
         }
 
         // MAIN CHARACTER
         player.draw(g2);
-        for (Enemy e:enemies)
-        {
+        for (Enemy e : enemies) {
             e.draw(g2);
         }
         // TIMER
@@ -248,9 +254,17 @@ public class Screen extends JPanel implements Runnable {
         return screenHeight;
     }
 
-    public ImmovableObject[] getObjects() { return objects; }
-    public WinningMenu getWinningMenu() { return winningMenu; }
-    public long getElapsedTime() { return elapsedTime; }
+    public ImmovableObject[] getObjects() {
+        return objects;
+    }
+
+    public WinningMenu getWinningMenu() {
+        return winningMenu;
+    }
+
+    public long getElapsedTime() {
+        return elapsedTime;
+    }
 
     // setters
     public void setObject(int index, ImmovableObject newObject) {

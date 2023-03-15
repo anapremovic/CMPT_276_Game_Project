@@ -1,7 +1,10 @@
-package org.Logic;
+package org;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Stack;
 
 class ExpansionList implements Comparable<ExpansionList> {
     private int x;
@@ -143,8 +146,8 @@ public class AStarFindPath {
             output.println("No solution found. Call 'solve' to generate a solution path");
         } else {
             Stack<ExpansionList> stack = new Stack<ExpansionList>();
-            output.println("start=" + Arrays.deepToString(new int[][]{start}));
-            output.println("goal=" + Arrays.deepToString(new int[][]{goal}));
+            output.println("Solution=" + getSolution().toString());
+            output.println("getSolution().hasParent() =" + getSolution().hasParent());
 
             for (ExpansionList current = getSolution(); current.hasParent(); current = current.getParent()) {
                 stack.push(current);
