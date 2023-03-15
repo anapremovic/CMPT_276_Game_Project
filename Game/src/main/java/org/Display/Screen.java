@@ -283,7 +283,7 @@ public class Screen extends JPanel implements Runnable {
         score += addedScore;
     }
 
-    public void initializeWinningMenu(long elapsedTime, Screen screen) {
-        winningMenu = new WinningMenu(elapsedTime, screen);
+    public void initializeWinningMenu(long elapsedTime, Screen screen, int points) {
+        winningMenu = new WinningMenu(elapsedTime, screen, score);
     }
 }

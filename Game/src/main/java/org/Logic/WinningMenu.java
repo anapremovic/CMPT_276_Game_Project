@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.Display.Screen;
+import org.GameObjects.Reward;
+
 import java.awt.Image;
 import java.io.IOException;
 import java.awt.Graphics;
@@ -19,10 +21,12 @@ import java.awt.Font;
 public class WinningMenu extends JFrame {
     private long timeTaken;
     private Screen screen;
+    private int points;
 
-    public WinningMenu(long timeTaken, Screen screen) {
+    public WinningMenu(long timeTaken, Screen screen, int points) {
         this.timeTaken = timeTaken;
         this.screen = screen;
+        this.points = points;
     }
 
     public void displayWinningMenu() {
@@ -47,11 +51,27 @@ public class WinningMenu extends JFrame {
         };
         backgroundPanel.setLayout(null);
 
+        //calculate score based on time taken and bonus reward
+        int score = (int) (1000 - timeTaken * 12);
+        if (score < 0){
+            score = 0;
+        }
+        if (points > 10){
+            score = score + 100;
+        }
+
+        //creating score label
+        JLabel scoreLabel = new JLabel("" + score);
+        scoreLabel.setBounds(450, 210, 170, 50);
+        scoreLabel.setForeground(Color.black);
+        Font font2 = new Font("Arial", Font.BOLD, 40); // for the score and time text
+        scoreLabel.setFont(font2);
+
+
         //creating time taken label
         JLabel timeTakenLabel = new JLabel("" + formatTime((int)timeTaken));
         timeTakenLabel.setBounds(450, 270, 170, 50);
         Font font = new Font("Arial", Font.BOLD, 16); //for the button text
-        Font font2 = new Font("Arial", Font.BOLD, 40); // for the time text
         timeTakenLabel.setForeground(Color.black);
         timeTakenLabel.setFont(font2);
 
@@ -83,6 +103,7 @@ public class WinningMenu extends JFrame {
         exitButton.setFont(font);
 
         //adding the components to the window
+        backgroundPanel.add(scoreLabel);
         backgroundPanel.add(timeTakenLabel);
         backgroundPanel.add(restartGameButton);
         backgroundPanel.add(exitButton);
