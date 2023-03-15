@@ -173,7 +173,7 @@ public class MainCharacter extends MovableObject{
         if(tileType == 3 && !hasGameEnded) {
             screen.endGameThread();
             long seconds = screen.getElapsedTime() / 1000;
-            screen.initializeWinningMenu(seconds, screen);
+            screen.initializeWinningMenu(seconds, screen, points);
             screen.getWinningMenu().displayWinningMenu();;
             hasGameEnded = true;
         }
