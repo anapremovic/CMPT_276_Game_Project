@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class MainCharacter extends MovableObject{
-    private int numCarrotsCollected; // current player points
+    private int numCarrotsCollected; // current number of collected carrots
     private boolean isInvisible; // has the player achieve Mystical Ocean Fruit powerup
     private Screen screen; // Screen class the main character is draw on
     private KeyHandler playerInput; // object that takes user input

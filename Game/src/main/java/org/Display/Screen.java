@@ -141,13 +141,13 @@ public class Screen extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 // score goes negative => game over
-                if (this.score < 0||enemyCatchPlayer()) {
+                if (this.score < 0 || (enemyCatchPlayer() && player.getNumCarrotsCollected() < 10) ) {
                     endGameThread();
                     playerInput.nomovement();
                     gameOverMenu.displayGameOverMenu();
                 }
 
-                // score reaches 10 => exit unlocks
+                // player collects 10 carrots => exit unlocks
                 if (player.getNumCarrotsCollected() >= 10) {
                     gameTiles.setMap("/maps/map02.txt");
                 }
