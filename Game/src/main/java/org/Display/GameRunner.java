@@ -13,7 +13,7 @@ public class GameRunner {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the program when you click X
         window.setResizable(false); // do not allow resizing
-        window.setTitle("Group 4 Game");
+        window.setTitle("The Legend of the Turtle: Turtle Run");
 
         Screen screen = new Screen();
         window.add(screen);

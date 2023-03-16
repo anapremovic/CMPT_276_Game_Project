@@ -69,10 +69,10 @@ public class Screen extends JPanel implements Runnable {
         menuLogic.displayMenu();
         enemies = new ArrayList<>();
         Enemy e1 = new Enemy(this, gameTiles);
-        e1.setStartingValues(tileSize*2, tileSize*4, 1, "UNKNOWN");
+        e1.setStartingValues(tileSize*2, tileSize*4, 3, "UNKNOWN");
         enemies.add(e1);
         Enemy e2 = new Enemy(this, gameTiles);
-        e2.setStartingValues(tileSize*5, tileSize*8, 1, "UNKNOWN");
+        e2.setStartingValues(tileSize*5, tileSize*8, 4, "UNKNOWN");
         enemies.add(e2);
         // initialize elapsedTime to 0
         elapsedTime = 0;
@@ -119,7 +119,7 @@ public class Screen extends JPanel implements Runnable {
         e2.setStartingValues(tileSize*5, tileSize*8, 1, "UNKNOWN");
         enemies.add(e2);
         // start new game window
-        JFrame newFrame = new JFrame("Game");
+        JFrame newFrame = new JFrame("The Legend of the Turtle: Turtle Run");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newFrame.setResizable(false);
         newFrame.add(this);
@@ -152,14 +152,14 @@ public class Screen extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 // score goes negative => game over
-                if (this.score < 0||enemyCatchPlayer()) {
+                if (this.score < 0 || (enemyCatchPlayer() && player.getNumCarrotsCollected() < 10) ) {
                     endGameThread();
                     playerInput.nomovement();
                     gameOverMenu.displayGameOverMenu();
                 }
 
-                // score reaches 10 => exit unlocks
-                if (this.score >= 1) {
+                // player collects 10 carrots => exit unlocks
+                if (player.getNumCarrotsCollected() >= 10) {
                     gameTiles.setMap("/maps/map02.txt");
                 }
 
