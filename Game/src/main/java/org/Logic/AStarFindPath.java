@@ -234,32 +234,3 @@ public class AStarFindPath {
 }
 
 
-class AStar {
-
-    public static void main(String[] args) {
-        System.out.println("Start");
-
-        int[] start = {0, 0};
-        int[] goal = {2, 6};
-
-        int[][] maze =
-                {
-                        {0, 1, 0, 0, 0, 0, 0, 0, 1, 0},
-                        {0, 0, 0, 1, 0, 1, 0, 0, 1, 0},
-                        {1, 0, 0, 0, 0, 0, 1, 0, 1, 0},
-                        {0, 1, 0, 1, 0, 1, 0, 0, 1, 0},
-                        {1, 0, 0, 0, 0, 1, 0, 0, 1, 0},
-                        {1, 0, 0, 1, 0, 1, 0, 0, 1, 0},
-                        {0, 0, 0, 1, 1, 0, 1, 0, 1, 0},
-                        {0, 1, 0, 0, 0, 0, 1, 0, 0, 0}
-                };
-        AStarFindPath solver = new AStarFindPath(start, goal, maze);
-        long startT = System.currentTimeMillis();
-        solver.solve();
-        System.out.println(System.currentTimeMillis() - startT);
-        solver.printSolutionPath(System.out);
-        if (!solver.hasAccurateSolution()) System.out.println("No Solution");
-    }
-}
-
-
