@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * Entity used to encode all information on our game's main character, controlled by the player: a turtle trying to
- * read the ocean.
+ * reach the ocean.
  */
 public class MainCharacter extends MovableObject{
     /**
