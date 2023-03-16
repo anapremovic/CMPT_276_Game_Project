@@ -1,13 +1,19 @@
 The Legend of the Turtle: Turtle Run
 
+
 Game Developers:
 
 Matin Keivanloo
+
 Regan Li
+
 Ana Premovic
+
 Zhaoyue Yuan
 
+
 Royalty Free/Public Domain Game Assets - Artist Credits:
+
 
 Carrot: "Graphics Pixel art Illustration, carrot, game, orange png" artist unknown
 https://www.pngegg.com/en/png-eqwjv 
