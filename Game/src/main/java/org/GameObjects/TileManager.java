@@ -9,12 +9,31 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
-
+/**
+ * Contains all logic create a board of tiles and display them to the screen.
+ */
 public class TileManager {
-    private Screen screen;
-    private Tile[] tileTypes; // all the different types of tiles
-    private int board[][]; // 2D array of ints, where each int represents the tile type corresponding to tiles[] for that position
 
+    /**
+     * Screen that the tiles will be displayed on.
+     */
+    private Screen screen;
+
+    /**
+     * Array where each element is a Tile, and each index represents the type of that tile.
+     */
+    private Tile[] tileTypes;
+
+    /**
+     * 2D array of ints, where each int represents the tile type corresponding to tileTypes[] for that position
+     */
+    private int board[][];
+
+    /**
+     * Initializes variables, loads tile sprites, and populates board.
+     *
+     * @param screen    screen that the tiles will be displayed on
+     */
     public TileManager(Screen screen) {
         this.screen = screen;
         tileTypes = new Tile[4]; // we have 4 tile types in our game
@@ -24,7 +43,11 @@ public class TileManager {
         loadBoardData("/maps/map01.txt");
     }
 
-    // load board data from given txt file into board[][]
+    /**
+     * Load board data into board[][] from a given text file.
+     *
+     * @param boardFilePath    file path corresponding to a txt file which encodes board information
+     */
     public void loadBoardData(String boardFilePath) {
         try {
             InputStream is = getClass().getResourceAsStream(boardFilePath); // load map file
@@ -47,7 +70,9 @@ public class TileManager {
         }
     }
 
-    // load all possible tile images into tileTypes[]
+    /**
+     * For each of our 4 tile types, load the correct image and set whether the tile is solid.
+     */
     public void getTileImages() {
 
         try {
@@ -75,7 +100,11 @@ public class TileManager {
         }
     }
 
-    // draw tiles onto screen
+    /**
+     * Draw all the tiles in board[][] to the screen.
+     *
+     * @param g     the <code>Graphics</code> object to protect
+     */
     public void draw(Graphics2D g) {
         for(int row = 0; row < screen.getNumRows(); row++) {
             for(int col = 0; col < screen.getNumColumns(); col++) {
@@ -93,9 +122,14 @@ public class TileManager {
         }
     }
 
+    // GETTERS
     public int[][] getBoard() { return board; }
     public Tile[] getTileTypes() { return tileTypes; }
 
+    /**
+     * Load a new txt file encoding board information into board[][]. In other words, display a new map to the screen.
+     * @param filePath
+     */
     public void setMap(String filePath) {
         loadBoardData(filePath);
     }
