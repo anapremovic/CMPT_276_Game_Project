@@ -4,9 +4,26 @@ import org.Logic.MenuLogic;
 
 import javax.swing.*;
 
+/**
+ * Class that contains main() method for our game. Creates window, sets up all game objects, and commences
+ * game loop.
+ */
 public class GameRunner {
+    /**
+     * Contains main game loop and general game display logic.
+     */
     Screen screen;
+
+    /**
+     * Contains logic for starting, losing, and winning menus.
+     */
     MenuLogic menuLogic;
+
+    /**
+     * Creates game window and runs our game.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println("Starting The Legend of the Turtle: Turtle Run!");
 
