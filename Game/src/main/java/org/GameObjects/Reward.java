@@ -12,6 +12,6 @@ public abstract class Reward extends ImmovableObject {
     protected int points;
 
     // GETTERS
-    
+
     public abstract int getPoints();
 }
