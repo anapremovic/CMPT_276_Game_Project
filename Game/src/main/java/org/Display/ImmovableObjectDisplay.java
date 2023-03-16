@@ -5,11 +5,33 @@ import org.GameObjects.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Contains all logic to display carrots, mystical ocean fruit, and lava tiles to screen.
+ */
 public class ImmovableObjectDisplay {
+    /**
+     * The screen to display the objects to.
+     */
     private Screen screen;
+
+    /**
+     * Contains the game board, which is used to obtain the x and y positions to display the objects at.
+     */
     private TileManager tileM;
+
+    /**
+     * A list containing all x and y positions that should not get a new object displayed at. Each ArrayList element is
+     * an int array of size 2, where the 0-th index corresponds to the x position, and the 1st index corresponds to the
+     * y position.
+     */
     private ArrayList<int[]> takenPositions;
 
+    /**
+     * Initialize fields and set initial taken positions.
+     *
+     * @param screen    screen that objects are displayed on
+     * @param tileM     tile logic, containing x and y positions
+     */
     public ImmovableObjectDisplay(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
@@ -36,19 +58,26 @@ public class ImmovableObjectDisplay {
         takenPositions.add(inFrontOfExit3);
     }
 
+    /**
+     * Initialize ImmovableObject's in Screen class, placing all objects in randomized positions. For each random
+     * position generated, first check that there is not already an object at that position (using takenPositions list).
+     * Second, check that the generated position is on a valid tile (empty cave tile).
+     *
+     * @param numToDisplay      number of objects to display (usually all, except when user touches a lava tile in
+     *                          which case only display 3 more carrots)
+     */
     public void displayObjects(int numToDisplay) {
         Random rand = new Random();
 
         int[][] board = tileM.getBoard(); // game board determining tile types
         //int numObjects = screen.getObjects().length;
 
-        // generate 10 carrots and 1 mystical ocean fruit
         for(int i = 0; i < numToDisplay; i++) {
             // generate random position for the current reward
             int randomXPos = rand.nextInt(screen.getNumColumns());
             int randomYPos = rand.nextInt(screen.getNumRows());
 
-            // CHECK #1: check to make sure there is not already a carrot at this position
+            // CHECK #1: check to make sure there is not already an object at this position
             // CHECK #2: make sure the position is on an empty cave tile
 
             // prepare boolean for CHECK #1
@@ -100,7 +129,17 @@ public class ImmovableObjectDisplay {
         }
     }
 
+    /**
+     * @return      list containing all positions that already have an object at the current time
+     */
     public ArrayList<int[]> getTakenPositions() { return takenPositions; }
+
+    /**
+     * Set a new position to "taken".
+     *
+     * @param x     the x value of the position
+     * @param y     the y value of the position
+     */
     public void addTakenPosition(int x, int y) {
         int[] newPosition = new int[2];
         newPosition[0] = x;
@@ -108,6 +147,13 @@ public class ImmovableObjectDisplay {
 
         takenPositions.add(newPosition);
     }
+
+    /**
+     * Set a given position to no longer be "taken".
+     *
+     * @param x     the x value of the position
+     * @param y     the y value of the position
+     */
     public void removeTakenPosition(int x, int y) {
         for(int[] cur : takenPositions) {
             if(cur[0] == x && cur[1] == y) {
