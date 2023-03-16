@@ -4,7 +4,18 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Entity used to encode all information regarding the bonus reward, a specific type of reward which is not required
+ * to win the game, but increases the final score of the player.
+ */
 public class BonusReward extends Reward {
+    /**
+     * Initialize this bonus reward to a given x and y position, as well as initializing all its variables and loading
+     * its image file.
+     *
+     * @param xPos  x position of the bonus reward on screen
+     * @param yPos  y position of the bonus reward on screen
+     */
     public BonusReward(int xPos, int yPos) {
         this.timeSinceSpawned = 0;
 
@@ -26,6 +37,7 @@ public class BonusReward extends Reward {
         }
     }
 
+    // GETTERS
     public int getPoints() {
         return points;
     }
