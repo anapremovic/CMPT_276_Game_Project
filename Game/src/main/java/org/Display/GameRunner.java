@@ -8,7 +8,7 @@ public class GameRunner {
     Screen screen;
     MenuLogic menuLogic;
     public static void main(String[] args) {
-        System.out.println("Starting 2D Game!");
+        System.out.println("Starting The Legend of the Turtle: Turtle Run!");
 
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the program when you click X
