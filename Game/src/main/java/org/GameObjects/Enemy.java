@@ -3,7 +3,6 @@ package org.GameObjects;
 //import org.javatuples.Pair;
 
 import org.Display.Screen;
-import org.Logic.CollisionDetector;
 import org.Logic.AStarFindPath;
 
 import javax.imageio.ImageIO;
@@ -12,19 +11,14 @@ import java.io.IOException;
 import java.util.List;
 
 public class Enemy extends MovableObject {
-    // ArrayList of pairs where each pair represents a tile on the 2D tilemap
-    //ArrayList<Pair<Integer,Integer>> shortestPathToMainCharacter;
     Image snake;
-    private CollisionDetector collisionDetector;
     int[][] board;
     String direction;
 
-    public Enemy(Screen screen, CollisionDetector collisionDetector, TileManager gameTiles) {
+    public Enemy(Screen screen, TileManager gameTiles) {
         this.width = screen.getTileSize();
         this.height = screen.getTileSize();
-        this.collisionDetector = collisionDetector;
         board = transposeMatrix(gameTiles.getBoard());
-        // System.out.println(Arrays.deepToString(board));
         setStartingValues(500, 200, 2, "UNKNOWN");
         getImage();
     }

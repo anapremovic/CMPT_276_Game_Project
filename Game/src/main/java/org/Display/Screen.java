@@ -67,7 +67,13 @@ public class Screen extends JPanel implements Runnable {
         // display menu at start of program
         menuLogic = new MenuLogic(this);
         menuLogic.displayMenu();
-        enemies.add(new Enemy(this, collisionDetector, gameTiles));
+        enemies = new ArrayList<>();
+        Enemy e1 = new Enemy(this, gameTiles);
+        e1.setStartingValues(tileSize*2, tileSize*4, 1, "UNKNOWN");
+        enemies.add(e1);
+        Enemy e2 = new Enemy(this, gameTiles);
+        e2.setStartingValues(tileSize*5, tileSize*8, 1, "UNKNOWN");
+        enemies.add(e2);
         // initialize elapsedTime to 0
         elapsedTime = 0;
     }
@@ -106,7 +112,12 @@ public class Screen extends JPanel implements Runnable {
         objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
         player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
         enemies = new ArrayList<>();
-        enemies.add(new Enemy(this, collisionDetector, gameTiles));
+        Enemy e1 = new Enemy(this, gameTiles);
+        e1.setStartingValues(tileSize*2, tileSize*4, 1, "UNKNOWN");
+        enemies.add(e1);
+        Enemy e2 = new Enemy(this, gameTiles);
+        e2.setStartingValues(tileSize*5, tileSize*8, 1, "UNKNOWN");
+        enemies.add(e2);
         // start new game window
         JFrame newFrame = new JFrame("Game");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,8 +192,8 @@ public class Screen extends JPanel implements Runnable {
 
     public boolean enemyCatchPlayer() {
         for (Enemy enemy : enemies) {
-            if (Math.abs(enemy.getXPos() - player.getXPos()) < tileSize / 2 && Math.abs(enemy.getYPos() - player.getYPos())
-                    < tileSize / 2)
+            if (Math.abs(enemy.getXPos() - player.getXPos()) < tileSize && Math.abs(enemy.getYPos() - player.getYPos())
+                    < tileSize )
                 return true;
         }
         return false;
