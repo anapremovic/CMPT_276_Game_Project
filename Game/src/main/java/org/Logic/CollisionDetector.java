@@ -3,16 +3,39 @@ package org.Logic;
 import org.GameObjects.*;
 import org.Display.*;
 
+/**
+ * Contains logic for checking and detecting collisions between player and tiles as well as player and immovable
+ * objects.
+ */
 public class CollisionDetector {
+    /**
+     * The screen the collision takes place on.
+     */
     Screen screen;
+
+    /**
+     * Object containing information on the tiles on which the collision takes place.
+     */
     TileManager tileM;
 
+    /**
+     * Initialize this object's variables.
+     *
+     * @param screen    screen collisions occur on
+     * @param tileM     tiles collisions occur on
+     */
     public CollisionDetector(Screen screen, TileManager tileM) {
         this.screen = screen;
         this.tileM = tileM;
     }
-    
-    // detect collision between the main character and the tile they are touching
+
+    /**
+     * Detect collision between the main character and any tiles they are currently touching.
+     *
+     * @param player    the main character
+     * @return          the tile type the player is touching, corresponding to the indices of tileTypes[] in
+     *                  TileManager
+     */
     public int detectTile(MainCharacter player) {
         // x and y positions in pixels
         int leftX = player.getXPos() + player.getCollidableArea().x;
@@ -86,7 +109,12 @@ public class CollisionDetector {
         return tileType1;
     }
 
-    // detect collision between the player and a reward/punishment
+    /**
+     * Detect collision between the main character and a reward or a punishment.
+     *
+     * @param player    the main character
+     * @return          the type of immovable object collided with, corresponding to indices in rewards[] in Screen
+     */
     public int detectImmovableObject(MainCharacter player) {
         ImmovableObject[] objects = screen.getObjects();
 
