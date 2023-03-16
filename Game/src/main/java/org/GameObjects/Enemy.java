@@ -19,7 +19,7 @@ public class Enemy extends MovableObject {
         this.width = screen.getTileSize();
         this.height = screen.getTileSize();
         board = transposeMatrix(gameTiles.getBoard());
-        setStartingValues(500, 200, 2, "UNKNOWN");
+        setStartingValues(500, 200, 4, "UNKNOWN");
         getImage();
     }
 
