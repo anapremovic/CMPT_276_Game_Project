@@ -10,53 +10,139 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * Contains general game logic, including main game loop, asset drawing, and updating of movable and immovable objects.
+ * Acts as the main center/culmination of our program.
+ */
 public class Screen extends JPanel implements Runnable {
     // settings
-    final int baseTileSize = 16;
-    final int scale = 3;
 
-    int tileSize = baseTileSize * scale; // 48x48 tile size
+    /**
+     * The size of the length and width of each tile of our game in pixels.
+     */
+    int tileSize = 48; // 48x48 tile size
+
+    /**
+     * Number of columns of our game screen.
+     */
     int screenColumns = 21;
+
+    /**
+     * Number of rows of our game screen.
+     */
     int screenRows = 16;
+
+    /**
+     * Width of our game screen in pixels.
+     */
     final int screenWidth = tileSize * screenColumns;
+
+    /**
+     * Height of our game screen in pixels.
+     */
     final int screenHeight = tileSize * screenRows;
 
     // FPS
+    /**
+     * Number of frames per second our game runs at.
+     */
     final int FPS = 60;
 
     // game logic
+    /**
+     * Takes player input via WASD keys or arrow keys, in order to facilitate main character movement.
+     */
     private KeyHandler playerInput = new KeyHandler();
+
+    /**
+     * Holds all information about the game tiles.
+     */
     private TileManager gameTiles = new TileManager(this);
+
+    /**
+     * Handles collisions between player and tiles as well as player and immovable objects.
+     */
     private CollisionDetector collisionDetector = new CollisionDetector(this, gameTiles);
+
+    /**
+     * Main game loop thread. As long as the thread is running, the game runs.
+     */
     private Thread gameThread;
 
 
     // game objects
+    /**
+     * List containing all snake enemies.
+     */
     ArrayList<Enemy> enemies = new ArrayList<>();
-    // display up to 10 carrots, 1 mystical ocean fruit, and 6 lava at one time
+
+    /**
+     * Array containing all possible immovable objects in our game. Display up to 10 carrots, 1 mystical ocean fruit,
+     * and 6 lava at one time
+     */
     private ImmovableObject objects[] = new ImmovableObject[17];
+
+    /**
+     * Populates objects[] with the corresponding objects.
+     */
     private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
+
+    /**
+     * Main character of our game, a turtle.
+     */
     private MainCharacter player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
+
+    /**
+     * Contains all logic in reference to starting, winning, and losing menus.
+     */
     private MenuLogic menuLogic;
     private WinningMenu winningMenu;
     private GameOverMenu gameOverMenu = new GameOverMenu(this);
 
     //game state
+    /**
+     * Toggles between game state and menu state.
+     */
     public int gameState;
-    public final int playState = 1;
+
+    /**
+     * Indicates whether the player has lost the game.
+     */
     public final int gameOver = 2;
 
 
     // timer
+    /**
+     * Time at which the game started, in milliseconds.
+     */
     private long startTime;
+
+    /**
+     * How long has passed since the game started, in milliseconds.
+     */
     private long elapsedTime;
+
+    /**
+     * Font for any timer information displayed on the screen.
+     */
     private Font timerFont = new Font("Arial", Font.BOLD, 20);
 
     // score
+
+    /**
+     * Current score of player where they receive 1 points for collecting a carrot, 3 for a mystical ocean fruit, and
+     * lose 3 for touching lava.
+     */
     private int score = 0;
+
+    /**
+     * Font for any score information displayed on the screen.
+     */
     private Font scoreFont = new Font("Arial", Font.BOLD, 20);
 
-
+    /**
+     * Sets basic information on the screen, initializes variables, and commences timer.
+     */
     public Screen() {
         // set screen size
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -78,22 +164,34 @@ public class Screen extends JPanel implements Runnable {
         elapsedTime = 0;
     }
 
+    /**
+     * Initial game set up, including initializing objects[] and setting time info.
+     */
     public void gameSetup() {
         objDisplayer.displayObjects(objects.length);
         startTime = System.currentTimeMillis();
         elapsedTime = 0;
     }
 
-
+    /**
+     * Start the game thread which allows the game to be played.
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start(); // call run() method
     }
 
+    /**
+     * End the game thread which allows the game to be played.
+     */
     public void endGameThread() {
         gameThread.interrupt();
     }
 
+    /**
+     * From the winning or losing menus, the player may choose to restart the game.
+     * Reinitialize all game information and variables, restart timer, as well as create a new game window.
+     */
     public void restartGame() {
         // end current game thread
         endGameThread();
@@ -132,7 +230,9 @@ public class Screen extends JPanel implements Runnable {
         //player.setPosition(player.getInitialXPos(), player.getInitialYPos());
     }
 
-    // GAME LOOP
+    /**
+     * Contains main game loop. As long as the game loop runs (based on the main game thread), the game runs.
+     */
     @Override
     public void run() {
         double drawInterval = 1000000000 / FPS; // 1 second/60
@@ -179,6 +279,9 @@ public class Screen extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Update positions and logic of all game objects (main character, enemies, and immovable game objects).
+     */
     public void update() {
         player.update();
         for (Enemy e : enemies) {
@@ -190,7 +293,12 @@ public class Screen extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Detects collision between an enemy and the main character.
+     * @return      indication of whether collision has been detected
+     */
     public boolean enemyCatchPlayer() {
+        // check all enemies
         for (Enemy enemy : enemies) {
             if (Math.abs(enemy.getXPos() - player.getXPos()) < tileSize && Math.abs(enemy.getYPos() - player.getYPos())
                     < tileSize )
@@ -199,6 +307,12 @@ public class Screen extends JPanel implements Runnable {
         return false;
     }
 
+    /**
+     * Draw all assets and relevant player information to screen, including tiles, main character, enemies,
+     * immovable objects, timer, and score.
+     *
+     * @param g     the <code>Graphics</code> object to protect
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -244,7 +358,8 @@ public class Screen extends JPanel implements Runnable {
         g2.dispose();
     }
 
-    // getters
+    // GETTERS
+
     public int getTileSize() {
         return tileSize;
     }
@@ -255,14 +370,6 @@ public class Screen extends JPanel implements Runnable {
 
     public int getNumRows() {
         return screenRows;
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
     }
 
     public ImmovableObject[] getObjects() {
@@ -277,7 +384,7 @@ public class Screen extends JPanel implements Runnable {
         return elapsedTime;
     }
 
-    // setters
+    // SETTERS
     public void setObject(int index, ImmovableObject newObject) {
         objects[index] = newObject;
     }
@@ -290,10 +397,22 @@ public class Screen extends JPanel implements Runnable {
         objects[index].setCollidableAreaY(y);
     }
 
+    /**
+     * Add a given number to the current score.
+     *
+     * @param addedScore       number to add to score
+     */
     public void updateScore(int addedScore) {
         score += addedScore;
     }
 
+    /**
+     * Initialize the winningMenu variable with a given time, screen, and current points
+     *
+     * @param elapsedTime   current time to be passed to winningMenu
+     * @param screen        screen to display winning menu on
+     * @param points        current points to be used in winning menu logic
+     */
     public void initializeWinningMenu(long elapsedTime, Screen screen, int points) {
         winningMenu = new WinningMenu(elapsedTime, screen, score);
     }

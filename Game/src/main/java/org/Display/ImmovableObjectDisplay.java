@@ -129,9 +129,8 @@ public class ImmovableObjectDisplay {
         }
     }
 
-    /**
-     * @return      list containing all positions that already have an object at the current time
-     */
+    // GETTERS
+
     public ArrayList<int[]> getTakenPositions() { return takenPositions; }
 
     /**

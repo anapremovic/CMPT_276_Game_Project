@@ -30,7 +30,7 @@ public class KeyHandler implements KeyListener {
     /**
      * Takes key press information from the user and updates corresponding boolean.
      *
-     * @param e the event to be processed
+     * @param e     the event to be processed
      */
     @Override
     public void keyPressed(KeyEvent e) {
@@ -66,7 +66,7 @@ public class KeyHandler implements KeyListener {
     /**
      * Takes key release information from user and updates the corresponding boolean.
      *
-     * @param e the event to be processed
+     * @param e     the event to be processed
      */
     @Override
     public void keyReleased(KeyEvent e) {
