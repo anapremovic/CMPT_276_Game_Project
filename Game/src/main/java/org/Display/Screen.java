@@ -69,10 +69,10 @@ public class Screen extends JPanel implements Runnable {
         menuLogic.displayMenu();
         enemies = new ArrayList<>();
         Enemy e1 = new Enemy(this, gameTiles);
-        e1.setStartingValues(tileSize*2, tileSize*4, 3, "UNKNOWN");
+        e1.setStartingValues(tileSize*2, tileSize*4, 2, "UNKNOWN");
         enemies.add(e1);
         Enemy e2 = new Enemy(this, gameTiles);
-        e2.setStartingValues(tileSize*5, tileSize*8, 4, "UNKNOWN");
+        e2.setStartingValues(tileSize*5, tileSize*8, 2, "UNKNOWN");
         enemies.add(e2);
         // initialize elapsedTime to 0
         elapsedTime = 0;
@@ -113,10 +113,10 @@ public class Screen extends JPanel implements Runnable {
         player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
         enemies = new ArrayList<>();
         Enemy e1 = new Enemy(this, gameTiles);
-        e1.setStartingValues(tileSize*2, tileSize*4, 1, "UNKNOWN");
+        e1.setStartingValues(tileSize*2, tileSize*4, 2, "UNKNOWN");
         enemies.add(e1);
         Enemy e2 = new Enemy(this, gameTiles);
-        e2.setStartingValues(tileSize*5, tileSize*8, 1, "UNKNOWN");
+        e2.setStartingValues(tileSize*5, tileSize*8, 2, "UNKNOWN");
         enemies.add(e2);
         // start new game window
         JFrame newFrame = new JFrame("The Legend of the Turtle: Turtle Run");
