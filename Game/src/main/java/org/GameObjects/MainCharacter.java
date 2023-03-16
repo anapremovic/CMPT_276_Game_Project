@@ -10,23 +10,82 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Entity used to encode all information on our game's main character, controlled by the player: a turtle trying to
+ * read the ocean.
+ */
 public class MainCharacter extends MovableObject{
-    private int numCarrotsCollected; // current number of collected carrots
-    private boolean isInvisible; // has the player achieve Mystical Ocean Fruit powerup
-    private Screen screen; // Screen class the main character is draw on
-    private KeyHandler playerInput; // object that takes user input
-    private CollisionDetector collisionDetector; // handles collisions with other objects
+    /**
+     * Current number of carrots (regular rewards) collected by the player.
+     */
+    private int numCarrotsCollected;
+
+    /**
+     * Indicated whether the player has collected a Mystical Ocean Fruit, which grants them invincibility.
+     */
+    private boolean isInvisible;
+
+    /**
+     * Screen the main character is displayed on.
+     */
+    private Screen screen;
+
+    /**
+     * Object to take user input which facilitates movement.
+     */
+    private KeyHandler playerInput;
+
+    /**
+     * Object to handle collisions with immovable objects and tiles.
+     */
+    private CollisionDetector collisionDetector;
+
+    /**
+     * Object which displays all immovable objects to screen.
+     */
     private ImmovableObjectDisplay objDisplayer;
+
+    /**
+     * Object which contains information on game tiles.
+     */
     private TileManager tileM;
 
-    private BufferedImage up, down, left, right; // 4 possible turtle sprites
-    private String direction; // which way the turtle is facing
+    /**
+     * Object containing logic to display an image on the screen from a PNG file. There are four possible turtle
+     * sprites, depending on which direction the player is facing.
+     */
+    private BufferedImage up, down, left, right;
 
+    /**
+     * Indicates which way the player is facing.
+     */
+    private String direction;
+
+    /**
+     * Starting x position of the player.
+     */
     private int initialXPos;
+
+    /**
+     * Starting y position of the player.
+     */
     private int initialYPos;
 
+    /**
+     * Indicates whether the main game thread has ended or not.
+     */
     private boolean hasGameEnded = false;
 
+    /**
+     * Initializes all main character variables, sets the initial position of the player, sets the starting direction
+     * faced and speed, and loads the turtle sprite.
+     *
+     * @param screen                screen main character is displayed on
+     * @param handler               object that handles user input
+     * @param collisionDetector     object that handles collisions with immovable objects and tiles
+     * @param objDisplayer          object that display immovable objects to screen
+     * @param tileM                 object that contains information on tiles
+     */
     public MainCharacter(Screen screen, KeyHandler handler, CollisionDetector collisionDetector,
                          ImmovableObjectDisplay objDisplayer, TileManager tileM) {
         this.width = screen.getTileSize();
@@ -48,7 +107,12 @@ public class MainCharacter extends MovableObject{
         getImage();
     }
 
-    // set default values for the main character, including position, speed, and direction faced
+    /**
+     * Set default values for the main character, including position, speed, and direction faced.
+     *
+     * @param speed         how many pixels the main character moves when a key is pressed to move
+     * @param direction     initial direction the main character is facing
+     */
     public void setStartingValues(int speed, String direction) {
         this.xPos = initialXPos;
         this.yPos = initialYPos;
@@ -56,7 +120,9 @@ public class MainCharacter extends MovableObject{
         this.direction = direction;
     }
 
-    // load turtle sprite on to the screen
+    /**
+     * Load all four turtle sprites.
+     */
     public void getImage() {
         try {
             up = ImageIO.read(getClass().getResourceAsStream("/turtle_up.png"));
@@ -68,36 +134,43 @@ public class MainCharacter extends MovableObject{
         }
     }
 
-    // functionality for when the player touches a regular reward, bonus reward, or punishment
-    private void touchObject(int index) {
-        if(index != 999) { // when index is 999, no object was touched
-            String objectName = screen.getObjects()[index].getName();
+    /**
+     * Handles logic for when the player touches an immovable object.
+     *
+     * @param tileType    index representing the type of the object corresponding to the objects[] array in Screen
+     */
+    private void touchObject(int tileType) {
+        if(tileType != 999) { // when index is 999, no object was touched
+            String objectName = screen.getObjects()[tileType].getName();
 
             int x;
             int y;
             switch(objectName) {
                 case "Carrot":
+                    // increment score by 1
                     this.numCarrotsCollected += 1;
                     screen.updateScore(1);
 
                     // remove carrot from screen
-                    x = screen.getObjects()[index].getXPos();
-                    y = screen.getObjects()[index].getYPos();
-                    screen.setObject(index, null);
+                    x = screen.getObjects()[tileType].getXPos();
+                    y = screen.getObjects()[tileType].getYPos();
+                    screen.setObject(tileType, null);
                     objDisplayer.removeTakenPosition(x, y);
 
                     break;
                 case "Mystical Ocean Fruit":
+                    // increment score by 3
                     screen.updateScore(3);
 
                     // remove bonus reward from screen
-                    x = screen.getObjects()[index].getXPos();
-                    y = screen.getObjects()[index].getYPos();
-                    screen.setObject(index, null);
+                    x = screen.getObjects()[tileType].getXPos();
+                    y = screen.getObjects()[tileType].getYPos();
+                    screen.setObject(tileType, null);
                     objDisplayer.removeTakenPosition(x, y);
 
                     break;
                 case "Lava":
+                    // decrement score by 3
                     this.numCarrotsCollected -= 3;
                     screen.updateScore(-3);
 
@@ -105,9 +178,9 @@ public class MainCharacter extends MovableObject{
                     this.setPosition(this.initialXPos, this.initialYPos);
 
                     // remove lava from screen
-                    x = screen.getObjects()[index].getXPos();
-                    y = screen.getObjects()[index].getYPos();
-                    screen.setObject(index, null);
+                    x = screen.getObjects()[tileType].getXPos();
+                    y = screen.getObjects()[tileType].getYPos();
+                    screen.setObject(tileType, null);
                     objDisplayer.removeTakenPosition(x, y);
 
                     // ADD 3 NEW CARROTS TO SCREEN
@@ -167,26 +240,28 @@ public class MainCharacter extends MovableObject{
         }
     }
 
-    // functionality for when player touches an ocean tile
+    /**
+     * Handles logic for when player touches an ocean tile.
+     *
+     * @param tileType      index representing the type of the object corresponding to the objects[] array in Screen
+     */
     private void exitCave(int tileType) {
         if(tileType == 3 && !hasGameEnded) {
+            // the player has won so end the game loop
             screen.endGameThread();
-            long seconds = screen.getElapsedTime() / 1000;
+
+            long seconds = screen.getElapsedTime() / 1000; // time when player won
+
+            // show winning screen
             screen.initializeWinningMenu(seconds, screen, numCarrotsCollected);
             screen.getWinningMenu().displayWinningMenu();;
             hasGameEnded = true;
         }
-
-        //if(tileType == 3) {
-            //screen.endGameThread();
-            //long seconds = screen.getElapsedTime() / 1000;
-            //screen.initializeWinningMenu(seconds, screen);
-            //screen.getWinningMenu().displayWinningMenu();;
-        //}
-
     }
 
-    // update player position and sprite on key press
+    /**
+     * Updates player position and sprite on key press.
+     */
     public void update() {
         // is the player colliding?
         this.collisionOn = false;
@@ -194,47 +269,70 @@ public class MainCharacter extends MovableObject{
         int tileTypeTouched;
         if(playerInput.upPressed) {
             direction = "up";
+
+            // update collisionOn
             tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
-            touchObject(objIndex);
-            exitCave(tileTypeTouched);
+
+            touchObject(objIndex); // invoke corresponding logic depending on which tile is being touched
+            exitCave(tileTypeTouched); // if touching ocean tile, win game
+
+            // if not colliding, move
             if(this.collisionOn == false) {
                 this.updateYPos(this.getSpeed());
             }
         }
         else if(playerInput.downPressed) {
             direction = "down";
+
+            // update collisionOn
             tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
-            touchObject(objIndex);
-            exitCave(tileTypeTouched);
+
+            touchObject(objIndex); // invoke corresponding logic depending on which tile is being touched
+            exitCave(tileTypeTouched); // if touching ocean tile, win game
+
+            // if not colliding, move
             if(this.collisionOn == false) {
                 this.updateYPos(-1 * this.getSpeed());
             }
         }
         else if(playerInput.rightPressed) {
             direction = "right";
+
+            // update collisionOn
             tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
-            touchObject(objIndex);
-            exitCave(tileTypeTouched);
+
+            touchObject(objIndex); // invoke corresponding logic depending on which tile is being touched
+            exitCave(tileTypeTouched); // if touching ocean tile, win game
+
+            // if not colliding, move
             if(this.collisionOn == false) {
                 this.updateXPos(this.getSpeed());
             }
         }
         else if(playerInput.leftPressed) {
             direction = "left";
+
+            // update collisionOn
             tileTypeTouched = collisionDetector.detectTile(this);
             int objIndex = collisionDetector.detectImmovableObject(this);
-            touchObject(objIndex);
-            exitCave(tileTypeTouched);
+
+            touchObject(objIndex); // invoke corresponding logic depending on which tile is being touched
+            exitCave(tileTypeTouched); // if touching ocean tile, win game
+
+            // if not colliding, move
             if(this.collisionOn == false) {
                 this.updateXPos(-1 * this.getSpeed());
             }
         }
     }
 
-    // draw the turtle sprite image on to the screen
+    /**
+     * Display correct turtle sprite to screen, depending on direction faced
+     * @param g     the <code>Graphics</code> object to protect
+     */
     public void draw(Graphics2D g) {
         BufferedImage img = null;
 
@@ -254,25 +352,17 @@ public class MainCharacter extends MovableObject{
                 break;
         }
 
+        // draw corresponding sprite
         g.drawImage(img, xPos, yPos, width, height, null);
     }
 
-    public int getNumCarrotsCollected() {
-        return numCarrotsCollected;
-    }
+    // GETTERS
 
+    public int getNumCarrotsCollected() { return numCarrotsCollected; }
     public String getDirection() { return direction; }
+    public boolean isInvisible() { return isInvisible; }
 
-    public int getInitialXPos() { return initialXPos; }
-    public int getInitialYPos() { return initialYPos; }
-
-    public void setNumCarrotsCollected(int p) {
-        numCarrotsCollected = p;
-    }
-
-    public boolean isInvisible() {
-        return isInvisible;
-    }
+    // SETTERS
 
     public void setInvisibility(boolean status) {
         isInvisible = status;
