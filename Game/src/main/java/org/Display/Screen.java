@@ -108,7 +108,7 @@ public class Screen extends JPanel implements Runnable {
         enemies = new ArrayList<>();
         enemies.add(new Enemy(this, collisionDetector, gameTiles));
         // start new game window
-        JFrame newFrame = new JFrame("Game");
+        JFrame newFrame = new JFrame("The Legend of the Turtle: Turtle Run");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newFrame.setResizable(false);
         newFrame.add(this);
