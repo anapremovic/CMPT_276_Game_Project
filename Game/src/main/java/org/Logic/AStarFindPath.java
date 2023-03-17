@@ -3,6 +3,9 @@ package org.Logic;
 import java.io.PrintStream;
 import java.util.*;
 
+/**
+ * The type Expansion list.
+ */
 class ExpansionList implements Comparable<ExpansionList> {
     private int x;
     private int y;
@@ -11,6 +14,16 @@ class ExpansionList implements Comparable<ExpansionList> {
     private ExpansionList parent;
     private char directionEntered;
 
+    /**
+     * Instantiates a new Expansion list.
+     *
+     * @param x                the x
+     * @param y                the y
+     * @param expansionLevel   the expansion level
+     * @param goal             the goal
+     * @param parent           the parent
+     * @param directionEntered the direction entered
+     */
     public ExpansionList(int x, int y, int expansionLevel, int[] goal, ExpansionList parent, char directionEntered) {
         this.x = x;
         this.y = y;
@@ -20,18 +33,38 @@ class ExpansionList implements Comparable<ExpansionList> {
         this.directionEntered = directionEntered;
     }
 
+    /**
+     * Gets x.
+     *
+     * @return the x
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * Gets y.
+     *
+     * @return the y
+     */
     public int getY() {
         return this.y;
     }
 
+    /**
+     * Gets expansion level.
+     *
+     * @return the expansion level
+     */
     public int getExpansionLevel() {
         return expansionLevel;
     }
 
+    /**
+     * Heuristic for manhattan distance.
+     *
+     * @return the int
+     */
     public int heuristic() {
         return Math.abs(goal[0] - this.x) + Math.abs(goal[1] - this.y);
     }
@@ -55,17 +88,24 @@ class ExpansionList implements Comparable<ExpansionList> {
         return (this.x * 257) * (this.y * 263);
     }
 
+    /**
+     * Whether this node has parent node.
+     *
+     * @return the boolean
+     */
     public boolean hasParent() {
         return parent != null;
     }
 
+    /**
+     * Gets parent.
+     *
+     * @return the parent
+     */
     public ExpansionList getParent() {
         return parent;
     }
 
-    public char getDirectionEntered() {
-        return directionEntered;
-    }
 
     public String toString() {
         return "{(" + this.getY() + "," + this.getX() + "),expansion level:" + this.getExpansionLevel() + "}";
@@ -73,6 +113,9 @@ class ExpansionList implements Comparable<ExpansionList> {
 }
 
 
+/**
+ * The type A star find path.
+ */
 public class AStarFindPath {
 
     private int[] start;
@@ -81,34 +124,22 @@ public class AStarFindPath {
     private ExpansionList solution;
     private static final int PATH = 0;
 
-    public void setStart(int[] start) {
-        this.start = start;
-    }
-
-    public void setGoal(int[] goal) {
-        this.goal = goal;
-    }
-
-    public void setMaze(int[][] maze) {
-        this.maze = maze;
-    }
-
-    public int[][] getMaze() {
-        return maze;
-    }
-
-    public int[] getStart() {
-        return start;
-    }
-
-    public int[] getGoal() {
-        return goal;
-    }
-
+    /**
+     * Gets solution.
+     *
+     * @return the solution
+     */
     public ExpansionList getSolution() {
         return solution;
     }
 
+    /**
+     * Instantiates a new A star find path.
+     *
+     * @param start the start
+     * @param goal  the goal
+     * @param maze  the maze
+     */
     public AStarFindPath(int[] start, int[] goal, int[][] maze) {
         this.start = start;
         this.goal = goal;
@@ -116,11 +147,12 @@ public class AStarFindPath {
         this.solution = null;
     }
 
-    public boolean hasAccurateSolution() {
-        if (solution == null) return false;
-        return solution.getX() == goal[0] && solution.getY() == goal[1];
-    }
 
+    /**
+     * A star find path result.
+     *
+     * @return the path
+     */
     public LinkedList<int[]> getPath() {
         LinkedList<int[]> path = new LinkedList<>();
         if (getSolution() == null) {
@@ -138,25 +170,10 @@ public class AStarFindPath {
         return path;
     }
 
-    public void printSolutionPath(PrintStream output) {
-        if (getSolution() == null) {
-            output.println("No solution found. Call 'solve' to generate a solution path");
-        } else {
-            Stack<ExpansionList> stack = new Stack<ExpansionList>();
-            output.println("start=" + Arrays.deepToString(new int[][]{start}));
-            output.println("goal=" + Arrays.deepToString(new int[][]{goal}));
 
-            for (ExpansionList current = getSolution(); current.hasParent(); current = current.getParent()) {
-                stack.push(current);
-            }
-            while (!stack.empty()) {
-                ExpansionList e = stack.pop();
-                output.println(e);
-            }
-        }
-    }
-
-
+    /**
+     * Main process of A* algorithm.
+     */
     public void solve() {
         ExpansionList goalNode = new ExpansionList(goal[0], goal[1], 0, goal, null, ' ');
         ExpansionList current = new ExpansionList(start[0], start[1], 0, goal, null, ' ');
