@@ -1,3 +1,7 @@
+/**
+    This class represents the game over menu that is displayed when the player loses the game.
+    It contains methods to display the game over menu and handle the user's interactions with the menu.
+*/
 package org.Logic;
 
 import javax.imageio.ImageIO;
@@ -17,10 +21,18 @@ import java.awt.Font;
 public class GameOverMenu extends JFrame {
     private Screen screen;
 
+    /**
+    * Creates a new instance of the GameOverMenu class with the specified screen.
+    * 
+    * @param screen The Screen object that the game is being displayed on.
+    */
+
     public GameOverMenu(Screen screen) {
         this.screen = screen;
     }
-
+    /**
+    * Displays the game over menu on the screen.
+    */
     public void displayGameOverMenu() {
         //creating a window for the game over menu
         setSize(800, 600);

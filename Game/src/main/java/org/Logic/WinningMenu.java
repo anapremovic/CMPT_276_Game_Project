@@ -1,3 +1,9 @@
+/**
+
+The WinningMenu class creates a window to display the winning menu when the game is won.
+It displays the score, time taken, restart game button, and exit button.
+*/
+
 package org.Logic;
 
 import javax.imageio.ImageIO;
@@ -19,16 +25,37 @@ import java.awt.Font;
 
 
 public class WinningMenu extends JFrame {
+    /**
+    * Time taken to win the game.
+    */
     private long timeTaken;
+
+    /**
+    * The screen on which the game is played.
+    */
     private Screen screen;
+    
+    /**
+    * Points earned by the player.
+    */
     private int points;
 
+
+    /**
+    * Constructs a WinningMenu object.
+    * @param timeTaken The time taken to win the game.
+    * @param screen The screen on which the game is played.
+    * @param points Points earned by the player.
+    */
     public WinningMenu(long timeTaken, Screen screen, int points) {
         this.timeTaken = timeTaken;
         this.screen = screen;
         this.points = points;
     }
 
+    /**
+    * Displays the winning menu.
+    */
     public void displayWinningMenu() {
         //creating a window for the game over menu
         setSize(800, 600);
@@ -56,6 +83,7 @@ public class WinningMenu extends JFrame {
         if (score < 0){
             score = 0;
         }
+        
         if (points > 10){
             score = score + 100;
         }

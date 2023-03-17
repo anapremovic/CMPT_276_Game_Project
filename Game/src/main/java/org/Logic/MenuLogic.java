@@ -1,3 +1,11 @@
+/**
+    The MenuLogic class creates a starting menu window with two buttons: Start Game and Exit.
+    The Start Game button starts the game thread, while the Exit button closes the window and
+    exits the program.
+    The class also provides a method to check if the Start Game button has been pressed, and
+    a displayMenu method to display the starting menu and wait for the user to make a choice.
+    */
+
 package org.Logic;
 
 import javax.imageio.ImageIO;
@@ -18,23 +26,43 @@ public class MenuLogic extends JFrame {
     private Screen screen;
     public boolean isStartGameButtonPressed;
 
+    /**
+    * Constructs a new MenuLogic object with the specified Screen object.
+    * 
+    * @param screen the Screen object used to display the starting menu
+    */
     public MenuLogic(Screen screen) {
         this.screen = screen;
     }
 
+    /**
+    * Starts the game thread by calling the startGameThread method of the Screen object.
+    */
     public void startGame() {
         screen.startGameThread();
     }
 
+    /**
+    * Exits the program by calling the System.exit method.
+    */
     public void exitProgram() {
         System.exit(0);
     }
 
+    /**
+    * Returns whether the Start Game button has been pressed.
+    * 
+    * @return true if the Start Game button has been pressed, false otherwise
+    */
     public boolean isStartGameButtonPressed() {
         return isStartGameButtonPressed;
     }
     
-
+    /**
+    * Displays the starting menu window and waits for the user to make a choice. 
+    * 
+    * @return true if the user pressed the Start Game button, false if the user pressed the Exit button
+    */
     public boolean displayMenu() {
         //creating a window for the starting menu
         setSize(800, 600);
