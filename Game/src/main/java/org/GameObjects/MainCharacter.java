@@ -187,37 +187,10 @@ public class MainCharacter extends MovableObject{
                     int i = 0; // index for objects[] in Screen
                     while(count < 3 && i < screen.getObjects().length) {
                         if(screen.getObjects()[i] == null) {
-                            // random x and y
-                            int randomXPos = rand.nextInt(screen.getNumColumns());
-                            int randomYPos = rand.nextInt(screen.getNumRows());
-
-                            // for checking if the current position is taken by another object
-                            boolean positionTaken = false;
-                            for(int j = 0; j < objDisplayer.getTakenPositions().size(); j++) {
-                                if(objDisplayer.getTakenPositions().get(j)[0] == randomXPos &&
-                                        objDisplayer.getTakenPositions().get(j)[1] == randomYPos) {
-                                    positionTaken = true;
-                                }
-                            }
-
-                            // if generated position is not a cave tile, or taken, regenerate it
-                            while(tileM.getBoard()[randomXPos][randomYPos] != 0 || positionTaken) {
-                                // regenerate
-                                randomXPos = rand.nextInt(screen.getNumColumns());
-                                randomYPos = rand.nextInt(screen.getNumRows());
-
-                                // reset positionTaken with regenerated values
-                                positionTaken = false;
-                                for(int j = 0; j < objDisplayer.getTakenPositions().size(); j++) {
-                                    if(objDisplayer.getTakenPositions().get(j)[0] == randomXPos &&
-                                            objDisplayer.getTakenPositions().get(j)[1] == randomYPos) {
-                                        positionTaken = true;
-                                    }
-                                }
-                            }
-
-                            // set position as taken
-                            objDisplayer.addTakenPosition(randomXPos, randomYPos);
+                            // generate random position: x and y
+                            int[] curPos = objDisplayer.generateRandomPosition();
+                            int randomXPos = curPos[0];
+                            int randomYPos = curPos[1];
 
                             // display new carrot at generated position
                             RegularReward cur = new RegularReward(randomXPos * screen.getTileSize(),
