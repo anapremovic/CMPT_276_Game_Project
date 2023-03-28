@@ -193,18 +193,39 @@ public class Screen extends JPanel implements Runnable {
      * Reinitialize all game information and variables, restart timer, as well as create a new game window.
      */
     public void restartGame() {
-        // end current game thread
         endGameThread();
+        closeOldFrame();
+        resetGameState();
+        resetScore();
+        resetTimer();
+        resetGameObjects();
+        startNewFrame();
+    }
+
+    
+    private void closeOldFrame() {
         // close old game window
         JFrame oldFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         oldFrame.dispose();
+    }
+    
+    private void resetGameState() {
         // reset game state
         gameState = gameOver; // Change gameState to menuState
+    }
+    
+    private void resetScore() {
         // reset score
         score = 0;
+    }
+    
+    private void resetTimer() {
         // reset timer
         startTime = System.currentTimeMillis();
         elapsedTime = 0;
+    }
+    
+    private void resetGameObjects() {
         // reset game objects
         objects = new ImmovableObject[17];
         objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
@@ -216,6 +237,9 @@ public class Screen extends JPanel implements Runnable {
         Enemy e2 = new Enemy(this, gameTiles);
         e2.setStartingValues(tileSize*5, tileSize*8, 2, "UNKNOWN");
         enemies.add(e2);
+    }
+    
+    private void startNewFrame() {
         // start new game window
         JFrame newFrame = new JFrame("The Legend of the Turtle: Turtle Run");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -227,8 +251,8 @@ public class Screen extends JPanel implements Runnable {
         objDisplayer.displayObjects(17);
         gameTiles.setMap("/maps/map01.txt");
         playerInput.nomovement();
-        //player.setPosition(player.getInitialXPos(), player.getInitialYPos());
     }
+    
 
     /**
      * Contains main game loop. As long as the game loop runs (based on the main game thread), the game runs.
