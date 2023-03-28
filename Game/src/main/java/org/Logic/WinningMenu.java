@@ -6,17 +6,9 @@ It displays the score, time taken, restart game button, and exit button.
 
 package org.Logic;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import org.Display.Screen;
-import org.GameObjects.Reward;
-
-import java.awt.Image;
-import java.io.IOException;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
@@ -24,7 +16,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 
-public class WinningMenu extends JFrame {
+public class WinningMenu extends Menu {
     /**
     * Time taken to win the game.
     */
@@ -57,26 +49,7 @@ public class WinningMenu extends JFrame {
     * Displays the winning menu.
     */
     public void displayWinningMenu() {
-        //creating a window for the game over menu
-        setSize(800, 600);
-        setResizable(false);
-        setLocationRelativeTo(screen);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //setting the background image "back.jpg"
-        JPanel backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                try {
-                    Image backgroundImage = ImageIO.read(getClass().getResource("/congrats.jpg"));
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        backgroundPanel.setLayout(null);
+        displayMenu("/congrats.jpg");
 
         //calculate score based on time taken and bonus reward
         int score = (int) (1000 - timeTaken * 12);
@@ -131,13 +104,13 @@ public class WinningMenu extends JFrame {
         exitButton.setFont(font);
 
         //adding the components to the window
-        backgroundPanel.add(scoreLabel);
-        backgroundPanel.add(timeTakenLabel);
-        backgroundPanel.add(restartGameButton);
-        backgroundPanel.add(exitButton);
+        getBackgroundPanel().add(scoreLabel);
+        getBackgroundPanel().add(timeTakenLabel);
+        getBackgroundPanel().add(restartGameButton);
+        getBackgroundPanel().add(exitButton);
 
-        getContentPane().add(backgroundPanel);
-        setVisible(true);
+        //getContentPane().add(getBackgroundPanel());
+        //setVisible(true);
     }
 
     //helper method to format time in mm:ss format
