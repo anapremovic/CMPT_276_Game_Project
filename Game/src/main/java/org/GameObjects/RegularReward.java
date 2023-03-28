@@ -8,7 +8,7 @@ import java.io.IOException;
  * Entity encoding information on game punishments: carrots which grant the player points. The player must collect
  * all 10 carrots in order to escape the cave and win the game.
  */
-public class RegularReward extends Reward {
+public class RegularReward extends ImmovableObject {
 
     /**
      * Initialize this reward to a given x and y position, as well as initializing all its variables and loading
@@ -35,7 +35,4 @@ public class RegularReward extends Reward {
             e.printStackTrace();
         }
     }
-
-    // GETTERS
-    public int getPoints() { return points; }
 }

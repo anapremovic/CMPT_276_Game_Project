@@ -8,7 +8,7 @@ import java.io.IOException;
  * Entity used to encode all information regarding the bonus reward, a specific type of reward which is not required
  * to win the game, but increases the final score of the player.
  */
-public class BonusReward extends Reward {
+public class BonusReward extends ImmovableObject {
     /**
      * Initialize this bonus reward to a given x and y position, as well as initializing all its variables and loading
      * its image file.
@@ -35,10 +35,5 @@ public class BonusReward extends Reward {
         } catch(IOException e) {
             e.printStackTrace();
         }
-    }
-
-    // GETTERS
-    public int getPoints() {
-        return points;
     }
 }
