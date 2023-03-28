@@ -21,11 +21,6 @@ public class MainCharacter extends MovableObject{
     private int numCarrotsCollected;
 
     /**
-     * Indicated whether the player has collected a Mystical Ocean Fruit, which grants them invincibility.
-     */
-    private boolean isInvisible;
-
-    /**
      * Screen the main character is displayed on.
      */
     private Screen screen;
@@ -360,12 +355,5 @@ public class MainCharacter extends MovableObject{
 
     public int getNumCarrotsCollected() { return numCarrotsCollected; }
     public String getDirection() { return direction; }
-    public boolean isInvisible() { return isInvisible; }
-
-    // SETTERS
-
-    public void setInvisibility(boolean status) {
-        isInvisible = status;
-    }
 }
 
