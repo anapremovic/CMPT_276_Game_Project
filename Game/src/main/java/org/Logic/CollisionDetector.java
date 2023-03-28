@@ -122,67 +122,76 @@ public class CollisionDetector {
 
         for(int i = 0; i < objects.length; i++) {
             if(objects[i] != null) {
-                // get the player's collidable area position
-                player.setCollidableAreaX(player.getXPos() + player.getCollidableArea().x);
-                player.setCollidableAreaY(player.getYPos() + player.getCollidableArea().y);
-
-                // get the object's collidable area position
-                screen.setObjectCollidableAreaX(i, objects[i].getXPos() + objects[i].getCollidableArea().x);
-                screen.setObjectCollidableAreaY(i, objects[i].getYPos() + objects[i].getCollidableArea().y);
+                // update collidable area positions for collision
+                setCollidableAreaPositionsForCollision(player, i);
 
                 int cur;
                 switch(player.getDirection()) {
                     case "up":
                         cur = player.getCollidableArea().y;
                         player.setCollidableAreaY(cur - player.getSpeed());
-                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            if(objects[i].isSolid()) {
-                                player.setCollisionOn(true);
-                            }
-                            index = i;
-                        }
                         break;
                     case "down":
                         cur = player.getCollidableArea().y;
                         player.setCollidableAreaY(cur + player.getSpeed());
-                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            if(objects[i].isSolid()) {
-                                player.setCollisionOn(true);
-                            }
-                            index = i;
-                        }
                         break;
                     case "right":
                         cur = player.getCollidableArea().x;
                         player.setCollidableAreaX(cur + player.getSpeed());
-                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            if(objects[i].isSolid()) {
-                                player.setCollisionOn(true);
-                            }
-                            index = i;
-                        }
                         break;
                     case "left":
                         cur = player.getCollidableArea().x;
                         player.setCollidableAreaX(cur - player.getSpeed());
-                        if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
-                            if(objects[i].isSolid()) {
-                                player.setCollisionOn(true);
-                            }
-                            index = i;
-                        }
                         break;
                 }
 
-                // reset collidable area positions
-                player.setCollidableAreaX(player.getCollidableAreaDefaultX());
-                player.setCollidableAreaY(player.getCollidableAreaDefaultY());
+                // if intersecting with an object, set collision of player to on
+                if(player.getCollidableArea().intersects(objects[i].getCollidableArea())) {
+                    if(objects[i].isSolid()) {
+                        player.setCollisionOn(true); // COLLISION DETECTED
+                    }
+                    index = i;
+                }
 
-                screen.setObjectCollidableAreaX(i, objects[i].getCollidableAreaDefaultX());
-                screen.setObjectCollidableAreaY(i, objects[i].getCollidableAreaDefaultY());
+                // reset collidable area positions to default
+                resetCollidableAreaPositions(player, i);
             }
         }
         
         return index;
+    }
+
+    /**
+     * To detect a collision, we need to update the collidable area of each object in reference to where the object
+     * is on the screen.
+     * @param player    turtle to detect collision for
+     * @param index     index of the immovable object to detect a collision for
+     */
+    private void setCollidableAreaPositionsForCollision(MainCharacter player, int index) {
+        ImmovableObject[] objects = screen.getObjects();
+
+        // get the player's collidable area position
+        player.setCollidableAreaX(player.getXPos() + player.getCollidableArea().x);
+        player.setCollidableAreaY(player.getYPos() + player.getCollidableArea().y);
+
+        // get the object's collidable area position
+        screen.setObjectCollidableAreaX(index, objects[index].getXPos() + objects[index].getCollidableArea().x);
+        screen.setObjectCollidableAreaY(index, objects[index].getYPos() + objects[index].getCollidableArea().y);
+    }
+
+    /**
+     * After detecting a collision, we want to reset the collidable area to the default values.
+     *
+     * @param player    turtle that experienced a collision
+     * @param index     index of the immovable object that experienced a collision
+     */
+    private void resetCollidableAreaPositions(MainCharacter player, int index) {
+        ImmovableObject[] objects = screen.getObjects();
+
+        player.setCollidableAreaX(player.getCollidableAreaDefaultX());
+        player.setCollidableAreaY(player.getCollidableAreaDefaultY());
+
+        screen.setObjectCollidableAreaX(index, objects[index].getCollidableAreaDefaultX());
+        screen.setObjectCollidableAreaY(index, objects[index].getCollidableAreaDefaultY());
     }
 }
