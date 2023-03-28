@@ -25,6 +25,8 @@ import java.awt.Font;
 public class MenuLogic extends JFrame {
     private Screen screen;
     public boolean isStartGameButtonPressed;
+    private JButton startGameButton;
+    private JButton exitButton;
 
     /**
     * Constructs a new MenuLogic object with the specified Screen object.
@@ -64,12 +66,29 @@ public class MenuLogic extends JFrame {
     * @return true if the user pressed the Start Game button, false if the user pressed the Exit button
     */
     public boolean displayMenu() {
-        //creating a window for the starting menu
+        createWindow();
+        setBackground();
+        createButtons();
+        addButtonsToWindow();
+    
+        while (!isStartGameButtonPressed) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return isStartGameButtonPressed;
+    }
+    
+    private void createWindow() {
         setSize(800, 600);
         setResizable(false);
         setLocationRelativeTo(screen);
-        
-        //setting the background image "start_game.jpg"
+    }
+    
+    private void setBackground() {
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -83,9 +102,14 @@ public class MenuLogic extends JFrame {
             }
         };
         backgroundPanel.setLayout(null);
+        getContentPane().add(backgroundPanel);
+        setVisible(true);
+    }
+    
+    private void createButtons() {
+        Font font = new Font("Arial", Font.BOLD, 18);
 
-        //creating start game, start the game
-        JButton startGameButton = new JButton("Start Game");
+        startGameButton = new JButton("Start Game");
         startGameButton.setPreferredSize(new Dimension(50, 30));
         startGameButton.setBounds(330, 230, 170, 50);
         startGameButton.addActionListener(new ActionListener() {
@@ -94,9 +118,9 @@ public class MenuLogic extends JFrame {
                 dispose();
             }
         });
+        startGameButton.setFont(font);
 
-        //creating exit button
-        JButton exitButton = new JButton("Exit");
+        exitButton = new JButton("Exit");
         exitButton.setPreferredSize(new Dimension(30, 30));
         exitButton.setBounds(330, 290, 170, 50);
         exitButton.addActionListener(new ActionListener() {
@@ -104,28 +128,14 @@ public class MenuLogic extends JFrame {
                 dispose();
             }
         });
-        //button text font
-        Font font = new Font("Arial", Font.BOLD, 18);
-        startGameButton.setFont(font);
         exitButton.setFont(font);
-
-        //adding the buttons to the window
+    }
+    
+    private void addButtonsToWindow() {
+        JPanel backgroundPanel = (JPanel) getContentPane().getComponent(0);
         backgroundPanel.add(startGameButton);
         backgroundPanel.add(exitButton);
-
-        getContentPane().add(backgroundPanel);
-        setVisible(true);
-
-        while (!isStartGameButtonPressed) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        //check if user wants to start or exit
-        return isStartGameButtonPressed;
-
     }
+    
 
 }
