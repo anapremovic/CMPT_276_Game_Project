@@ -67,46 +67,11 @@ public class ImmovableObjectDisplay {
      *                          which case only display 3 more carrots)
      */
     public void displayObjects(int numToDisplay) {
-        Random rand = new Random();
-
-        int[][] board = tileM.getBoard(); // game board determining tile types
-        //int numObjects = screen.getObjects().length;
-
         for(int i = 0; i < numToDisplay; i++) {
-            // generate random position for the current reward
-            int randomXPos = rand.nextInt(screen.getNumColumns());
-            int randomYPos = rand.nextInt(screen.getNumRows());
+            int[] pos = generateRandomPosition();
 
-            // CHECK #1: check to make sure there is not already an object at this position
-            // CHECK #2: make sure the position is on an empty cave tile
-
-            // prepare boolean for CHECK #1
-            boolean positionTaken = false;
-            for(int j = 0; j < takenPositions.size(); j++) {
-                if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
-                    positionTaken = true;
-                }
-            }
-
-            // if both checks not passed, regenerate position
-            while(board[randomXPos][randomYPos] != 0 || positionTaken) {
-                // regenerate position
-                randomXPos = rand.nextInt(screen.getNumColumns());
-                randomYPos = rand.nextInt(screen.getNumRows());
-
-                positionTaken = false;
-                for(int j = 0; j < takenPositions.size(); j++) {
-                    if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
-                        positionTaken = true;
-                    }
-                }
-            }
-
-            // add the current position to the list of taken positions
-            int[] curPosition = new int[2];
-            curPosition[0] = randomXPos;
-            curPosition[1] = randomYPos;
-            takenPositions.add(curPosition);
+            int randomXPos = pos[0];
+            int randomYPos = pos[1];
 
             if(i == 10) {
                 // display bonus reward (mystical ocean fruit) at current position
@@ -127,6 +92,55 @@ public class ImmovableObjectDisplay {
                 screen.setObject(i, cur);
             }
         }
+    }
+
+    /**
+     * Generate a new random position on the game board, to display a new immovable object on.
+     * Check that there is not already an object at this position and that the position is on an empty cave tile.
+     *
+     * @return  an array of size 2, where index 0 is the x position and index 1 is the y position
+     */
+    public int[] generateRandomPosition() {
+        int[] xAndYPos = new int[2]; // new random position
+
+        Random rand = new Random();
+        int[][] board = tileM.getBoard(); // game board determining tile types
+
+        // generate random position for the current reward
+        int randomXPos = rand.nextInt(screen.getNumColumns());
+        int randomYPos = rand.nextInt(screen.getNumRows());
+
+        // CHECK #1: check to make sure there is not already an object at this position
+        // CHECK #2: make sure the position is on an empty cave tile
+
+        // prepare boolean for CHECK #1
+        boolean positionTaken = false;
+        for(int j = 0; j < takenPositions.size(); j++) {
+            if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
+                positionTaken = true;
+            }
+        }
+
+        // if both checks not passed, regenerate position
+        while(board[randomXPos][randomYPos] != 0 || positionTaken) {
+            // regenerate position
+            randomXPos = rand.nextInt(screen.getNumColumns());
+            randomYPos = rand.nextInt(screen.getNumRows());
+
+            positionTaken = false;
+            for(int j = 0; j < takenPositions.size(); j++) {
+                if(takenPositions.get(j)[0] == randomXPos && takenPositions.get(j)[1] == randomYPos) {
+                    positionTaken = true;
+                }
+            }
+        }
+
+        // add the current position to the list of taken positions and return
+        xAndYPos[0] = randomXPos;
+        xAndYPos[1] = randomYPos;
+
+        takenPositions.add(xAndYPos);
+        return xAndYPos;
     }
 
     // GETTERS
