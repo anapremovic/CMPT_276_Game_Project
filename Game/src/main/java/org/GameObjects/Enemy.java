@@ -24,6 +24,7 @@ public class Enemy extends MovableObject {
      * The direction of enemy.
      */
     String direction;
+    PathFinder pathFinder;
 
     /**
      * Instantiates a new Enemy.
@@ -37,6 +38,7 @@ public class Enemy extends MovableObject {
         board = transposeMatrix(gameTiles.getBoard());
         setStartingValues(500, 200, 7, "UNKNOWN");
         getImage();
+        pathFinder = new PathFinder(board);
     }
 
     /**
@@ -66,9 +68,7 @@ public class Enemy extends MovableObject {
     public void updateDirection(int tileSize, MainCharacter mainCharacter) {
         if (xPos % tileSize != 0 && (direction.equals("LEFT") || direction.equals("RIGHT"))) return;
         if ((yPos % tileSize != 0) && (direction.equals("UP") || direction.equals("DOWN"))) return;
-        PathFinder pathFinder = new PathFinder(adjust(xPos, yPos, tileSize), adjust(mainCharacter.xPos, mainCharacter.yPos, tileSize), board);
-        pathFinder.solve();
-        List<int[]> path = pathFinder.getPath();
+        List<int[]> path = pathFinder.shortestPath(adjust(xPos, yPos, tileSize), adjust(mainCharacter.xPos, mainCharacter.yPos, tileSize));
         if (path.isEmpty()) {
             direction = "UNKNOWN";
             return;

@@ -11,25 +11,22 @@ class ExpansionList implements Comparable<ExpansionList> {
     private int expansionLevel;
     private int[] goal;
     private ExpansionList parent;
-    private char directionEntered;
 
     /**
      * Instantiates a new Expansion list.
      *
-     * @param x                the x
-     * @param y                the y
-     * @param expansionLevel   the expansion level
-     * @param goal             the goal
-     * @param parent           the parent
-     * @param directionEntered the direction entered
+     * @param x              the x
+     * @param y              the y
+     * @param expansionLevel the expansion level
+     * @param goal           the goal
+     * @param parent         the parent
      */
-    public ExpansionList(int x, int y, int expansionLevel, int[] goal, ExpansionList parent, char directionEntered) {
+    public ExpansionList(int x, int y, int expansionLevel, int[] goal, ExpansionList parent) {
         this.x = x;
         this.y = y;
         this.expansionLevel = expansionLevel;
         this.goal = goal;
         this.parent = parent;
-        this.directionEntered = directionEntered;
     }
 
     /**
@@ -60,7 +57,7 @@ class ExpansionList implements Comparable<ExpansionList> {
     }
 
     /**
-     * Heuristic for manhattan distance.
+     * Heuristic int.
      *
      * @return the int
      */
@@ -88,7 +85,7 @@ class ExpansionList implements Comparable<ExpansionList> {
     }
 
     /**
-     * Whether this node has parent node.
+     * Has parent boolean.
      *
      * @return the boolean
      */
@@ -113,52 +110,30 @@ class ExpansionList implements Comparable<ExpansionList> {
 
 
 /**
- * The type A star find path.
+ * The type Path finder.
  */
 public class PathFinder {
 
-    private int[] start;
-    private int[] goal;
     private int[][] maze;
-    private ExpansionList solution;
     private static final int PATH = 0;
 
-    /**
-     * Gets solution.
-     *
-     * @return the solution
-     */
-    public ExpansionList getSolution() {
-        return solution;
-    }
 
     /**
-     * Instantiates a new A star find path.
+     * Instantiates a new Path finder.
      *
-     * @param start the start
-     * @param goal  the goal
-     * @param maze  the maze
+     * @param maze the maze
      */
-    public PathFinder(int[] start, int[] goal, int[][] maze) {
-        this.start = start;
-        this.goal = goal;
+    public PathFinder(int[][] maze) {
+
         this.maze = maze;
-        this.solution = null;
     }
 
 
-    /**
-     * A star find path result.
-     *
-     * @return the path
-     */
-    public LinkedList<int[]> getPath() {
+    private LinkedList<int[]> solutin2Path(ExpansionList solution) {
         LinkedList<int[]> path = new LinkedList<>();
-        if (getSolution() == null) {
-
-        } else {
+        if (solution != null) {
             Stack<ExpansionList> stack = new Stack<ExpansionList>();
-            for (ExpansionList current = getSolution(); current.hasParent(); current = current.getParent()) {
+            for (ExpansionList current = solution; current.hasParent(); current = current.getParent()) {
                 stack.push(current);
             }
             while (!stack.empty()) {
@@ -171,11 +146,15 @@ public class PathFinder {
 
 
     /**
-     * Main process of A* algorithm.
+     * Shortest path linked list.
+     *
+     * @param start the start
+     * @param goal  the goal
+     * @return the linked list
      */
-    public void solve() {
-        ExpansionList goalNode = new ExpansionList(goal[0], goal[1], 0, goal, null, ' ');
-        ExpansionList current = new ExpansionList(start[0], start[1], 0, goal, null, ' ');
+    public LinkedList<int[]> shortestPath(int[] start, int[] goal) {
+        ExpansionList goalNode = new ExpansionList(goal[0], goal[1], 0, goal, null);
+        ExpansionList current = new ExpansionList(start[0], start[1], 0, goal, null);
         PriorityQueue<ExpansionList> open = new PriorityQueue<ExpansionList>();
         HashSet<ExpansionList> explored = new HashSet<ExpansionList>();
 
@@ -189,8 +168,7 @@ public class PathFinder {
                         current.getY() - 1,
                         current.getExpansionLevel() + 1,
                         goal,
-                        current,
-                        '^'
+                        current
                 );
 
                 if (maze[current.getY() - 1][current.getX()] == PATH && !explored.contains(node) && !open.contains(node)) {
@@ -204,8 +182,7 @@ public class PathFinder {
                         current.getY() + 1,
                         current.getExpansionLevel() + 1,
                         goal,
-                        current,
-                        'v'
+                        current
                 );
                 if (maze[current.getY() + 1][current.getX()] == PATH && !explored.contains(node) && !open.contains(node)) {
                     open.add(node);
@@ -218,8 +195,7 @@ public class PathFinder {
                         current.getY(),
                         current.getExpansionLevel() + 1,
                         goal,
-                        current,
-                        '<'
+                        current
                 );
                 if (maze[current.getY()][current.getX() - 1] == PATH && !explored.contains(node) && !open.contains(node)) {
                     open.add(node);
@@ -232,8 +208,7 @@ public class PathFinder {
                         current.getY(),
                         current.getExpansionLevel() + 1,
                         goal,
-                        current,
-                        '>'
+                        current
                 );
 
                 if (maze[current.getY()][current.getX() + 1] == PATH && !explored.contains(node) && !open.contains(node)) {
@@ -244,7 +219,7 @@ public class PathFinder {
             current = open.poll();
         }
 
-        this.solution = current;
+        return solutin2Path(current);
     }
 
 }
