@@ -71,6 +71,11 @@ public class Screen extends JPanel implements Runnable {
 
 
     // game objects
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
     /**
      * List containing all snake enemies.
      */
@@ -155,10 +160,10 @@ public class Screen extends JPanel implements Runnable {
         menuLogic.displayMenu();
         enemies = new ArrayList<>();
         Enemy e1 = new Enemy(this, gameTiles);
-        e1.setStartingValues(tileSize*2, tileSize*4, 2, "UNKNOWN");
+        e1.setStartingValues(tileSize * 2, tileSize * 4, 2, "UNKNOWN");
         enemies.add(e1);
         Enemy e2 = new Enemy(this, gameTiles);
-        e2.setStartingValues(tileSize*5, tileSize*8, 2, "UNKNOWN");
+        e2.setStartingValues(tileSize * 5, tileSize * 8, 2, "UNKNOWN");
         enemies.add(e2);
         // initialize elapsedTime to 0
         elapsedTime = 0;
@@ -202,29 +207,29 @@ public class Screen extends JPanel implements Runnable {
         startNewFrame();
     }
 
-    
+
     private void closeOldFrame() {
         // close old game window
         JFrame oldFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         oldFrame.dispose();
     }
-    
+
     private void resetGameState() {
         // reset game state
         gameState = gameOver; // Change gameState to menuState
     }
-    
+
     private void resetScore() {
         // reset score
         score = 0;
     }
-    
+
     private void resetTimer() {
         // reset timer
         startTime = System.currentTimeMillis();
         elapsedTime = 0;
     }
-    
+
     private void resetGameObjects() {
         // reset game objects
         objects = new ImmovableObject[17];
@@ -232,13 +237,13 @@ public class Screen extends JPanel implements Runnable {
         player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
         enemies = new ArrayList<>();
         Enemy e1 = new Enemy(this, gameTiles);
-        e1.setStartingValues(tileSize*2, tileSize*4, 2, "UNKNOWN");
+        e1.setStartingValues(tileSize * 2, tileSize * 4, 2, "UNKNOWN");
         enemies.add(e1);
         Enemy e2 = new Enemy(this, gameTiles);
-        e2.setStartingValues(tileSize*5, tileSize*8, 2, "UNKNOWN");
+        e2.setStartingValues(tileSize * 5, tileSize * 8, 2, "UNKNOWN");
         enemies.add(e2);
     }
-    
+
     private void startNewFrame() {
         // start new game window
         JFrame newFrame = new JFrame("The Legend of the Turtle: Turtle Run");
@@ -252,7 +257,7 @@ public class Screen extends JPanel implements Runnable {
         gameTiles.setMap("/maps/map01.txt");
         playerInput.nomovement();
     }
-    
+
 
     /**
      * Contains main game loop. As long as the game loop runs (based on the main game thread), the game runs.
@@ -276,7 +281,7 @@ public class Screen extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 // score goes negative => game over
-                if (this.score < 0 || (enemyCatchPlayer() && player.getNumCarrotsCollected() < 10) ) {
+                if (this.score < 0 || (collisionDetector.detectEnemyCatchPlayer(player, tileSize) && player.getNumCarrotsCollected() < 10)) {
                     endGameThread();
                     playerInput.nomovement();
                     gameOverMenu.displayGameOverMenu();
@@ -319,23 +324,15 @@ public class Screen extends JPanel implements Runnable {
 
     /**
      * Detects collision between an enemy and the main character.
-     * @return      indication of whether collision has been detected
+     * @return indication of whether collision has been detected
      */
-    public boolean enemyCatchPlayer() {
-        // check all enemies
-        for (Enemy enemy : enemies) {
-            if (Math.abs(enemy.getXPos() - player.getXPos()) < tileSize && Math.abs(enemy.getYPos() - player.getYPos())
-                    < tileSize )
-                return true;
-        }
-        return false;
-    }
+
 
     /**
      * Draw all assets and relevant player information to screen, including tiles, main character, enemies,
      * immovable objects, timer, and score.
      *
-     * @param g     the <code>Graphics</code> object to protect
+     * @param g the <code>Graphics</code> object to protect
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -424,7 +421,7 @@ public class Screen extends JPanel implements Runnable {
     /**
      * Add a given number to the current score.
      *
-     * @param addedScore       number to add to score
+     * @param addedScore number to add to score
      */
     public void updateScore(int addedScore) {
         score += addedScore;
@@ -433,9 +430,9 @@ public class Screen extends JPanel implements Runnable {
     /**
      * Initialize the winningMenu variable with a given time, screen, and current points
      *
-     * @param elapsedTime   current time to be passed to winningMenu
-     * @param screen        screen to display winning menu on
-     * @param points        current points to be used in winning menu logic
+     * @param elapsedTime current time to be passed to winningMenu
+     * @param screen      screen to display winning menu on
+     * @param points      current points to be used in winning menu logic
      */
     public void initializeWinningMenu(long elapsedTime, Screen screen, int points) {
         winningMenu = new WinningMenu(elapsedTime, screen, score);

@@ -1,6 +1,5 @@
 package org.Logic;
 
-import java.io.PrintStream;
 import java.util.*;
 
 /**
@@ -116,7 +115,7 @@ class ExpansionList implements Comparable<ExpansionList> {
 /**
  * The type A star find path.
  */
-public class AStarFindPath {
+public class PathFinder {
 
     private int[] start;
     private int[] goal;
@@ -140,7 +139,7 @@ public class AStarFindPath {
      * @param goal  the goal
      * @param maze  the maze
      */
-    public AStarFindPath(int[] start, int[] goal, int[][] maze) {
+    public PathFinder(int[] start, int[] goal, int[][] maze) {
         this.start = start;
         this.goal = goal;
         this.maze = maze;

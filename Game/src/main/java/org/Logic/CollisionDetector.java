@@ -194,4 +194,13 @@ public class CollisionDetector {
         screen.setObjectCollidableAreaX(index, objects[index].getCollidableAreaDefaultX());
         screen.setObjectCollidableAreaY(index, objects[index].getCollidableAreaDefaultY());
     }
+    public boolean detectEnemyCatchPlayer(MainCharacter player, int tileSize) {
+        // check all enemies
+        for (Enemy enemy : this.screen.getEnemies()) {
+            if (Math.abs(enemy.getXPos() - player.getXPos()) < tileSize && Math.abs(enemy.getYPos() - player.getYPos())
+                    < tileSize )
+                return true;
+        }
+        return false;
+    }
 }
