@@ -1,7 +1,7 @@
 package org.GameObjects;
 
 import org.Display.Screen;
-import org.Logic.AStarFindPath;
+import org.Logic.PathFinder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -66,9 +66,9 @@ public class Enemy extends MovableObject {
     public void updateDirection(int tileSize, MainCharacter mainCharacter) {
         if (xPos % tileSize != 0 && (direction.equals("LEFT") || direction.equals("RIGHT"))) return;
         if ((yPos % tileSize != 0) && (direction.equals("UP") || direction.equals("DOWN"))) return;
-        AStarFindPath findPath = new AStarFindPath(adjust(xPos, yPos, tileSize), adjust(mainCharacter.xPos, mainCharacter.yPos, tileSize), board);
-        findPath.solve();
-        List<int[]> path = findPath.getPath();
+        PathFinder pathFinder = new PathFinder(adjust(xPos, yPos, tileSize), adjust(mainCharacter.xPos, mainCharacter.yPos, tileSize), board);
+        pathFinder.solve();
+        List<int[]> path = pathFinder.getPath();
         if (path.isEmpty()) {
             direction = "UNKNOWN";
             return;
