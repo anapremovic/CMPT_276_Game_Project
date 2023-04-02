@@ -132,11 +132,11 @@ public class MainCharacter extends MovableObject{
     /**
      * Handles logic for when the player touches an immovable object.
      *
-     * @param tileType    index representing the type of the object corresponding to the objects[] array in Screen
+     * @param objectType    index representing the type of the object corresponding to the objects[] array in Screen
      */
-    private void touchObject(int tileType) {
-        if(tileType != 999) { // when index is 999, no object was touched
-            String objectName = screen.getObjects()[tileType].getName();
+    public void touchObject(int objectType) {
+        if(objectType != 999) { // when index is 999, no object was touched
+            String objectName = screen.getObjects()[objectType].getName();
 
             int x;
             int y;
@@ -147,9 +147,9 @@ public class MainCharacter extends MovableObject{
                     screen.updateScore(1);
 
                     // remove carrot from screen
-                    x = screen.getObjects()[tileType].getXPos();
-                    y = screen.getObjects()[tileType].getYPos();
-                    screen.setObject(tileType, null);
+                    x = screen.getObjects()[objectType].getXPos();
+                    y = screen.getObjects()[objectType].getYPos();
+                    screen.setObject(objectType, null);
                     objDisplayer.removeTakenPosition(x, y);
 
                     break;
@@ -158,9 +158,9 @@ public class MainCharacter extends MovableObject{
                     screen.updateScore(3);
 
                     // remove bonus reward from screen
-                    x = screen.getObjects()[tileType].getXPos();
-                    y = screen.getObjects()[tileType].getYPos();
-                    screen.setObject(tileType, null);
+                    x = screen.getObjects()[objectType].getXPos();
+                    y = screen.getObjects()[objectType].getYPos();
+                    screen.setObject(objectType, null);
                     objDisplayer.removeTakenPosition(x, y);
 
                     break;
@@ -173,9 +173,9 @@ public class MainCharacter extends MovableObject{
                     this.setPosition(this.initialXPos, this.initialYPos);
 
                     // remove lava from screen
-                    x = screen.getObjects()[tileType].getXPos();
-                    y = screen.getObjects()[tileType].getYPos();
-                    screen.setObject(tileType, null);
+                    x = screen.getObjects()[objectType].getXPos();
+                    y = screen.getObjects()[objectType].getYPos();
+                    screen.setObject(objectType, null);
                     objDisplayer.removeTakenPosition(x, y);
 
                     // ADD 3 NEW CARROTS TO SCREEN
@@ -213,7 +213,7 @@ public class MainCharacter extends MovableObject{
      *
      * @param tileType      index representing the type of the object corresponding to the objects[] array in Screen
      */
-    private void exitCave(int tileType) {
+    public void exitCave(int tileType) {
         if(tileType == 3 && !hasGameEnded) {
             // the player has won so end the game loop
             screen.endGameThread();

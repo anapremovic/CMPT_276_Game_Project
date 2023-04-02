@@ -405,6 +405,8 @@ public class Screen extends JPanel implements Runnable {
         return elapsedTime;
     }
 
+    public int getScore() { return score; }
+
     // SETTERS
     public void setObject(int index, ImmovableObject newObject) {
         objects[index] = newObject;
