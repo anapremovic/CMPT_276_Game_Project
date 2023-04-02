@@ -1,6 +1,7 @@
-package org.GameObjects;
+package java.org.GameObjects;
 
 import org.Display.Screen;
+import org.GameObjects.Enemy;
 import org.junit.Assert;
 import org.junit.Test;
 
