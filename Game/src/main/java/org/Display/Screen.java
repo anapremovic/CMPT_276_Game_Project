@@ -159,10 +159,10 @@ public class Screen extends JPanel implements Runnable {
         menuLogic = new MenuLogic(this);
         menuLogic.displayMenu();
         enemies = new ArrayList<>();
-        Enemy e1 = new Enemy(this, gameTiles);
+        Enemy e1 = new Enemy(tileSize, gameTiles.getBoard());
         e1.setStartingValues(tileSize * 2, tileSize * 4, 2, "UNKNOWN");
         enemies.add(e1);
-        Enemy e2 = new Enemy(this, gameTiles);
+        Enemy e2 = new Enemy(tileSize, gameTiles.getBoard());
         e2.setStartingValues(tileSize * 5, tileSize * 8, 2, "UNKNOWN");
         enemies.add(e2);
         // initialize elapsedTime to 0
@@ -236,10 +236,10 @@ public class Screen extends JPanel implements Runnable {
         objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
         player = new MainCharacter(this, playerInput, collisionDetector, objDisplayer, gameTiles);
         enemies = new ArrayList<>();
-        Enemy e1 = new Enemy(this, gameTiles);
+        Enemy e1 = new Enemy(tileSize, gameTiles.getBoard());
         e1.setStartingValues(tileSize * 2, tileSize * 4, 2, "UNKNOWN");
         enemies.add(e1);
-        Enemy e2 = new Enemy(this, gameTiles);
+        Enemy e2 = new Enemy(tileSize, gameTiles.getBoard());
         e2.setStartingValues(tileSize * 5, tileSize * 8, 2, "UNKNOWN");
         enemies.add(e2);
     }
@@ -314,7 +314,7 @@ public class Screen extends JPanel implements Runnable {
     public void update() {
         player.update();
         for (Enemy e : enemies) {
-            e.update(player, tileSize);
+            e.update(player.getXPos(), player.getYPos());
         }
 
         if (objects[10] != null) {

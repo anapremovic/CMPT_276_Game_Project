@@ -153,6 +153,7 @@ public class PathFinder {
      * @return the linked list
      */
     public LinkedList<int[]> shortestPath(int[] start, int[] goal) {
+        if (start == null || goal == null) return new LinkedList<>();
         ExpansionList goalNode = new ExpansionList(goal[0], goal[1], 0, goal, null);
         ExpansionList current = new ExpansionList(start[0], start[1], 0, goal, null);
         PriorityQueue<ExpansionList> open = new PriorityQueue<ExpansionList>();

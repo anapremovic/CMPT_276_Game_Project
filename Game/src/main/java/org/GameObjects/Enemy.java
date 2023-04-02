@@ -13,62 +13,67 @@ import java.util.List;
  */
 public class Enemy extends MovableObject {
     /**
-     * Image icon of Snake.
+     * The Snake.
      */
     Image snake;
     /**
-     * The board of game background.
+     * The Board.
      */
     int[][] board;
     /**
-     * The direction of enemy.
+     * The Direction.
      */
     String direction;
+    /**
+     * The Path finder.
+     */
     PathFinder pathFinder;
+    /**
+     * The Tile size.
+     */
+    int tileSize;
 
     /**
      * Instantiates a new Enemy.
      *
-     * @param screen    the screen
-     * @param gameTiles the game tiles
+     * @param tileSize the tile size
+     * @param board    the board
      */
-    public Enemy(Screen screen, TileManager gameTiles) {
-        this.width = screen.getTileSize();
-        this.height = screen.getTileSize();
-        board = transposeMatrix(gameTiles.getBoard());
+    public Enemy(int tileSize, int[][] board) {
+        this.width = tileSize;
+        this.height = tileSize;
+        this.tileSize = tileSize;
+        this.board = transposeMatrix(board);
         setStartingValues(500, 200, 7, "UNKNOWN");
         getImage();
-        pathFinder = new PathFinder(board);
+        pathFinder = new PathFinder(this.board);
     }
 
     /**
-     * find the closest grid of enemy
+     * Adjust int [ ].
      *
-     * @param x        enemy x grid
-     * @param y        enemy y grid
-     * @param tileSize the tile size
-     * @return the closest grid of enemy
+     * @param x the x
+     * @param y the y
+     * @return the int [ ]
      */
-    public int[] adjust(int x, int y, int tileSize) {
+    public int[] adjust(int x, int y) {
         for (int j = (int) Math.floor(x / (double) tileSize); j <= Math.ceil(x / (double) tileSize); j++) {
             for (int i = (int) Math.floor(y / (double) tileSize); i <= Math.ceil(y / (double) tileSize); i++) {
-                if (canPassable(i, j)) return new int[]{j, i};
+                if (i >= 0 && i < board.length && j >= 0 && j < board[0].length && canPassable(i, j))
+                    return new int[]{j, i};
             }
         }
-        return new int[]{-1, -1};
+        return null;
     }
 
 
     /**
-     * Update the direction of enemy.
-     *
-     * @param tileSize      the tile size
-     * @param mainCharacter the main character
+     * Update direction.
      */
-    public void updateDirection(int tileSize, MainCharacter mainCharacter) {
+    public void updateDirection(int mainCharacterXpos, int mainCharacterYpos) {
         if (xPos % tileSize != 0 && (direction.equals("LEFT") || direction.equals("RIGHT"))) return;
         if ((yPos % tileSize != 0) && (direction.equals("UP") || direction.equals("DOWN"))) return;
-        List<int[]> path = pathFinder.shortestPath(adjust(xPos, yPos, tileSize), adjust(mainCharacter.xPos, mainCharacter.yPos, tileSize));
+        List<int[]> path = pathFinder.shortestPath(adjust(xPos, yPos), adjust(mainCharacterXpos, mainCharacterYpos));
         if (path.isEmpty()) {
             direction = "UNKNOWN";
             return;
@@ -93,13 +98,10 @@ public class Enemy extends MovableObject {
 
 
     /**
-     * Update position of enemy.
-     *
-     * @param mainCharacter the main character
-     * @param tileSize      the tile size
+     * Update.
      */
-    public void update(MainCharacter mainCharacter, int tileSize) {
-        updateDirection(tileSize, mainCharacter);
+    public void update(int mainCharacterXpos, int mainCharacterYpos) {
+        updateDirection(mainCharacterXpos, mainCharacterYpos);
         switch (direction) {
             case "LEFT":
                 updateXPos(-1 * speed);
@@ -117,7 +119,7 @@ public class Enemy extends MovableObject {
     }
 
     /**
-     * Draw enemey on canvas.
+     * Draw.
      *
      * @param g the g
      */
@@ -126,9 +128,9 @@ public class Enemy extends MovableObject {
     }
 
     /**
-     * Load images.
+     * Gets image.
      */
-    public void getImage() {
+    private void getImage() {
         try {
             snake = ImageIO.read(getClass().getResourceAsStream("/snake.png"));
         } catch (IOException e) {
@@ -137,7 +139,7 @@ public class Enemy extends MovableObject {
     }
 
     /**
-     * Sets starting values of enemy.
+     * Sets starting values.
      *
      * @param initialXPos the initial x pos
      * @param initialYPos the initial y pos
@@ -152,11 +154,11 @@ public class Enemy extends MovableObject {
     }
 
     /**
-     * Whether the grid can passable.
+     * Can passable boolean.
      *
      * @param i the
      * @param j the j
-     * @return the board[i][j] can passable
+     * @return the boolean
      */
     public boolean canPassable(int i, int j) {
         return board[i][j] == 0 || board[i][j] == 3;
@@ -181,5 +183,9 @@ public class Enemy extends MovableObject {
         }
 
         return transposedMatrix;
+    }
+
+    public String getDirection() {
+        return direction;
     }
 }
