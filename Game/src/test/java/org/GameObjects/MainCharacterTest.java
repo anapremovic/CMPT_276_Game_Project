@@ -14,7 +14,6 @@ class MainCharacterTest {
     TileManager gameTiles = new TileManager(screen);
     KeyHandler handler = new KeyHandler();
     ImmovableObjectDisplay displayer = new ImmovableObjectDisplay(screen, gameTiles);
-
     CollisionDetector detector = new CollisionDetector(screen, gameTiles);
 
     @Test
