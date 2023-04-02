@@ -62,13 +62,10 @@ class MainCharacterTest {
 
     @Test
     void exitCave() {
-    }
+        MainCharacter player = new MainCharacter(screen, handler, detector, displayer, gameTiles);
 
-    @Test
-    void update() {
-    }
-
-    @Test
-    void draw() {
+        screen.startGameThread();
+        player.exitCave(3);
+        assertNotNull(screen.getWinningMenu());
     }
 }
