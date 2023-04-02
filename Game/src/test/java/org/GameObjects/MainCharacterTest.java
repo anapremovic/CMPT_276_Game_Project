@@ -17,7 +17,7 @@ class MainCharacterTest {
     CollisionDetector detector = new CollisionDetector(screen, gameTiles);
 
     @Test
-    void touchObject() {
+    void testTouchObject() {
         MainCharacter player = new MainCharacter(screen, handler, detector, displayer, gameTiles);
         displayer.displayObjects(17);
 
@@ -60,7 +60,7 @@ class MainCharacterTest {
     }
 
     @Test
-    void exitCave() {
+    void testExitCave() {
         MainCharacter player = new MainCharacter(screen, handler, detector, displayer, gameTiles);
 
         screen.startGameThread();
