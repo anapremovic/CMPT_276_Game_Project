@@ -1,4 +1,4 @@
-package java.org.Logic;
+package org.Logic;
 
 import org.Logic.PathFinder;
 import org.junit.Assert;

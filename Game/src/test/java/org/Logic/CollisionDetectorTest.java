@@ -1,4 +1,4 @@
-package java.org.Logic;
+package org.Logic;
 
 import org.Display.Screen;
 import org.junit.Test;

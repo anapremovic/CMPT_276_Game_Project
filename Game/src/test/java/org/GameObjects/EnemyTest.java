@@ -1,4 +1,4 @@
-package java.org.GameObjects;
+package org.GameObjects;
 
 import org.Display.Screen;
 import org.GameObjects.Enemy;
