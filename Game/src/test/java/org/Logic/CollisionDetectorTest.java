@@ -2,9 +2,11 @@ package org.Logic;
 
 import org.Display.ImmovableObjectDisplay;
 import org.Display.Screen;
+import org.GameObjects.Enemy;
 import org.GameObjects.MainCharacter;
 import org.GameObjects.TileManager;
 import org.Input.KeyHandler;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -26,12 +28,12 @@ public class CollisionDetectorTest {
         assertEquals(0, startingPos); // at the starting position, the tile type is 0 (cave background)
 
         // test touching outside barrier
-        player.setPosition(2*tileSize, 30);
+        player.setPosition(2 * tileSize, 30);
         int touchingOutsideBarrier = detector.detectTile(player);
         assertEquals(1, touchingOutsideBarrier); // touching the top outside barrier
 
         // test touching inside barrier
-        player.setPosition(2*tileSize, 12*tileSize - 30);
+        player.setPosition(2 * tileSize, 12 * tileSize - 30);
         int touchingInsideBarrier = detector.detectTile(player);
         assertEquals(2, touchingInsideBarrier); // touching one of the inside barriers
     }
@@ -62,5 +64,16 @@ public class CollisionDetectorTest {
         player.setPosition(x, y);
         int touchingLava = detector.detectImmovableObject(player);
         assertEquals(10, touchingFruit);
+    }
+
+    @Test
+    public void testEnemyCatchPlayer() {
+        MainCharacter player = screen.getPlayer();
+        Assert.assertEquals(2, screen.getEnemies().size());
+        Enemy enemy = screen.getEnemies().get(0);
+        enemy.setStartingValues(player.getXPos(), player.getYPos(), 2, "UNKNOWN");
+        Assert.assertTrue(detector.detectEnemyCatchPlayer(player, tileSize));
+        enemy.setStartingValues(player.getXPos() + tileSize * 2, player.getYPos() + tileSize * 2, 2, "UNKNOWN");
+        Assert.assertFalse(detector.detectEnemyCatchPlayer(player, tileSize));
     }
 }

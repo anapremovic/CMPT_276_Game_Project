@@ -92,6 +92,10 @@ public class Screen extends JPanel implements Runnable {
      */
     private ImmovableObjectDisplay objDisplayer = new ImmovableObjectDisplay(this, gameTiles);
 
+    public MainCharacter getPlayer() {
+        return player;
+    }
+
     /**
      * Main character of our game, a turtle.
      */
@@ -405,7 +409,9 @@ public class Screen extends JPanel implements Runnable {
         return elapsedTime;
     }
 
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
 
     // SETTERS
     public void setObject(int index, ImmovableObject newObject) {
@@ -438,5 +444,9 @@ public class Screen extends JPanel implements Runnable {
      */
     public void initializeWinningMenu(long elapsedTime, Screen screen, int points) {
         winningMenu = new WinningMenu(elapsedTime, screen, score);
+    }
+
+    public Thread getGameThread() {
+        return this.gameThread;
     }
 }

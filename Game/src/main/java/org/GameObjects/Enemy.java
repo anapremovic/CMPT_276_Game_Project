@@ -1,6 +1,5 @@
 package org.GameObjects;
 
-import org.Display.Screen;
 import org.Logic.PathFinder;
 
 import javax.imageio.ImageIO;
