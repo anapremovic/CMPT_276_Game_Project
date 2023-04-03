@@ -136,6 +136,5 @@ public class MenuLogic extends JFrame {
         backgroundPanel.add(startGameButton);
         backgroundPanel.add(exitButton);
     }
-    
 
 }
