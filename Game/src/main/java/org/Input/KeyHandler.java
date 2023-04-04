@@ -20,7 +20,7 @@ public class KeyHandler implements KeyListener {
     /**
      * Manually sets all key presses to false, which makes the main character stop moving.
      */
-    public void nomovement(){
+    public void stopMovement(){
         upPressed = false;
         leftPressed = false;
         downPressed = false;

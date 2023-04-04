@@ -259,7 +259,7 @@ public class Screen extends JPanel implements Runnable {
         newFrame.setVisible(true);
         objDisplayer.displayObjects(17);
         gameTiles.setMap("/maps/map01.txt");
-        playerInput.nomovement();
+        playerInput.stopMovement();
     }
 
 
@@ -287,7 +287,7 @@ public class Screen extends JPanel implements Runnable {
                 // score goes negative => game over
                 if (this.score < 0 || (collisionDetector.detectEnemyCatchPlayer(player, tileSize) && player.getNumCarrotsCollected() < 10)) {
                     endGameThread();
-                    playerInput.nomovement();
+                    playerInput.stopMovement();
                     gameOverMenu.displayGameOverMenu();
                 }
 
