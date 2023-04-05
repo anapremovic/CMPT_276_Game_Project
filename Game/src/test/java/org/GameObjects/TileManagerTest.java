@@ -11,7 +11,7 @@ class TileManagerTest {
     Screen screen = new Screen();
 
     @Test
-    void loadBoardData() {
+    void testLoadBoardData() {
         TileManager tiles = new TileManager(screen);
 
         tiles.loadBoardData("/map_mock.txt");
@@ -28,7 +28,7 @@ class TileManagerTest {
     }
 
     @Test
-    void getTileImages() {
+    void testGetTileImages() {
         TileManager tiles = new TileManager(screen);
 
         Tile[] tileTypes = tiles.getTileTypes();
@@ -42,14 +42,14 @@ class TileManagerTest {
     }
 
     @Test
-    void getBoard() {
+    void testGetBoard() {
         TileManager tiles = new TileManager(screen);
         int[][] board = tiles.getBoard();
         assertNotNull(board);
     }
 
     @Test
-    void getTileTypes() {
+    void testGetTileTypes() {
         TileManager tiles = new TileManager(screen);
         Tile[] tileTypes = tiles.getTileTypes();
         assertNotNull(tileTypes);
