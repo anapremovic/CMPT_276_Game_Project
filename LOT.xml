@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Game">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}"/>
+    <property name="dir.jarfile" value="${dir.workspace}"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.workspace}/LOT.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.Display.GameRunner"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.workspace}/Game/target/classes"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/11520/.m2/repository/org/parboiled/parboiled-core/1.1.4/parboiled-core-1.1.4.jar"/>
+        </jar>
+    </target>
+</project>
