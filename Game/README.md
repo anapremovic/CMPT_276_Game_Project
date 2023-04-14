@@ -11,14 +11,28 @@
 
 ### Instructions To Test And Run Game
 
-to test and build, run these commands:  
+To test and build, run in terminal:  
 ```mvn clean```  
 ```mvn package```  
   
-now the JAR file, named ```Game-1.0-SNAPSHOT.jar```, will be in the folder ```target```  
-to run the game, run this command:  
+As the tests are running, several screens may pop up.  
+If the Starting Menu pops up, make sure to click "Start Game" (this screen may pop up several times).  
+If the Game Over Menu pops up, make sure to click "Exit Game" (this screen should only pop up once).  
+If the Winning Menu pops up, you can safely ignore it.  
+  
+Now the JAR file, named ```Game-1.0-SNAPSHOT.jar```, will be in the folder ```target```.  
+To run the game, run in terminal:  
 ```java -jar target/Game-1.0-SNAPSHOT.jar```  
 
+### Instructions To Generate JavaDoc
+
+To generate the JavaDoc, run in terminal:  
+```mvn clean```  
+```mvn javadoc:javadoc```  
+  
+To view the JavaDoc, navigate to the file ```target/site/apidocs/index.html```  
+Right-click the ```index.html``` file, navigate to Open In Browser, and open it.
+  
 ### Royalty Free/Public Domain Game Assets - Artist Credits
 
 - Carrot: "Graphics Pixel art Illustration, carrot, game, orange png" artist unknown
