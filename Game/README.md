@@ -26,11 +26,9 @@ To run the game, run in terminal:
 
 ### Instructions To Generate JavaDoc
 
-To generate the JavaDoc, run in terminal:  
-```mvn clean```  
-```mvn javadoc:javadoc```  
-  
-To view the JavaDoc, navigate to the file ```target/site/apidocs/index.html```  
+When you run ```mvn package```, the JavaDoc will get generated automatically.
+
+To view the JavaDoc, navigate to the file ```target/apidocs/index.html```  
 Right-click the ```index.html``` file, navigate to Open In Browser, and open it.
   
 ### Royalty Free/Public Domain Game Assets - Artist Credits
